@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import "../styles/daodetails.css";
+import "../styles/daodetails.scss";
 import Button from "@mui/material/Button";
 import dataDaoFactory from "../contracts/artifacts/dataDaoFactory.json";
 import { ContractFactory, ethers } from "ethers";

@@ -199,17 +199,34 @@
 }
 
 @media screen and (max-width: 767px) {
+  .select-main {
+    h1 {
+      font-size: 25px;
+    }
+  }
   .template-details-main {
     display: flex;
     flex-direction: column;
 
     div.left-div {
       width: 100%;
+      h1 {
+        font-size: 20px;
+      }
+      h2 {
+        font-size: 20px;
+      }
+      button.use-template {
+        font-size: 14px;
+      }
     }
 
     div.right-div {
       width: 100%;
       margin-top: 100px;
+      h2 {
+        font-size: 15px;
+      }
     }
   }
 }
