@@ -12,6 +12,8 @@ import { useNavigate } from "react-router-dom";
 import image1 from "../assets/image4.jpg";
 import image2 from "../assets/image5.jpg";
 import image3 from "../assets/image8.jpg";
+import Vector from "../assets/Vector.svg";
+import Vector1 from "../assets/Vector1.svg";
 
 function SelectTemplate() {
   const navigate = useNavigate();
@@ -35,8 +37,9 @@ function SelectTemplate() {
   ]);
   return (
     <div className="select-main">
+      <img className="vector" src={Vector} />
       <h1>Select Template</h1>
-      <p>Create your DataDao with pre configured template</p>
+      <p className="temp-p">Create your DataDao with pre configured template</p>
       <div className="templates-div">
         {data.map((item, key) => {
           return (
@@ -125,6 +128,7 @@ function SelectTemplate() {
           );
         })}
       </div>
+      <img className="vector1" src={Vector1} />
     </div>
   );
 }

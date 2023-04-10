@@ -8,12 +8,20 @@
   h1 {
     color: #ffffff;
     text-align: center;
+    position: relative;
+    font-family: "Museo500";
+    font-weight: 500;
   }
   p {
-    color: #ffffff;
+    color: #fe6952;
     text-align: center;
     margin: 20px 0px;
+    position: relative;
     // font-size: 1.1rem;
+  }
+  .temp-p {
+    color: #ffffff;
+    font-family: "Museo300";
   }
   .templates-div {
     width: 100%;
@@ -24,16 +32,20 @@
     gap: 2rem;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     .card-template {
-      border: 1px solid rgb(45, 45, 45);
-      border-radius: 20px;
+      position: relative;
+      border: 1px solid #fedac6;
+      border-radius: 50px;
       background-image: linear-gradient(
         rgba(255, 255, 255, 0.03) 0%,
         rgba(255, 255, 255, 0.03) 100%
       );
-      background-color: rgb(21, 22, 25);
+      background-color: #fedac6;
+      z-index: 10;
     }
     img.cover-image-card {
+      padding: 30px;
       filter: contrast(90%);
+      border-radius: 50px;
     }
     .card-template.disable {
       opacity: 0.5;
@@ -41,12 +53,15 @@
     }
     div {
       margin: 0 auto;
+      color: #fe6952;
     }
     button.card-show-more-btn {
+      font-size: 14px;
+      font-weight: 700;
       padding: 10px 20px;
-      border-radius: 10px;
-      background-color: #f14c2c;
-      color: #fff;
+      border-radius: 50px;
+      background-color: #744ca0;
+      color: #ffcb2a;
       transition: all 0.2s linear;
 
       &:hover {
@@ -178,6 +193,17 @@
       }
     }
   }
+}
+
+.vector {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.vector1 {
+  position: absolute;
+  top: 35%;
 }
 
 @media screen and (min-width: 2561px) {

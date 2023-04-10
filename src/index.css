@@ -1,3 +1,33 @@
+@font-face {
+  font-family: "Museo100";
+  src: url("./assets/fonts/MuseoSansRounded100.otf");
+}
+
+@font-face {
+  font-family: "Museo300";
+  src: url("./assets/fonts/MuseoSansRounded300.otf");
+}
+
+@font-face {
+  font-family: "Museo500";
+  src: url("./assets/fonts/MuseoSansRounded500.otf");
+}
+
+@font-face {
+  font-family: "Museo700";
+  src: url("./assets/fonts/MuseoSansRounded700.otf");
+}
+
+@font-face {
+  font-family: "Museo900";
+  src: url("./assets/fonts/MuseoSansRounded900.otf");
+}
+
+@font-face {
+  font-family: "Museo1000";
+  src: url("./assets/fonts/MuseoSansRounded1000.otf");
+}
+
 body {
   position: relative;
   overflow-x: hidden;
@@ -8,7 +38,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: black;
+  background-color: #fe6952;
   /* background-color: rgb(21, 22, 25); */
 }
 

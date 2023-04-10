@@ -104,6 +104,7 @@ function Navbar() {
         padding: "10px 0px",
         position: "relative",
         zIndex: "50",
+        boxShadow: "none",
       }}
     >
       <Container maxWidth="100%">
