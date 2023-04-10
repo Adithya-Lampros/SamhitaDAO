@@ -13,7 +13,7 @@
     font-weight: 500;
   }
   p {
-    color: #fe6952;
+    color: #ffa046;
     text-align: center;
     margin: 20px 0px;
     position: relative;
@@ -47,13 +47,13 @@
       filter: contrast(90%);
       border-radius: 50px;
     }
-    .card-template.disable {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
+    // .card-template.disable {
+    //   opacity: 0.5;
+    //   cursor: not-allowed;
+    // }
     div {
       margin: 0 auto;
-      color: #fe6952;
+      color: #ffa046;
     }
     button.card-show-more-btn {
       font-size: 14px;
@@ -203,7 +203,7 @@
 
 .vector1 {
   position: absolute;
-  top: 35%;
+  top: 40%;
 }
 
 @media screen and (min-width: 2561px) {
