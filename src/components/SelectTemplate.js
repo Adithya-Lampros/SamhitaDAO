@@ -14,6 +14,7 @@ import image2 from "../assets/image5.jpg";
 import image3 from "../assets/image8.jpg";
 import Vector from "../assets/Vector.svg";
 import Vector1 from "../assets/Vector1.svg";
+// import Bg from "../assets/BGST.svg";
 
 function SelectTemplate() {
   const navigate = useNavigate();
@@ -36,99 +37,104 @@ function SelectTemplate() {
     },
   ]);
   return (
-    <div className="select-main">
-      <img className="vector" src={Vector} />
-      <h1>Select Template</h1>
-      <p className="temp-p">Create your DataDao with pre configured template</p>
-      <div className="templates-div">
-        {data.map((item, key) => {
-          return (
-            <Card
-              sx={{
-                width: "100%",
-                maxWidth: 400,
-                minHeight: 450,
-                maxHeight: 450,
-                backgroundColor: "#000000",
-                border: "1px solid #1d130D",
-                color: "#ffffff",
-              }}
-              className={` ${
-                key === 0 ? "card-template" : "card-template disable"
-              }`}
-              key={key}
-            >
-              <CardActionArea
-                onClick={
-                  key === 0
-                    ? () => {
-                        navigate("/create-data-dao/select-template/details", {
-                          state: {
-                            cover: item.cover,
-                            title: item.title,
-                            info: item.info,
-                          },
-                        });
-                      }
-                    : ""
-                }
-              >
-                <CardMedia
-                  component="img"
-                  height="180"
-                  image={item.cover}
-                  alt="green iguana"
-                  className="cover-image-card"
-                />
-                <CardContent sx={{}}>
-                  <Typography
-                    gutterBottom
-                    variant="h5"
-                    component="div"
-                    sx={{ textAlign: "center" }}
-                  >
-                    {item.title}
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    color="text.secondary"
-                    className="template-info"
-                    sx={{ color: "#ffffff" }}
-                  >
-                    {item.info}
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-              <CardActions
+    <div className="select-bg">
+      <div className="select-main">
+        {/* <img className="Bg-img" src={Bg} alt="BG" /> */}
+        <img className="vector" src={Vector} alt="Vector" />
+        <h1>Select Template</h1>
+        <p className="temp-p">
+          Create your DataDao with pre configured template
+        </p>
+        <div className="templates-div">
+          {data.map((item, key) => {
+            return (
+              <Card
                 sx={{
-                  width: "max-content",
-                  margin: "0px auto",
-                  alignSelf: "flex-end",
-                  marginTop: "auto",
+                  width: "100%",
+                  maxWidth: 400,
+                  minHeight: 450,
+                  maxHeight: 450,
+                  backgroundColor: "#000000",
+                  border: "1px solid #1d130D",
+                  color: "#ffffff",
                 }}
+                className={` ${
+                  key === 0 ? "card-template" : "card-template disable"
+                }`}
+                key={key}
               >
-                <Button
-                  size="small"
-                  color="primary"
-                  className="card-show-more-btn"
-                  onClick={async () => {
-                    navigate("/create-data-dao/select-template/details", {
-                      state: {
-                        cover: item.cover,
-                        title: item.title,
-                        info: item.info,
-                      },
-                    });
+                <CardActionArea
+                  onClick={
+                    key === 0
+                      ? () => {
+                          navigate("/create-data-dao/select-template/details", {
+                            state: {
+                              cover: item.cover,
+                              title: item.title,
+                              info: item.info,
+                            },
+                          });
+                        }
+                      : ""
+                  }
+                >
+                  <CardMedia
+                    component="img"
+                    height="180"
+                    image={item.cover}
+                    alt="green iguana"
+                    className="cover-image-card"
+                  />
+                  <CardContent sx={{}}>
+                    <Typography
+                      gutterBottom
+                      variant="h5"
+                      component="div"
+                      sx={{ textAlign: "center" }}
+                    >
+                      {item.title}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      className="template-info"
+                      sx={{ color: "#ffffff" }}
+                    >
+                      {item.info}
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+                <CardActions
+                  sx={{
+                    width: "max-content",
+                    margin: "0px auto",
+                    alignSelf: "flex-end",
+                    marginTop: "auto",
                   }}
                 >
-                  Show More
-                </Button>
-              </CardActions>
-            </Card>
-          );
-        })}
+                  <Button
+                    size="small"
+                    color="primary"
+                    className="card-show-more-btn"
+                    onClick={async () => {
+                      navigate("/create-data-dao/select-template/details", {
+                        state: {
+                          cover: item.cover,
+                          title: item.title,
+                          info: item.info,
+                        },
+                      });
+                    }}
+                  >
+                    Show More
+                  </Button>
+                </CardActions>
+              </Card>
+            );
+          })}
+        </div>
+        <img className="vector1" src={Vector1} alt="Vector1" />
       </div>
-      <img className="vector1" src={Vector1} />
     </div>
   );
 }

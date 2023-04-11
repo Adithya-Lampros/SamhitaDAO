@@ -1,3 +1,11 @@
+.create-dao-bg {
+  background: linear-gradient(256.61deg, #ffa046 -0.6%, #e87825 100%);
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+}
+
 .create-dao-main {
   width: 100%;
   min-width: 90vh;
@@ -13,44 +21,40 @@
     // border: 1px solid #f3f2f2;
     width: 30%;
     margin-left: 20px;
+    margin-top: 20vh;
     // min-height: 90vh;
     // max-height: 90vh;
     padding: 40px 0px;
-    border-radius: 20px;
+    border-radius: 50px;
     // background: #fefcfc;
-    background-color: rgb(21, 22, 25);
+    background: #f1992e;
     color: rgb(255, 255, 255);
     transition: box-shadow 300ms cubic-bezier(0.55, 0, 0.1, 1) 0ms;
     box-shadow: none;
-    border: 1px solid rgb(45, 45, 45);
-    background-image: linear-gradient(
-      rgba(255, 255, 255, 0.03) 0%,
-      rgba(255, 255, 255, 0.03) 100%
-    );
+    border: 1px solid #ffcb2a;
+
     display: flex;
     flex-direction: column;
     align-items: center;
   }
   .right-div {
     // border: 1px solid black;
+    margin-top: 20vh;
     width: 80%;
     // min-height: 90vh;
     text-align: center;
     padding: 0px 20px;
-    background-color: #000000;
 
     .create-dao-info-main {
       border-radius: 20px;
       // background: #fefcfc;
       color: #ffffff;
       // box-shadow: 10px 10px 60px #bebebe, -20px -20px 60px #ffffff;
-      border: 1px solid rgb(45, 45, 45);
+      border: 1px solid #ffcb2a;
       border-radius: 20px;
-      background-image: linear-gradient(
-        rgba(255, 255, 255, 0.03) 0%,
-        rgba(255, 255, 255, 0.03) 100%
-      );
-      background-color: rgb(21, 22, 25);
+
+      background: #f1992e;
+
       width: 100%;
       max-width: 1200px;
       min-height: 500px;
@@ -280,21 +284,97 @@
 
 span.step-label {
   // background-color: #e0e0e0;
-  background-color: rgb(21, 22, 25);
+  background-color: transparent;
 
   transition: box-shadow 300ms cubic-bezier(0.55, 0, 0.1, 1) 0ms;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 8px,
-    rgba(0, 0, 0, 0.23) 0px 0px 3px -2px, rgba(0, 0, 0, 0.17) 0px 0px 25px;
-  background-image: linear-gradient(
-    rgba(255, 255, 255, 0.09),
-    rgba(255, 255, 255, 0.09)
-  );
+  // box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 8px,
+  //   rgba(0, 0, 0, 0.23) 0px 0px 3px -2px, rgba(0, 0, 0, 0.17) 0px 0px 25px;
+  // background-image: linear-gradient(
+  //   rgba(255, 255, 255, 0.09),
+  //   rgba(255, 255, 255, 0.09)
+  // );
   color: #ffffff;
   padding: 10px 20px;
   border-radius: 10px;
 }
 span.css-1hv8oq8-MuiStepLabel-label.Mui-active {
   color: #ffffff;
+}
+
+.css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-active {
+  color: #f78e1d !important;
+  box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.17);
+  border-radius: 50px;
+}
+
+.css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed {
+  color: #fff !important;
+  box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.17);
+  border-radius: 50px;
+}
+
+.css-1hv8oq8-MuiStepLabel-label.Mui-completed {
+  color: #fff !important;
+}
+
+.css-vnkopk-MuiStepLabel-iconContainer.Mui-active {
+  background-color: #e77700;
+  padding: 10px;
+  border-radius: 20px 0px 0px 20px;
+}
+
+span.css-1hv8oq8-MuiStepLabel-label.Mui-active {
+  background-color: #e77700;
+  padding: 12px;
+  border-radius: 0px 20px 20px 0px;
+  fill: #fff !important;
+  width: 200px;
+  font-family: "MuseoModerno";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.css-1vyamtt-MuiStepLabel-labelContainer {
+  color: #fff !important;
+}
+
+.css-117w1su-MuiStepIcon-text {
+  font-family: "MuseoModerno" !important;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px !important;
+}
+
+.css-1hv8oq8-MuiStepLabel-label {
+  font-family: "MuseoModerno" !important;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px !important;
+}
+
+.css-1sn4lm3-MuiTypography-root {
+  font-family: "MuseoModerno" !important;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px !important;
+}
+
+.css-14sza3e-MuiStepLabel-root.Mui-disabled {
+  .css-vnkopk-MuiStepLabel-iconContainer {
+    .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root {
+      color: #f78e1d;
+    }
+  }
+}
+
+.CircularProgressbar {
+  .CircularProgressbar-text {
+    font-family: "MuseoModerno";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+  }
 }
 
 .dark-background {

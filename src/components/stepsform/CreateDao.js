@@ -72,93 +72,95 @@ function CreateDao() {
     }
   }, [activeStep]);
   return (
-    <div className="create-dao-main">
-      <div className="left-div">
-        <div>
-          <div style={{ width: 150, height: 150, marginBottom: "30px" }}>
-            <CircularProgressbar
-              value={progressbar}
-              max={100}
-              text={`${progressbar}%`}
-              styles={{
-                // Customize the root svg element
-                root: {},
-                // Customize the path, i.e. the "completed progress"
-                path: {
-                  // Path color
-                  stroke: `${progressbar === 100 ? "#f14c2c" : "#1976d2"}`,
-                  // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
-                  strokeLinecap: "butt",
-                  // Customize transition animation
-                  transition: "stroke-dashoffset 0.5s ease 0s",
-                  // Rotate the path
-                  transform: "rotate(0.25turn)",
-                  transformOrigin: "center center",
-                },
-                // Customize the circle behind the path, i.e. the "total progress"
-                trail: {
-                  // Trail color
-                  stroke: "rgb(21, 22, 25)",
-                  // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
-                  strokeLinecap: "butt",
-                  // Rotate the trail
-                  transform: "rotate(0.25turn)",
-                  transformOrigin: "center center",
-                },
-                // Customize the text
-                text: {
-                  // Text color
-                  fill: `${progressbar === 100 ? "#f14c2c" : "#1976d2"}`,
-                  // Text size
-                  fontSize: "16px",
-                },
-                // Customize background - only used when the `background` prop is true
-                background: {
-                  fill: "rgb(21, 22, 25)",
-                },
-              }}
+    <div className="create-dao-bg">
+      <div className="create-dao-main">
+        <div className="left-div">
+          <div>
+            <div style={{ width: 150, height: 150, marginBottom: "30px" }}>
+              <CircularProgressbar
+                value={progressbar}
+                max={100}
+                text={`${progressbar}%`}
+                styles={{
+                  // Customize the root svg element
+                  root: {},
+                  // Customize the path, i.e. the "completed progress"
+                  path: {
+                    // Path color
+                    stroke: `${progressbar === 100 ? "#f14c2c" : "#FF5731"}`,
+                    // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
+                    strokeLinecap: "butt",
+                    // Customize transition animation
+                    transition: "stroke-dashoffset 0.5s ease 0s",
+                    // Rotate the path
+                    transform: "rotate(0.25turn)",
+                    transformOrigin: "center center",
+                  },
+                  // Customize the circle behind the path, i.e. the "total progress"
+                  trail: {
+                    // Trail color
+                    // stroke: "rgb(21, 22, 25)",
+                    // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
+                    strokeLinecap: "butt",
+                    // Rotate the trail
+                    transform: "rotate(0.25turn)",
+                    transformOrigin: "center center",
+                  },
+                  // Customize the text
+                  text: {
+                    // Text color
+                    fill: `${progressbar === 100 ? "#f14c2c" : "#FFFFFF"}`,
+                    // Text size
+                    fontSize: "16px",
+                  },
+                  // Customize background - only used when the `background` prop is true
+                  background: {
+                    fill: "rgb(21, 22, 25)",
+                  },
+                }}
+              />
+            </div>
+          </div>
+          <div>
+            <StepsForm
+              activeStep={activeStep}
+              handleNext={handleNext}
+              handleBack={handleBack}
+              handleReset={handleReset}
             />
           </div>
         </div>
-        <div>
-          <StepsForm
-            activeStep={activeStep}
-            handleNext={handleNext}
-            handleBack={handleBack}
-            handleReset={handleReset}
-          />
+        <div className="right-div">
+          {showDataDaoInfo ? (
+            <DatadaoInfo
+              handleNext={handleNext}
+              handleBack={handleBack}
+              dataDaoDetails={dataDaoDetails}
+              setDataDaoDetails={setDataDaoDetails}
+            />
+          ) : showVoteSettings ? (
+            <VotingSetting
+              handleNext={handleNext}
+              handleBack={handleBack}
+              dataDaoDetails={dataDaoDetails}
+              setDataDaoDetails={setDataDaoDetails}
+            />
+          ) : showTokenConfiguration ? (
+            <TokenConfiguration
+              handleNext={handleNext}
+              handleBack={handleBack}
+              dataDaoDetails={dataDaoDetails}
+              setDataDaoDetails={setDataDaoDetails}
+            />
+          ) : showReviewInfo ? (
+            <ReviewInfo
+              handleNext={handleNext}
+              handleBack={handleBack}
+              dataDaoDetails={dataDaoDetails}
+              setDataDaoDetails={setDataDaoDetails}
+            />
+          ) : null}
         </div>
-      </div>
-      <div className="right-div">
-        {showDataDaoInfo ? (
-          <DatadaoInfo
-            handleNext={handleNext}
-            handleBack={handleBack}
-            dataDaoDetails={dataDaoDetails}
-            setDataDaoDetails={setDataDaoDetails}
-          />
-        ) : showVoteSettings ? (
-          <VotingSetting
-            handleNext={handleNext}
-            handleBack={handleBack}
-            dataDaoDetails={dataDaoDetails}
-            setDataDaoDetails={setDataDaoDetails}
-          />
-        ) : showTokenConfiguration ? (
-          <TokenConfiguration
-            handleNext={handleNext}
-            handleBack={handleBack}
-            dataDaoDetails={dataDaoDetails}
-            setDataDaoDetails={setDataDaoDetails}
-          />
-        ) : showReviewInfo ? (
-          <ReviewInfo
-            handleNext={handleNext}
-            handleBack={handleBack}
-            dataDaoDetails={dataDaoDetails}
-            setDataDaoDetails={setDataDaoDetails}
-          />
-        ) : null}
       </div>
     </div>
   );
