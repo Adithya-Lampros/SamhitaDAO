@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "../styles/alldatadaos.css";
+import "../styles/alldatadaos.scss";
 
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
