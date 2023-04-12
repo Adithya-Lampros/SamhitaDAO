@@ -9,6 +9,10 @@
   left: 0;
 }
 
+.maindaoBg{
+  background: linear-gradient(256.61deg, #ffa046 -0.6%, #e87825 100%);
+  position: absolute;
+  height: 120vh;
 .your-dao-bg {
   background: linear-gradient(256.61deg, #ffa046 -0.6%, #e87825 100%);
   position: absolute;
@@ -17,7 +21,6 @@
   top: 0;
   z-index: 1;
 }
-
 .all-datadao-main-div {
   width: 100%;
   margin: 5% auto;
@@ -133,6 +136,90 @@ button.view-more-all-dao {
   width: 100%;
 }
 
+
+/*----------------- Button Styling ------------ */
+
+.rounded-view-data-dao-button {
+  padding: 0.7rem 1rem;
+  border-radius: 50px;
+  background-color: #fff;
+  color: #ff6054;
+  border: none;
+  width: 45%;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.view-button-text{
+  margin-right: 20%;
+}
+.rounded-join-data-dao-button {
+  padding: 0.7rem 1rem;
+  border-radius: 50px;
+  color: #fff;
+  background-color: #FF5F00;
+  border: none;
+  width: 25%;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+
+.rounded-view-data-dao-button:hover, .view-circle:hover {
+  /* background-color: #f2f2f2; */
+  background-color: #FF5F00;
+  color:#fff
+}
+.rounded-join-data-dao-button:hover, .join-circle:hover {
+  /* background-color: #f2f2f2; */
+  color: #ff5f00;
+  background-color:#fff
+}
+
+.view-circle {
+  position: absolute;
+  top: 50%;
+  right:5%;
+  transform: translateY(-50%);
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 50%;
+  background-color:#FF5F00;
+  transition: background-color 0.3s ease;
+}
+.join-circle{
+  position: absolute;
+  top: 50%;
+  right:5%;
+  transform: translateY(-50%);
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 50%;
+  background-color:#fff;
+  transition: background-color 0.3s ease;
+}
+
+.fa-arrow-right {
+  font-size: 1rem;
+}
+.view-arrow{
+  color:#fff;
+}
+.join-arrow{
+  color:#FF5F00!important;
+}
+
+.button-to-join{
+  text-align: left;
+}
+
+
+
+
 @media screen and (min-width: 2561px) {
 }
 
@@ -155,4 +242,5 @@ button.view-more-all-dao {
   .all-datadao-title {
     font-size: 20px;
   }
+}
 }
