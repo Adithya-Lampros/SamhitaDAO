@@ -1,5 +1,5 @@
-.main-your-dao {
-  font-family: "MuseoModerno", sans-serif;
+.main-your-dao{
+  font-family: 'MuseoModerno', sans-serif;
   background-color: #fff;
   height: 100vh;
   position: absolute;
@@ -12,11 +12,7 @@
 .maindaoBg{
   background: linear-gradient(256.61deg, #ffa046 -0.6%, #e87825 100%);
   position: absolute;
-  height: 120vh;
-.your-dao-bg {
-  background: linear-gradient(256.61deg, #ffa046 -0.6%, #e87825 100%);
-  position: absolute;
-  height: 100vh;
+  height: 130vh;
   width: 100vw;
   top: 0;
   z-index: 1;
@@ -27,6 +23,7 @@
   /* max-width: 1240px; */
   z-index: 100;
   position: absolute;
+  
 }
 
 .all-datadao-div {
@@ -40,10 +37,11 @@
   /* letter-spacing: 0.04em; */
 }
 
-.all-datadao-subtext {
+.all-datadao-subtext{
   text-align: center;
   font-size: 1.5rem;
   font-weight: 400;
+  
 }
 .all-datadao-section1 {
   padding: 10px;
@@ -61,13 +59,6 @@
   color: #fefcfc;
   /* border: 1px solid #4c2ffd; */
   /* padding: 10px; */
-
-  div {
-    font-family: "MuseoModerno";
-    font-style: normal;
-    font-weight: 600;
-    font-size: 16px;
-  }
 }
 .all-datadao-section2 {
   width: auto;
@@ -87,27 +78,27 @@ button.view-more-all-dao {
   width: 120px;
 }
 
-.your-dao-bg-images {
+.your-dao-bg-images{
   width: 100vw;
   z-index: 50;
 }
 
-.leftCurvedLinesDao {
+.leftCurvedLinesDao{
   position: absolute;
   z-index: 21;
   bottom: 0;
   left: 0;
 }
 
-.topCurvedLinesDao {
+.topCurvedLinesDao{
   position: absolute;
   z-index: 22;
   top: 0;
 }
 
-.mainYourDaoBg {
+.mainYourDaoBg{
   z-index: 20;
-  top: 0;
+  top:0;
   /* left:-20%; */
   left: 0;
   position: absolute;
@@ -223,4 +214,5 @@ button.view-more-all-dao {
     font-size: 20px;
   }
 }
-}
+
+
