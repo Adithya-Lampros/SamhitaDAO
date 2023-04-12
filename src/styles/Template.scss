@@ -1,24 +1,39 @@
+.template-outer-main {
+  background: rgba(255, 255, 255, 0.42);
+  backdrop-filter: blur(30px);
+  border-radius: 50px;
+  min-height: 85vh;
+}
+
 .template-outer {
   margin-left: -20px;
 }
 
 .template-header {
-  font-size: 30px;
-  font-weight: 800;
+  font-family: "MuseoModerno";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 48px;
   text-align: center;
   margin: 10px;
-  color: white;
+  color: #ff5731;
 }
 
 .template-main {
-  color: white;
-  font-size: 25px;
-  font-weight: 500;
+  width: 90%;
+  background: rgba(255, 95, 0, 0.62);
+  border-radius: 15px;
   display: flex;
   flex-direction: row;
   margin: 0 auto;
   text-align: center;
-  padding: 100px 10px 10px 10px;
+  padding: 10px 10px 10px 10px;
+  margin-top: 50px;
+  color: #ffffff;
+  font-family: "MuseoModerno";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
 
   div {
     margin: 0 auto;
@@ -27,8 +42,17 @@
 }
 
 .template-data {
-  color: white;
-  font-size: 20px;
+  font-family: "MuseoModerno";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 131.02%;
+  /* or 29px */
+
+  text-align: center;
+  letter-spacing: 0.015em;
+
+  color: #ffffff;
   display: flex;
   flex-direction: row;
   margin: 0 auto;

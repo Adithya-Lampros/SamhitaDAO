@@ -116,10 +116,6 @@
     transition: box-shadow 300ms cubic-bezier(0.55, 0, 0.1, 1) 0ms;
     box-shadow: none;
     border: none;
-    background-image: linear-gradient(
-      rgba(255, 255, 255, 0.03) 0%,
-      rgba(255, 255, 255, 0.03) 100%
-    );
     min-height: 60vh;
 
     #right-db-inside {

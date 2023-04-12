@@ -1,5 +1,5 @@
-.main-your-dao{
-  font-family: 'MuseoModerno', sans-serif;
+.main-your-dao {
+  font-family: "MuseoModerno", sans-serif;
   background-color: #fff;
   height: 100vh;
   position: absolute;
@@ -9,7 +9,30 @@
   left: 0;
 }
 
-.maindaoBg{
+.proposal-header {
+  font-family: "MuseoModerno";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.proposal-info {
+  font-family: "MuseoModerno";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.your-dao-bg {
+  background: linear-gradient(256.61deg, #ffa046 -0.6%, #e87825 100%);
+  position: absolute;
+  height: 130vh;
+  width: 100vw;
+  top: 0;
+  z-index: 1;
+}
+
+.maindaoBg {
   background: linear-gradient(256.61deg, #ffa046 -0.6%, #e87825 100%);
   position: absolute;
   height: 130vh;
@@ -23,7 +46,6 @@
   /* max-width: 1240px; */
   z-index: 100;
   position: absolute;
-  
 }
 
 .all-datadao-div {
@@ -37,11 +59,10 @@
   /* letter-spacing: 0.04em; */
 }
 
-.all-datadao-subtext{
+.all-datadao-subtext {
   text-align: center;
   font-size: 1.5rem;
   font-weight: 400;
-  
 }
 .all-datadao-section1 {
   padding: 10px;
@@ -99,28 +120,28 @@ button.view-more-all-dao {
   cursor: pointer;
 }
 
-.your-dao-bg-images{
+.your-dao-bg-images {
   width: 100vw;
   z-index: 50;
 }
 
-.leftCurvedLinesDao{
+.leftCurvedLinesDao {
   position: absolute;
   z-index: 21;
   bottom: 0;
   left: 0;
 }
 
-.topCurvedLinesDao{
+.topCurvedLinesDao {
   position: absolute;
   z-index: 22;
   top: 0;
   left:0;
 }
 
-.mainYourDaoBg{
+.mainYourDaoBg {
   z-index: 20;
-  top:0;
+  top: 0;
   /* left:-20%; */
   left: 0;
   position: absolute;
@@ -128,7 +149,6 @@ button.view-more-all-dao {
   margin-right: 10%;
   width: 100%;
 }
-
 
 /*----------------- Button Styling ------------ */
 
@@ -145,14 +165,14 @@ button.view-more-all-dao {
   transition: background-color 0.3s ease;
 }
 
-.view-button-text{
+.view-button-text {
   margin-right: 20%;
 }
 .rounded-join-data-dao-button {
   padding: 0.7rem 1rem;
   border-radius: 50px;
   color: #fff;
-  background-color: #FF5F00;
+  background-color: #ff5f00;
   border: none;
   width: 25%;
   position: relative;
@@ -161,57 +181,55 @@ button.view-more-all-dao {
   transition: background-color 0.3s ease;
 }
 
-
-.rounded-view-data-dao-button:hover, .view-circle:hover {
+.rounded-view-data-dao-button:hover,
+.view-circle:hover {
   /* background-color: #f2f2f2; */
-  background-color: #FF5F00;
-  color:#fff
+  background-color: #ff5f00;
+  color: #fff;
 }
-.rounded-join-data-dao-button:hover, .join-circle:hover {
+.rounded-join-data-dao-button:hover,
+.join-circle:hover {
   /* background-color: #f2f2f2; */
   color: #ff5f00;
-  background-color:#fff
+  background-color: #fff;
 }
 
 .view-circle {
   position: absolute;
   top: 50%;
-  right:5%;
+  right: 5%;
   transform: translateY(-50%);
   width: 1.8rem;
   height: 1.8rem;
   border-radius: 50%;
-  background-color:#FF5F00;
+  background-color: #ff5f00;
   transition: background-color 0.3s ease;
 }
-.join-circle{
+.join-circle {
   position: absolute;
   top: 50%;
-  right:5%;
+  right: 5%;
   transform: translateY(-50%);
   width: 1.8rem;
   height: 1.8rem;
   border-radius: 50%;
-  background-color:#fff;
+  background-color: #fff;
   transition: background-color 0.3s ease;
 }
 
 .fa-arrow-right {
   font-size: 1rem;
 }
-.view-arrow{
-  color:#fff;
+.view-arrow {
+  color: #fff;
 }
-.join-arrow{
-  color:#FF5F00!important;
+.join-arrow {
+  color: #ff5f00 !important;
 }
 
-.button-to-join{
+.button-to-join {
   text-align: left;
 }
-
-
-
 
 @media screen and (min-width: 2561px) {
 }
@@ -236,5 +254,3 @@ button.view-more-all-dao {
     font-size: 20px;
   }
 }
-
-

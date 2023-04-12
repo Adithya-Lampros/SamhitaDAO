@@ -20,15 +20,42 @@ import PreExistingDaos from "./components/PreExistingDaos";
 import Template from "./components/Template";
 import YouDaos from "./components/YouDaos";
 import ExistingDaos from "./pages/ExistingDaos";
+import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
 import Meet from "./pages/Meet";
 import Home from "./pages/Home";
 
 function App() {
+  const BTTChain = {
+    id: 1029,
+    name: "BitTorrent Chain Donau",
+    network: "BitTorrent Chain Donau",
+    iconUrl: "https://testscan.bt.io/static/media/BTT.e13a6c4e.svg",
+    iconBackground: "#fff",
+    nativeCurrency: {
+      decimals: 18,
+      name: "BitTorrent Chain Donau",
+      symbol: "BTT",
+    },
+    rpcUrls: {
+      default: "https://pre-rpc.bittorrentchain.io/",
+    },
+    blockExplorers: {
+      default: {
+        name: "BitTorrent Chain Donau",
+        url: "https://testscan.bt.io",
+      },
+    },
+    testnet: true,
+  };
+
   const { chains, provider } = configureChains(
-    [filecoinHyperspace, filecoin],
+    [BTTChain],
     [
+      jsonRpcProvider({
+        rpc: (chain) => ({ http: "https://pre-rpc.bittorrentchain.io/" }),
+      }),
       alchemyProvider({ apiKey: "O5NYvtwLMNG0LjAXPQEk0YJT2l3UxTAY" }),
-      publicProvider(),
+      // publicProvider(),
     ]
   );
   const { connectors } = getDefaultWallets({

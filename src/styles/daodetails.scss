@@ -43,7 +43,6 @@
   /* width: max-content; */
 }
 .datadao-details-section1 {
-  border-bottom: 1px solid black;
   padding: 20px;
 }
 .dataset-main-flex {
@@ -78,6 +77,13 @@
 }
 .width-peragraph {
   width: 80%;
+  font-family: "MuseoModerno";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 131.02%;
+  letter-spacing: 0.015em;
+  color: #ffffff;
 }
 .datadao-details-btn-padding {
   padding-bottom: 15px;
@@ -105,50 +111,83 @@ table.dao-details-table {
   border: none;
   border-radius: 5px;
   background-color: transparent;
-  border: 1px solid rgb(45, 45, 45);
+  border: 1px solid #ff5731;
 }
 
 table.dao-details-table thead {
-  background-color: transparent;
-  color: #fefcfc;
-  font-weight: 700;
-  border-radius: 10px;
+  background-color: #fff;
+  font-family: "MuseoModerno";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 131.02%;
+  letter-spacing: 0.015em;
+  color: #ff5731;
+  border-radius: 25px;
   border-bottom: 1px solid rgb(45, 45, 45);
 }
-
+table.dao-details-table tr {
+  border-radius: 20px;
+}
 table.dao-details-table thead th {
+  background-color: #fff;
+  font-family: "MuseoModerno";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 131.02%;
+  letter-spacing: 0.015em;
+  color: #ff5731;
   padding: 10px 20px;
-  border-right: 1px solid rgb(45, 45, 45);
-  border-bottom: 1px solid rgb(45, 45, 45);
+  border-right: 1px solid #ff5731;
+  border-bottom: 1px solid #ff5731;
 }
 table.dao-details-table tbody td {
-  padding: 10px 20px;
+  background-color: #fff;
+  font-family: "MuseoModerno";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 131.02%;
+  letter-spacing: 0.015em;
+  color: #ff5731;
+  padding: 10px;
 }
 table.dao-details-table tbody td:first-of-type {
-  border-right: 1px solid rgb(45, 45, 45);
+  background-color: #fff;
+  font-family: "MuseoModerno";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 131.02%;
+  letter-spacing: 0.015em;
+  color: #ff5731;
+  border-right: 1px solid #ff5731;
 }
 
 table.dataset-main-table {
-  background-color: rgb(21, 22, 25);
+  background: rgba(255, 203, 42, 0.38);
+  backdrop-filter: blur(107px);
+  border-radius: 24px;
   color: rgb(255, 255, 255);
   transition: box-shadow 300ms cubic-bezier(0.55, 0, 0.1, 1) 0ms;
   box-shadow: none;
-  border: 1px solid rgb(45, 45, 45);
-  background-image: linear-gradient(
-    rgba(255, 255, 255, 0.03) 0%,
-    rgba(255, 255, 255, 0.03) 100%
-  );
+  border: none;
 }
 
 table.dataset-main-table thead {
   background-color: transparent;
-  border-bottom: 1px solid rgb(45, 45, 45);
+  border-bottom: none;
   font-size: 1.2rem;
 }
 
 table.dataset-main-table thead th {
   padding: 10px;
-  color: #fefcfc;
+  font-family: "MuseoModerno";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  color: #fff;
 }
 table.dataset-main-table td {
   padding: 10px;
@@ -157,10 +196,18 @@ button.datadao-details-extra-btn {
   width: 150px;
   border-radius: 10px;
   padding: 10px 20px;
-  background-color: #4c2ffd;
-  color: #fefcfc;
+  background: #ff5f00;
+  font-family: "Inter";
+  font-style: normal;
   font-weight: 700;
-  border: 1px solid #4c2ffd;
+  font-size: 12px;
+  line-height: 131.02%;
+  text-align: center;
+  letter-spacing: 0.055em;
+  text-transform: capitalize;
+  color: #ffffff;
+
+  border: none;
 }
 
 div.Toastify__toast-icon svg {
