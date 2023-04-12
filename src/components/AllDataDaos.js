@@ -26,7 +26,7 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
         }
         const { chainId } = await provider.getNetwork();
         console.log("switch case for this case is: " + chainId);
-        if (chainId === 3141) {
+        if (chainId === 1029) {
           const contract = new ethers.Contract(
             dataDaoFactoryContract,
             dataDaoFactory.abi,
@@ -35,7 +35,7 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
           console.log(contract);
           return contract;
         } else {
-          alert("Please connect to the Mumbai Testnet Network!");
+          alert("Please connect to the BitTorrent Chain Donau!");
         }
       }
     } catch (error) {

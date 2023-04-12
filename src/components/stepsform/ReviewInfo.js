@@ -30,7 +30,7 @@ function ReviewInfo({
         }
         const { chainId } = await provider.getNetwork();
         console.log("switch case for this case is: " + chainId);
-        if (chainId === 3141) {
+        if (chainId === 1029) {
           const contract = new ethers.Contract(
             dataDaoFactoryContract,
             dataDaoFactory.abi,
@@ -38,7 +38,7 @@ function ReviewInfo({
           );
           return contract;
         } else {
-          alert("Please connect to the Filecoin Hyperspace Network!");
+          alert("Please connect to the BitTorrent Chain Donau!");
         }
       }
     } catch (error) {
