@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import "../styles/daodetails.scss";
 import Button from "@mui/material/Button";
 import dataDaoFactory from "../contracts/artifacts/dataDaoFactory.json";
+import topCurvedLinesDAO from "../assets/yourDaos/top-curved-lines-your-dao.svg";
 
 import { ContractFactory, ethers } from "ethers";
 import { Box, Modal } from "@mui/material";
@@ -79,11 +80,18 @@ function DataDaoDetails({
 
   return (
     <>
+      {/* <div className="main-your-dao"> */}
+
+        <div className="maindaoBg"></div>
+        <div className="your-dao-bg-images">
+          <img src={topCurvedLinesDAO} className="topCurvedLinesDao" />
+          {/* <img src={mainYourDAOBg} className="mainYourDaoBg" /> */}
+        </div>
       <div className="datadao-details-main-div">
         <div className="datadao-details-div">
           <div className="datadao-details-section1">
             <div className="button-flex">
-              <h1 className="datadao-details-title padding-div">
+              <h1 className="datadao-existing-details-title">
                 {dataDaoInfo.dataDaoName}
               </h1>
               <button
@@ -96,11 +104,11 @@ function DataDaoDetails({
                 Go Back
               </button>
             </div>
-            <p className="datadao-details-desc padding-div width-peragraph">
+            <p className="datadao-details-desc width-peragraph">
               {dataDaoInfo.dataDaoDescription}
             </p>
             <div className="dao-details-flext">
-              <table className="dao-details-table">
+              <table className="dao-details-table text-center">
                 <thead>
                   <tr>
                     <th>Token Name</th>
@@ -115,7 +123,7 @@ function DataDaoDetails({
                 </tbody>
               </table>
             </div>
-            <div className="datadao-details-button padding-div">
+            <div className="datadao-details-button ">
               <button className="datadao-details-btn-close">Buy Token</button>
             </div>
           </div>
@@ -234,6 +242,7 @@ function DataDaoDetails({
           </Box>
         </Modal>
       </div>
+      {/* </div> */}
     </>
   );
 }

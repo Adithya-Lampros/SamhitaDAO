@@ -63,6 +63,7 @@
 .all-datadao-section2 {
   width: auto;
   margin: 0 auto;
+  margin-left: -15vh;
 }
 .dataDAo-details {
   width: 20%;
@@ -114,6 +115,7 @@ button.view-more-all-dao {
   position: absolute;
   z-index: 22;
   top: 0;
+  left:0;
 }
 
 .mainYourDaoBg{

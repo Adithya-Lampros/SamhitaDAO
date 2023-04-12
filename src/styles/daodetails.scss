@@ -2,7 +2,29 @@
   width: 100%;
   margin: 20px auto;
   max-width: 1240px;
+  z-index: 1000;
 }
+
+.maindaoBg{
+  background: linear-gradient(256.61deg, #ffa046 -0.6%, #e87825 100%);
+  position: absolute;
+  height: 150vh;
+  width: 100vw;
+  top: 0;
+  left:0;
+  z-index: 1;
+}
+
+.datadao-existing-details-title{
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.datadao-details-desc{
+  font-size: 1.3rem;
+}
+
+
 .datadao-details-div {
   /* width: 50%; */
   margin: 0 auto;
@@ -17,7 +39,7 @@
   align-items: center;
 }
 .datadao-details-button button {
-  margin: 0px 20px;
+  // margin: 0px 20px;
   /* width: max-content; */
 }
 .datadao-details-section1 {
@@ -100,7 +122,7 @@ table.dao-details-table thead th {
   border-bottom: 1px solid rgb(45, 45, 45);
 }
 table.dao-details-table tbody td {
-  padding: 10px;
+  padding: 10px 20px;
 }
 table.dao-details-table tbody td:first-of-type {
   border-right: 1px solid rgb(45, 45, 45);
