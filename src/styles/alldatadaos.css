@@ -9,6 +9,29 @@
   left: 0;
 }
 
+.proposal-header {
+  font-family: "MuseoModerno";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.proposal-info {
+  font-family: "MuseoModerno";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.your-dao-bg {
+  background: linear-gradient(256.61deg, #ffa046 -0.6%, #e87825 100%);
+  position: absolute;
+  height: 130vh;
+  width: 100vw;
+  top: 0;
+  z-index: 1;
+}
+
 .maindaoBg {
   background: linear-gradient(256.61deg, #ffa046 -0.6%, #e87825 100%);
   position: absolute;

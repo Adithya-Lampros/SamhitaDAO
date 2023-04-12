@@ -83,27 +83,42 @@ table.dao-details-table {
   border: none;
   border-radius: 5px;
   background-color: transparent;
-  border: 1px solid rgb(45, 45, 45);
+  border: 1px solid #ff5731;
 }
 
 table.dao-details-table thead {
-  background-color: transparent;
-  color: #fefcfc;
-  font-weight: 700;
+  background-color: #fff;
+  font-family: "MuseoModerno";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 131.02%;
+  letter-spacing: 0.015em;
+  color: #ff5731;
   border-radius: 10px;
   border-bottom: 1px solid rgb(45, 45, 45);
 }
 
 table.dao-details-table thead th {
   padding: 10px 20px;
-  border-right: 1px solid rgb(45, 45, 45);
-  border-bottom: 1px solid rgb(45, 45, 45);
+  border-right: 1px solid #ff5731;
+  border-bottom: 1px solid #ff5731;
 }
 table.dao-details-table tbody td {
   padding: 10px;
 }
 table.dao-details-table tbody td:first-of-type {
-  border-right: 1px solid rgb(45, 45, 45);
+  border-right: 1px solid #ff5731;
+  font-family: "MuseoModerno";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 131.02%;
+  /* identical to box height, or 21px */
+
+  letter-spacing: 0.015em;
+
+  color: #ff5731;
 }
 
 table.dataset-main-table {

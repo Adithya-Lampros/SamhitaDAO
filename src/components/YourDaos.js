@@ -118,13 +118,15 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
                                 <tr>
                                   <td>
                                     {" "}
-                                    <p>{dao.dataDaoDescription} </p>
+                                    <p className="proposal-header">
+                                      {dao.dataDaoDescription}{" "}
+                                    </p>
                                   </td>
                                 </tr>
                                 <tr>
                                   <td>
                                     <div className="datadao-address">
-                                      <h3>
+                                      <h3 className="proposal-info">
                                         {dao.dataDaoAddress.substring(0, 6) +
                                           "..." +
                                           dao.dataDaoAddress.substring(
