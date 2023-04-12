@@ -95,7 +95,7 @@ function DataDaoDetails({
                 {dataDaoInfo.dataDaoName}
               </h1>
               <button
-                className="datadao-details-btn-close"
+                className="datadao-details-morebtn-close"
                 onClick={() => {
                   setDatadaos(true);
                   setSingleDataDao(false);
@@ -108,11 +108,11 @@ function DataDaoDetails({
               {dataDaoInfo.dataDaoDescription}
             </p>
             <div className="dao-details-flext">
-              <table className="dao-details-table text-center">
-                <thead>
-                  <tr>
-                    <th>Token Name</th>
-                    <th>No of Tokens</th>
+              <table className="dao-details-table ">
+                <thead className="text-center">
+                  <tr style={{borderRadius:"1.5rem 0 0 0 "}}>
+                    <th style={{borderRadius:"1.5rem 0 0 0 "}}>Token Name</th>
+                    <th style={{borderRadius:"0 1.5rem 0 0"}}>No of Tokens</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -124,26 +124,27 @@ function DataDaoDetails({
               </table>
             </div>
             <div className="datadao-details-button ">
-              <button className="datadao-details-btn-close">Buy Token</button>
+              <button className="datadao-details-buyrequestbtn">Buy Token</button>
             </div>
           </div>
 
           <div className="datadao-details-section2">
             <h1 className="datadao-details-dataset">Available Dataset</h1>
             <div className="dataset-main-flex">
-              <table className="dataset-main-table">
+              <div className="dataDaoTablesBg">
+              <table className="dataset-daodetails-main-table">
                 <thead>
                   <tr>
-                    <div className="daodetails-proposal-name">
+                    <div className="daodetails-main-proposal-name">
                       <th colSpan={2}>Name of Proposal</th>
                     </div>
                   </tr>
                 </thead>
-                <div className="padding-div">
+                <div className="">
                   <tr>
                     <td>
                       <p className=" width-peragraph">
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing
+                        Lorem ipsum dolor sit amet, consectetur adipiscing
                         elit, sed do eiusmod tempor incididunt ut labore et
                         dolore magna aliqua. Ut enim ad minim veniam, quis
                         nostrud exercitation ullamco laboris nisi ut aliquip ex
@@ -154,23 +155,24 @@ function DataDaoDetails({
                   <tr>
                     <td>
                       {" "}
-                      <h4 className=" width-peragraph">uploaded file</h4>
+                      <h4 className=" width-peragraph" style={{fontWeight:"700"}}>uploaded file</h4>
                     </td>
                   </tr>
                   <tr>
                     <td>
-                      <h4 className="width-peragraph">23/10/2022</h4>
+                      <h4 className="width-peragraph" style={{fontWeight:"700"}}>23/10/2022</h4>
                     </td>
                   </tr>
                   <tr>
                     <td>
-                      <button className="datadao-details-extra-btn">
+                      <button className="datadao-details-buyrequestbtn my-3">
                         Request Dataset
                       </button>
                     </td>
                   </tr>
                 </div>
               </table>
+              </div>
             </div>
           </div>
         </div>
