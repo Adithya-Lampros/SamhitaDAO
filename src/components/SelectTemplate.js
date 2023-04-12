@@ -90,7 +90,7 @@ function SelectTemplate() {
                       gutterBottom
                       variant="h5"
                       component="div"
-                      sx={{ textAlign: "center" }}
+                      sx={{ textAlign: "center", color: "#ff5731" }}
                     >
                       {item.title}
                     </Typography>
@@ -98,7 +98,7 @@ function SelectTemplate() {
                       variant="body2"
                       color="text.secondary"
                       className="template-info"
-                      sx={{ color: "#ffffff" }}
+                      sx={{ color: "#ff5731" }}
                     >
                       {item.info}
                     </Typography>

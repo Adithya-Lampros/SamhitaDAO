@@ -7,11 +7,33 @@
   z-index: 1;
 }
 
+.select-main {
+  .select-header {
+    font-family: "MuseoModerno";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 40px;
+    color: #fff;
+    margin-top: 10vh;
+  }
+  .select-para {
+    font-family: "MuseoModerno";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    color: #ffffff;
+  }
+}
+
+.dash-svg {
+  margin-right: 10px;
+}
+
 .dashboard-main {
   min-height: 90vh;
   display: flex;
   flex-direction: row;
-  font-family: 'MuseoModerno', sans-serif;
+  font-family: "MuseoModerno", sans-serif;
 
   .left-db {
     z-index: 20;
@@ -40,6 +62,7 @@
 
     ul {
       list-style-type: none;
+      margin-left: -30px;
 
       li {
         display: flex;
@@ -49,7 +72,11 @@
         padding: 10px 30px;
         cursor: pointer;
         border-radius: 10px;
-        color: #3d3d3d;
+        color: #ffffff;
+        font-family: "MuseoModerno";
+        font-style: normal;
+        font-weight: 400;
+        font-size: 22px;
 
         &:hover {
           background-color: rgba(200, 200, 200, 0.1);
@@ -62,8 +89,12 @@
         }
       }
       li.active {
-        background-color: #4c2ffd;
+        background: #ff5731;
         color: #ffffff;
+        font-family: "MuseoModerno";
+        font-style: normal;
+        font-weight: 400;
+        font-size: 22px;
 
         svg {
           fill: #ffffff;
@@ -101,20 +132,22 @@
         padding: 20px 0px;
 
         .card {
-          background-color: rgb(21, 22, 25);
-          color: rgb(255, 255, 255);
-          transition: box-shadow 300ms cubic-bezier(0.55, 0, 0.1, 1) 0ms;
-          box-shadow: none;
-          border: 1px solid rgb(45, 45, 45);
-          background-image: linear-gradient(
-            rgba(255, 255, 255, 0.03) 0%,
-            rgba(255, 255, 255, 0.03) 100%
-          );
-          border-radius: 20px;
+          background: rgba(255, 87, 49, 0.78);
+          backdrop-filter: blur(11.5px);
+          border-radius: 55px;
+          height: 40vh;
         }
       }
     }
   }
+}
+
+.select-main .templates-div div.temp-header {
+  color: #fff;
+}
+
+.select-main .template-div #temp-info {
+  color: #fff;
 }
 
 .css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root {
@@ -126,6 +159,14 @@
   font-style: normal;
   font-weight: 700;
   font-size: 15px;
+}
+
+.css-o69gx8-MuiCardMedia-root {
+  padding: 30px;
+  filter: contrast(90%);
+  border-radius: 50px;
+  height: 25vh;
+  margin-bottom: -30px;
 }
 
 @media screen and (min-width: 2561px) {
