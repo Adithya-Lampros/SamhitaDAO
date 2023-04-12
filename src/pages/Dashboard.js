@@ -287,6 +287,7 @@ function Dashboard() {
 
     return (
       <div className="dashboard-main">
+        <div className="dashboard-bg"></div>
         <div className="left-db">
           <ul>
             <li
