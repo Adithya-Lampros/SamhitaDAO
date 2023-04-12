@@ -43,9 +43,10 @@ export default function StepsForm({
             <StepLabel
               className="step-label"
               optional={
-                index === 3 ? (
-                  <Typography variant="caption">Last step</Typography>
-                ) : null
+                index === 3
+                  ? // <Typography variant="caption">Last step</Typography>"
+                    ""
+                  : null
               }
             >
               {step.label}

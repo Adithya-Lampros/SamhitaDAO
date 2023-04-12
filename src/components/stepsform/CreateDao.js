@@ -7,6 +7,7 @@ import DatadaoInfo from "./DatadaoInfo";
 import VotingSetting from "./VotingSetting";
 import TokenConfiguration from "./TokenConfiguration";
 import ReviewInfo from "./ReviewInfo";
+import Vector3 from "../../assets/Vector3.svg";
 
 function CreateDao() {
   const [showDataDaoInfo, setDataDaoInfo] = useState(true);
@@ -73,6 +74,7 @@ function CreateDao() {
   }, [activeStep]);
   return (
     <div className="create-dao-bg">
+      <img className="create-dao-vector" src={Vector3} alt="Vector3" />
       <div className="create-dao-main">
         <div className="left-div">
           <div>
@@ -87,7 +89,7 @@ function CreateDao() {
                   // Customize the path, i.e. the "completed progress"
                   path: {
                     // Path color
-                    stroke: `${progressbar === 100 ? "#f14c2c" : "#FF5731"}`,
+                    stroke: `${progressbar === 100 ? "#00ff0c" : "#FF5731"}`,
                     // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
                     strokeLinecap: "butt",
                     // Customize transition animation
@@ -109,7 +111,7 @@ function CreateDao() {
                   // Customize the text
                   text: {
                     // Text color
-                    fill: `${progressbar === 100 ? "#f14c2c" : "#FFFFFF"}`,
+                    fill: `${progressbar === 100 ? "#00ff0c" : "#FFFFFF"}`,
                     // Text size
                     fontSize: "16px",
                   },
