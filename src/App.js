@@ -23,6 +23,7 @@ import ExistingDaos from "./pages/ExistingDaos";
 import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
 import Meet from "./pages/Meet";
 import Home from "./pages/Home";
+import DataDaoDetails from "./components/DataDaoDetails";
 
 function App() {
   const BTTChain = {
@@ -93,6 +94,7 @@ function App() {
               <Route path="/open-existing-data-dao" element={<Dashboard />} />
               <Route path="/open-existing-data-dao/meet" element={<Meet />} />
               <Route path="/home" element={<Home />} />
+              <Route path="/data-dao-details" element={<DataDaoDetails/>} />
               {/* <Route
                 path="/open-existing-data-dao/:id"
                 element={<Dashboard />}
