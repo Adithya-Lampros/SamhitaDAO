@@ -101,9 +101,10 @@ function Navbar() {
       position="static"
       sx={{
         backgroundColor: "transparent",
-        padding: "10px 0px",
+        padding: "10px 10px 10px 15px",
         position: "relative",
         zIndex: "50",
+        boxShadow:"none",
       }}
     >
       <Container maxWidth="100%">

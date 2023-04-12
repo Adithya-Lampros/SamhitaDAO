@@ -129,12 +129,31 @@ button.create-proposal-btn-popup {
 
 .proposal-details table thead th {
   text-align: center;
-  font-size: 1.1rem;
+  font-size: 1.75rem;
+  font-weight: 400;
   padding: 10px;
   border-bottom: 1px solid #fefcfc;
+  background-color: #fff;
+  color: #7564D4;
+  border-radius:2.4rem 2.4rem 0 0 ;
 }
 .proposal-details table td {
   padding: 10px 20px;
+  background-color: #FFA046;
+
+}
+
+.proposal-details table td p{
+  font-size: 1rem;
+  
+}
+
+.proposal-details table{
+  border-radius: 2.4rem 2.4rem  2.4rem 2.4rem;
+}
+
+.last-proposal{
+  border-radius:  0 0 2.4rem 2.4rem;
 }
 
 @media screen and (min-width: 2561px) {

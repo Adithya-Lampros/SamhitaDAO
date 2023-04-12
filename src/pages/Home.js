@@ -1,12 +1,18 @@
-import React, { useState, useEffect, useRef } from "react";
+import React,{ useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import "../styles/LandingPage.scss";
+import "../styles/Home.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import { ethers } from "ethers";
 import lighthouse from "@lighthouse-web3/sdk";
-import heroimg from "../assets/hero_image.jpg";
-import heroimg2 from "../assets/hero_image_2.png";
+import orangeCurvedLines from "../assets/landingPage/orange-curved-lines.svg";
+import orangeSecondary from "../assets/landingPage/orange-secondary-curve.svg";
+import yellowCircle from "../assets/landingPage/yellow-circle.png";
+import purpleCircle from "../assets/landingPage/purple-circle.png";
+import orangeCircle from "../assets/landingPage/orange-circle.svg";
+import languageImage from "../assets/landingPage/language.svg";
+import mainHeroBg from "../assets/landingPage/main-hero-bg.svg"
 
-function LandingPage() {
+function Home() {
   const [isOpen, setIsOpen] = useState(false);
   const popupRef = useRef(null);
 
@@ -184,37 +190,37 @@ function LandingPage() {
     To view encrypted file
   */
   };
-
   return (
     <>
-          <section className="hero">
-        <div className="gradient-3"></div>
-        <div className="gradient-4"></div>
-        <img src={heroimg2} alt="hero" className="hero-image" />
-        <div className="hero-img-overlay"></div>
-        <h1>Welcome to SamhitaDAO</h1>
-        <p>We preserve the Past for the Future.</p>
+    <section className="hero-section">
+      <div className="main-hero">
+        
+        <div className="hero-bg-images">
 
-        <div className="hero-btns">
-          {/* <button
-            className="create-dao-btn"
-            onClick={() => openCreateDaoPage()}
-          >
-            Create DataDao
-          </button>
-          <button
-            className="existing-dao-btn"
-            onClick={() => openExistingDaoPage()}
-          >
-            Open Existing DataDao
-          </button> */}
-          {/* ------ Commenting this code to add the new one */}
-          <button
-            className="existing-dao-btn"
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            Join SamhitaDAO
-          </button>
+          <img src={mainHeroBg} className="main-hero-orange-bg" />
+          <img src={orangeCurvedLines} className="orange-curved-lines" />
+          <img src={orangeSecondary} className="orange-secondary" />
+          <img src={yellowCircle} className="yellow-circle" />
+          <img src={purpleCircle} className="purple-circle" />
+          <img src={orangeCircle} className="orange-circle" />
+        </div>
+        <div className=" px-3 d-flex justify-content-center align-items-center">
+          <div className="hero-text-image d-flex  align-items-center">
+            <div className="hero-text  ">
+              <p className="hero-text-head">
+                Welcome to <br /> SamhitaDAO
+              </p>
+              <p className="hero-sub-text">
+                We preserve the Past for <br />
+                Future
+              </p>
+              <button className="rounded-button button-to-join" onClick={() => setIsOpen(!isOpen)} >
+                <span className="hero-button-text"> Join SamhitaDAO </span>
+                <span className="circle d-flex justify-content-center align-items-center ">
+                  <i className="fas fa-arrow-right"></i>
+                </span>
+              </button>
+      
           {isOpen && (
             <>
               <div className="popup-overlay" />
@@ -243,29 +249,17 @@ function LandingPage() {
               </div>
             </>
           )}
+        
+            </div>
+            <div className="language-image-div text-center">
+              <img src={languageImage} className="language-image" />
+            </div>
+          </div>
         </div>
-      </section>
-    {/* ------- Code is commented till here ------------ */}
-      {/* <div className="second-section">
-        <h1>Upload file to encrypt</h1>
-        <input onChange={(e) => deployEncrypted(e)} type="file" />
-
-        <h1>Decrypt file and view it</h1>
-        <button onClick={() => decrypt()}>decrypt</button>
-        {fileURL ? (
-          <>
-            <a href={fileURL} target="_blank" rel="noreferrer">
-              viewFile
-            </a>
-            <img src={fileURL} alt="view" />
-          </>
-        ) : null}
-
-        <h1> Share file to address</h1>
-        <button onClick={() => shareFile()}>share file</button>
-      </div> */}
+        </div>
+        </section>
     </>
   );
 }
 
-export default LandingPage;
+export default Home;

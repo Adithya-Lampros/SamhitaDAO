@@ -1,14 +1,39 @@
+.main-your-dao{
+  font-family: 'MuseoModerno', sans-serif;
+  background-color: #fff;
+  height: 100vh;
+  position: absolute;
+  /* overflow: hidden; */
+  top: 0;
+  width: 100vw;
+  left: 0;
+}
+
 .all-datadao-main-div {
   width: 100%;
-  margin: 20px auto;
-  max-width: 1240px;
+  margin: 5% auto;
+  /* max-width: 1240px; */
+  z-index: 100;
+  position: absolute;
+  
 }
+
 .all-datadao-div {
   margin: 0 auto;
 }
 .all-datadao-title {
   text-align: center;
-  padding: 10px;
+  padding: 5px;
+  font-weight: 500;
+  font-size: 4rem;
+  /* letter-spacing: 0.04em; */
+}
+
+.all-datadao-subtext{
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 400;
+  
 }
 .all-datadao-section1 {
   padding: 10px;
@@ -34,6 +59,7 @@
 .dataDAo-details {
   width: 20%;
 }
+
 button.view-more-all-dao {
   margin: 10px;
   padding: 10px 20px;
@@ -43,6 +69,36 @@ button.view-more-all-dao {
   border-radius: 5px;
   width: 120px;
 }
+
+.your-dao-bg-images{
+  width: 100vw;
+  z-index: 50;
+}
+
+.leftCurvedLinesDao{
+  position: absolute;
+  z-index: 21;
+  bottom: 0;
+  left: 0;
+}
+
+.topCurvedLinesDao{
+  position: absolute;
+  z-index: 22;
+  top: 0;
+}
+
+.mainYourDaoBg{
+  z-index: 20;
+  top:0;
+  /* left:-20%; */
+  left: 0;
+  position: absolute;
+  /* height: 100%; */
+  margin-right: 10%;
+  width: 100%;
+}
+
 
 @media screen and (min-width: 2561px) {
 }
@@ -67,3 +123,5 @@ button.view-more-all-dao {
     font-size: 20px;
   }
 }
+
+

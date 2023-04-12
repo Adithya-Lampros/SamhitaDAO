@@ -144,7 +144,7 @@ function AvailabelProposal() {
                     <table>
                       <thead>
                         <tr>
-                          <th colSpan={2}>MusicCaps</th>
+                          <th className="proposal-details-head text-center" >MusicCaps</th>
                         </tr>
                       </thead>
                       <tbody>

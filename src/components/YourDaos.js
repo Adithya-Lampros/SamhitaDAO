@@ -5,6 +5,7 @@ import Select from "@mui/material/Select";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
+
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { ContractFactory, ethers } from "ethers";
@@ -13,6 +14,9 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useAccount, useSigner } from "wagmi";
 import { useNavigate } from "react-router-dom";
+import leftCurvedLinesDAO from "../assets/yourDaos/left-curved-lines-your-dao.svg";
+import mainYourDAOBg from "../assets/yourDaos/main-your-dao-Bg.svg";
+import topCurvedLinesDAO from "../assets/yourDaos/top-curved-lines-your-dao.svg";
 
 const dataDaoFactoryContract = "0x0caC8C986452628Ed38483bcEE0D1cF85816946D";
 
@@ -78,11 +82,17 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
 
   return (
     <>
+      <div className="main-your-dao">
+      <div className="your-dao-bg-images"> 
+        <img src={leftCurvedLinesDAO} className="leftCurvedLinesDao" />
+        <img src={topCurvedLinesDAO} className="topCurvedLinesDao" />
+        <img src={mainYourDAOBg} className="mainYourDaoBg" />
+      </div>     
       <div className="all-datadao-main-div">
-        <div className="all-datadao-div">
+        <div className="all-datadao-div " >
           <div className="all-datadao-section1">
             <h1 className="all-datadao-title">Your DataDAOs</h1>
-            <p className="all-datadao-title">
+            <p className="all-datadao-subtext">
               All the dataDAOs on the platform
             </p>
           </div>
@@ -188,6 +198,7 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
           draggable
           pauseOnHover
         />
+      </div>
       </div>
     </>
   );

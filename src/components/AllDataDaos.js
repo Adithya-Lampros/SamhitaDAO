@@ -6,6 +6,9 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { ContractFactory, ethers } from "ethers";
 import dataDaoFactory from "../contracts/artifacts/dataDaoFactory.json";
+import leftCurvedLinesDAO from "../assets/yourDaos/left-curved-lines-your-dao.svg";
+import mainYourDAOBg from "../assets/yourDaos/main-your-dao-Bg.svg";
+import topCurvedLinesDAO from "../assets/yourDaos/top-curved-lines-your-dao.svg";
 
 const dataDaoFactoryContract = "0x0caC8C986452628Ed38483bcEE0D1cF85816946D";
 
@@ -54,11 +57,17 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
 
   return (
     <>
+      <div className="main-your-dao">
+       <div className="your-dao-bg-images"> 
+        <img src={leftCurvedLinesDAO} className="leftCurvedLinesDao" />
+        <img src={topCurvedLinesDAO} className="topCurvedLinesDao" />
+        <img src={mainYourDAOBg} className="mainYourDaoBg" />
+      </div>
       <div className="all-datadao-main-div">
         <div className="all-datadao-div">
           <div className="all-datadao-section1">
             <h1 className="all-datadao-title">All DataDAOs</h1>
-            <p className="all-datadao-title">
+            <p className="all-datadao-subtext">
               All the dataDAOs on the platform
             </p>
           </div>
@@ -88,14 +97,14 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
                               <tr>
                                 <td>
                                   <div className="datadao-address">
-                                    <h3>
+                                    <p className=" my-auto">
                                       {dao.dataDaoAddress.substring(0, 6) +
                                         "..." +
                                         dao.dataDaoAddress.substring(
                                           dao.dataDaoAddress.length - 5,
                                           dao.dataDaoAddress.length
                                         )}
-                                    </h3>
+                                    </p>
                                     <svg
                                       xmlns="http://www.w3.org/2000/svg"
                                       enable-background="new 0 0 24 24"
@@ -119,9 +128,9 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
                                   </div>
                                 </td>
                               </tr>
-                              <tr>
-                                <td style={{ textAlign: "center" }}>
-                                  <button
+                              <tr >
+                                <td style={{ textAlign: "center" }} className="last-proposal">
+                                  {/* <button
                                     className="view-more-all-dao"
                                     onClick={() => {
                                       setSingleDataDao(true);
@@ -130,10 +139,27 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
                                     }}
                                   >
                                     View More
-                                  </button>
-                                  <button className="view-more-all-dao">
+                                  </button> */}
+
+                                      <button className="rounded-button button-to-join" onClick={() => {
+                                      setSingleDataDao(true);
+                                      setDatadaos(false);
+                                      setDaoAddress(dao.dataDaoAddress);
+                                    }}>
+                                                      <span className="hero-button-text">View More </span>
+                                                      <span className="circle d-flex justify-content-center align-items-center ">
+                                                        <i className="fas fa-arrow-right"></i>
+                                                      </span>
+                                      </button>
+                                      <button className="rounded-button button-to-join">
+                                                      <span className="hero-button-text">Join </span>
+                                                      <span className="circle d-flex justify-content-center align-items-center ">
+                                                        <i className="fas fa-arrow-right"></i>
+                                                      </span>
+                                      </button>
+                                  {/* <button className="view-more-all-dao">
                                     Join
-                                  </button>
+                                  </button> */}
                                 </td>
                               </tr>
                             </table>
@@ -149,6 +175,7 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
             </Box>
           </div>
         </div>
+      </div>
       </div>
     </>
   );

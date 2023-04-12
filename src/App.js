@@ -21,6 +21,7 @@ import Template from "./components/Template";
 import YouDaos from "./components/YouDaos";
 import ExistingDaos from "./pages/ExistingDaos";
 import Meet from "./pages/Meet";
+import Home from "./pages/Home";
 
 function App() {
   const { chains, provider } = configureChains(
@@ -64,6 +65,7 @@ function App() {
               />
               <Route path="/open-existing-data-dao" element={<Dashboard />} />
               <Route path="/open-existing-data-dao/meet" element={<Meet />} />
+              <Route path="/home" element={<Home/>} />
               {/* <Route
                 path="/open-existing-data-dao/:id"
                 element={<Dashboard />}
