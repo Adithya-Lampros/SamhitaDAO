@@ -1,7 +1,7 @@
 .select-bg {
   background: linear-gradient(256.61deg, #ffa046 -0.6%, #e87825 100%);
   position: absolute;
-  height: 100vh;
+  height: 110vh;
   width: 100vw;
   top: 0;
 }
@@ -31,6 +31,7 @@
     font-style: normal;
     font-size: 64px;
     font-weight: 500;
+    z-index: 20;
   }
   p {
     color: #ffa046;
@@ -45,6 +46,7 @@
     font-style: normal;
     font-weight: 400;
     font-size: 28px;
+    z-index: 20;
   }
   .templates-div {
     width: 80%;

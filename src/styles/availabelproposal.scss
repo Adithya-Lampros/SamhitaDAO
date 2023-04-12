@@ -100,15 +100,12 @@ button.create-proposal-btn-popup {
   width: 400px;
   height: 250px;
   border: none;
-  background-color: rgb(21, 22, 25);
+  background-color: #ffa046;
+  border-radius: 0 0 2.4rem 2.4rem;
   color: rgb(255, 255, 255);
   transition: box-shadow 300ms cubic-bezier(0.55, 0, 0.1, 1) 0ms;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 8px,
     rgba(0, 0, 0, 0.23) 0px 0px 3px -2px, rgba(0, 0, 0, 0.17) 0px 0px 25px;
-  background-image: linear-gradient(
-    rgba(255, 255, 255, 0.09),
-    rgba(255, 255, 255, 0.09)
-  );
 }
 .vote-btns {
   display: flex;
@@ -134,26 +131,35 @@ button.create-proposal-btn-popup {
   padding: 10px;
   border-bottom: 1px solid #fefcfc;
   background-color: #fff;
-  color: #7564D4;
-  border-radius:2.4rem 2.4rem 0 0 ;
+  color: #7564d4;
+  border-radius: 2.4rem 2.4rem 0 0;
 }
 .proposal-details table td {
   padding: 10px 20px;
-  background-color: #FFA046;
-
 }
 
-.proposal-details table td p{
-  font-size: 1rem;
-  
+.proposal-details table td p {
+  font-family: "MuseoModerno";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
 }
 
-.proposal-details table{
-  border-radius: 2.4rem 2.4rem  2.4rem 2.4rem;
+.proposal-details table {
+  border-radius: 2.4rem 2.4rem 2.4rem 2.4rem;
 }
 
-.last-proposal{
-  border-radius:  0 0 2.4rem 2.4rem;
+.last-proposal {
+  border-radius: 0 0 2.4rem 2.4rem;
+}
+
+.artist-streams {
+  text-align: center;
+}
+
+.css-a5rdam-MuiGrid-root > .MuiGrid-item {
+  margin-left: 150px;
+  margin-top: 50px;
 }
 
 @media screen and (min-width: 2561px) {
@@ -169,19 +175,20 @@ button.create-proposal-btn-popup {
 }
 
 @media screen and (min-width: 1246px) and (max-width: 1439px) {
-  .all-datadao-section2 {
-    div {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(450px, 2fr));
-      // display: flex;
-      // flex-direction: column;
-    }
-  }
-  .proposal-details table {
-    margin: 0 auto;
-    width: 43vw;
-    height: 300px;
-  }
+  // .all-datadao-section2 {
+  //   div {
+  //     margin: 50px;
+  //     display: grid;
+  //     grid-template-columns: repeat(auto-fit, minmax(450px, 2fr));
+  //     // display: flex;
+  //     // flex-direction: column;
+  //   }
+  // }
+  // .proposal-details table {
+  //   margin: 0 auto;
+  //   width: 40vw;
+  //   height: 300px;
+  // }
 }
 
 @media screen and (min-width: 1024px) and (max-width: 1245px) {

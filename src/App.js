@@ -47,7 +47,7 @@ function App() {
           <Router>
             <Navbar />
             <Routes>
-              <Route path="/" element={<LandingPage />} />
+              <Route path="/" element={<Home />} />
               <Route
                 path="/create-data-dao/select-template"
                 element={<SelectTemplate />}
@@ -65,7 +65,7 @@ function App() {
               />
               <Route path="/open-existing-data-dao" element={<Dashboard />} />
               <Route path="/open-existing-data-dao/meet" element={<Meet />} />
-              <Route path="/home" element={<Home/>} />
+              <Route path="/home" element={<Home />} />
               {/* <Route
                 path="/open-existing-data-dao/:id"
                 element={<Dashboard />}

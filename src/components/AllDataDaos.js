@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "../styles/alldatadaos.css";
+import "../styles/alldatadaos.scss";
 
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -58,79 +58,82 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
   return (
     <>
       <div className="main-your-dao">
-       <div className="your-dao-bg-images"> 
-        <img src={leftCurvedLinesDAO} className="leftCurvedLinesDao" />
-        <img src={topCurvedLinesDAO} className="topCurvedLinesDao" />
-        <img src={mainYourDAOBg} className="mainYourDaoBg" />
-      </div>
-      <div className="all-datadao-main-div">
-        <div className="all-datadao-div">
-          <div className="all-datadao-section1">
-            <h1 className="all-datadao-title">All DataDAOs</h1>
-            <p className="all-datadao-subtext">
-              All the dataDAOs on the platform
-            </p>
-          </div>
+        <div className="your-dao-bg-images">
+          <img src={leftCurvedLinesDAO} className="leftCurvedLinesDao" />
+          <img src={topCurvedLinesDAO} className="topCurvedLinesDao" />
+          <img src={mainYourDAOBg} className="mainYourDaoBg" />
+        </div>
+        <div className="all-datadao-main-div">
+          <div className="all-datadao-div">
+            <div className="all-datadao-section1">
+              <h1 className="all-datadao-title">All DataDAOs</h1>
+              <p className="all-datadao-subtext">
+                All the dataDAOs on the platform
+              </p>
+            </div>
 
-          <div className="all-datadao-section2">
-            <Box sx={{ flexGrow: 1 }}>
-              <Grid container spacing={1}>
-                <Grid container item spacing={3}>
-                  <React.Fragment>
-                    {allDataDaos.length > 0 ? (
-                      allDataDaos.map((dao, i) => (
-                        <Grid item xs={4}>
-                          {" "}
-                          <div className="proposal-details">
-                            <table>
-                              <thead>
+            <div className="all-datadao-section2">
+              <Box sx={{ flexGrow: 1 }}>
+                <Grid container spacing={1}>
+                  <Grid container item spacing={3}>
+                    <React.Fragment>
+                      {allDataDaos.length > 0 ? (
+                        allDataDaos.map((dao, i) => (
+                          <Grid item xs={4}>
+                            {" "}
+                            <div className="proposal-details">
+                              <table>
+                                <thead>
+                                  <tr>
+                                    <th colSpan={2}>{dao.dataDaoName}</th>
+                                  </tr>
+                                </thead>
                                 <tr>
-                                  <th colSpan={2}>{dao.dataDaoName}</th>
+                                  <td>
+                                    {" "}
+                                    <p>{dao.dataDaoDescription} </p>
+                                  </td>
                                 </tr>
-                              </thead>
-                              <tr>
-                                <td>
-                                  {" "}
-                                  <p>{dao.dataDaoDescription} </p>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <div className="datadao-address">
-                                    <p className=" my-auto">
-                                      {dao.dataDaoAddress.substring(0, 6) +
-                                        "..." +
-                                        dao.dataDaoAddress.substring(
-                                          dao.dataDaoAddress.length - 5,
-                                          dao.dataDaoAddress.length
-                                        )}
-                                    </p>
-                                    <svg
-                                      xmlns="http://www.w3.org/2000/svg"
-                                      enable-background="new 0 0 24 24"
-                                      height="18px"
-                                      viewBox="0 0 24 24"
-                                      width="18px"
-                                      fill="#4c2ffd"
-                                      style={{ margin: "0px 20px" }}
-                                    >
-                                      <g>
-                                        <rect
-                                          fill="none"
-                                          height="24"
-                                          width="24"
-                                        />
-                                      </g>
-                                      <g>
-                                        <path d="M15,20H5V7c0-0.55-0.45-1-1-1h0C3.45,6,3,6.45,3,7v13c0,1.1,0.9,2,2,2h10c0.55,0,1-0.45,1-1v0C16,20.45,15.55,20,15,20z M20,16V4c0-1.1-0.9-2-2-2H9C7.9,2,7,2.9,7,4v12c0,1.1,0.9,2,2,2h9C19.1,18,20,17.1,20,16z M18,16H9V4h9V16z" />
-                                      </g>
-                                    </svg>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr >
-                                <td style={{ textAlign: "center" }} className="last-proposal">
-                                  {/* <button
+                                <tr>
+                                  <td>
+                                    <div className="datadao-address">
+                                      <p className=" my-auto">
+                                        {dao.dataDaoAddress.substring(0, 6) +
+                                          "..." +
+                                          dao.dataDaoAddress.substring(
+                                            dao.dataDaoAddress.length - 5,
+                                            dao.dataDaoAddress.length
+                                          )}
+                                      </p>
+                                      <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        enable-background="new 0 0 24 24"
+                                        height="18px"
+                                        viewBox="0 0 24 24"
+                                        width="18px"
+                                        fill="#4c2ffd"
+                                        style={{ margin: "0px 20px" }}
+                                      >
+                                        <g>
+                                          <rect
+                                            fill="none"
+                                            height="24"
+                                            width="24"
+                                          />
+                                        </g>
+                                        <g>
+                                          <path d="M15,20H5V7c0-0.55-0.45-1-1-1h0C3.45,6,3,6.45,3,7v13c0,1.1,0.9,2,2,2h10c0.55,0,1-0.45,1-1v0C16,20.45,15.55,20,15,20z M20,16V4c0-1.1-0.9-2-2-2H9C7.9,2,7,2.9,7,4v12c0,1.1,0.9,2,2,2h9C19.1,18,20,17.1,20,16z M18,16H9V4h9V16z" />
+                                        </g>
+                                      </svg>
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td
+                                    style={{ textAlign: "center" }}
+                                    className="last-proposal"
+                                  >
+                                    {/* <button
                                     className="view-more-all-dao"
                                     onClick={() => {
                                       setSingleDataDao(true);
@@ -141,41 +144,50 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
                                     View More
                                   </button> */}
 
-                                      <button className="rounded-button button-to-join" onClick={() => {
-                                      setSingleDataDao(true);
-                                      setDatadaos(false);
-                                      setDaoAddress(dao.dataDaoAddress);
-                                    }}>
-                                                      <span className="hero-button-text">View More </span>
-                                                      <span className="circle d-flex justify-content-center align-items-center ">
-                                                        <i className="fas fa-arrow-right"></i>
-                                                      </span>
-                                      </button>
-                                      <button className="rounded-button button-to-join">
-                                                      <span className="hero-button-text">Join </span>
-                                                      <span className="circle d-flex justify-content-center align-items-center ">
-                                                        <i className="fas fa-arrow-right"></i>
-                                                      </span>
-                                      </button>
-                                  {/* <button className="view-more-all-dao">
+                                    <button
+                                      className="rounded-button button-to-join"
+                                      onClick={() => {
+                                        setSingleDataDao(true);
+                                        setDatadaos(false);
+                                        setDaoAddress(dao.dataDaoAddress);
+                                      }}
+                                    >
+                                      <span className="hero-button-text">
+                                        View More{" "}
+                                      </span>
+                                      <span className="circle d-flex justify-content-center align-items-center ">
+                                        <i className="fas fa-arrow-right"></i>
+                                      </span>
+                                    </button>
+                                    <button className="rounded-button button-to-join">
+                                      <span className="hero-button-text">
+                                        Join{" "}
+                                      </span>
+                                      <span className="circle d-flex justify-content-center align-items-center ">
+                                        <i className="fas fa-arrow-right"></i>
+                                      </span>
+                                    </button>
+                                    {/* <button className="view-more-all-dao">
                                     Join
                                   </button> */}
-                                </td>
-                              </tr>
-                            </table>
-                          </div>
-                        </Grid>
-                      ))
-                    ) : (
-                      <h3 className="artist-streams">No Data Daos available</h3>
-                    )}
-                  </React.Fragment>
+                                  </td>
+                                </tr>
+                              </table>
+                            </div>
+                          </Grid>
+                        ))
+                      ) : (
+                        <h3 className="artist-streams">
+                          No Data Daos available
+                        </h3>
+                      )}
+                    </React.Fragment>
+                  </Grid>
                 </Grid>
-              </Grid>
-            </Box>
+              </Box>
+            </div>
           </div>
         </div>
-      </div>
       </div>
     </>
   );
