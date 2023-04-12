@@ -25,6 +25,9 @@ import { Box, Modal } from "@mui/material";
 import uploadfile from "../assets/upload.png";
 import dataDaoFactory from "../contracts/artifacts/dataDaoFactory.json";
 import dataDaoInstace from "../contracts/artifacts/dataDaoInstace.json";
+import Dash1 from "../assets/Dash1.svg";
+import Dash2 from "../assets/Dash2.svg";
+import Dash3 from "../assets/Dash3.svg";
 
 const dataDaoFactoryContract = "0x0caC8C986452628Ed38483bcEE0D1cF85816946D";
 
@@ -327,24 +330,16 @@ function Dashboard() {
             >
               <svg
                 className="dash-svg"
-                xmlns="http://www.w3.org/2000/svg"
-                enable-background="new 0 0 24 24"
-                height="24px"
+                width="24"
+                height="24"
                 viewBox="0 0 24 24"
-                width="24px"
-                fill="#000000"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                <g>
-                  <rect fill="none" height="24" width="24" />
-                </g>
-                <g>
-                  <g>
-                    <path d="M5,11h4c1.1,0,2-0.9,2-2V5c0-1.1-0.9-2-2-2H5C3.9,3,3,3.9,3,5v4C3,10.1,3.9,11,5,11z" />
-                    <path d="M5,21h4c1.1,0,2-0.9,2-2v-4c0-1.1-0.9-2-2-2H5c-1.1,0-2,0.9-2,2v4C3,20.1,3.9,21,5,21z" />
-                    <path d="M13,5v4c0,1.1,0.9,2,2,2h4c1.1,0,2-0.9,2-2V5c0-1.1-0.9-2-2-2h-4C13.9,3,13,3.9,13,5z" />
-                    <path d="M15,21h4c1.1,0,2-0.9,2-2v-4c0-1.1-0.9-2-2-2h-4c-1.1,0-2,0.9-2,2v4C13,20.1,13.9,21,15,21z" />
-                  </g>
-                </g>
+                <path
+                  d="M1.33333 13.3333H9.33333C10.0667 13.3333 10.6667 12.7333 10.6667 12V1.33333C10.6667 0.6 10.0667 0 9.33333 0H1.33333C0.6 0 0 0.6 0 1.33333V12C0 12.7333 0.6 13.3333 1.33333 13.3333ZM1.33333 24H9.33333C10.0667 24 10.6667 23.4 10.6667 22.6667V17.3333C10.6667 16.6 10.0667 16 9.33333 16H1.33333C0.6 16 0 16.6 0 17.3333V22.6667C0 23.4 0.6 24 1.33333 24ZM14.6667 24H22.6667C23.4 24 24 23.4 24 22.6667V12C24 11.2667 23.4 10.6667 22.6667 10.6667H14.6667C13.9333 10.6667 13.3333 11.2667 13.3333 12V22.6667C13.3333 23.4 13.9333 24 14.6667 24ZM13.3333 1.33333V6.66667C13.3333 7.4 13.9333 8 14.6667 8H22.6667C23.4 8 24 7.4 24 6.66667V1.33333C24 0.6 23.4 0 22.6667 0H14.6667C13.9333 0 13.3333 0.6 13.3333 1.33333Z"
+                  fill="white"
+                />
               </svg>
               Proposals
             </li>
@@ -356,15 +351,16 @@ function Dashboard() {
             >
               <svg
                 className="dash-svg"
+                width="24"
+                height="19"
+                viewBox="0 0 24 19"
+                fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                enable-background="new 0 0 24 24"
-                height="24px"
-                viewBox="0 0 24 24"
-                width="24px"
-                fill="#000000"
               >
-                <rect fill="none" height="24" width="24" y="0" />
-                <path d="M12.97,2.54c-0.6-0.34-1.34-0.34-1.94,0l-7,3.89L9.1,9.24C9.83,8.48,10.86,8,12,8s2.17,0.48,2.9,1.24l5.07-2.82L12.97,2.54z M10,12c0-1.1,0.9-2,2-2s2,0.9,2,2s-0.9,2-2,2S10,13.1,10,12z M3,8.14l5.13,2.85C8.04,11.31,8,11.65,8,12c0,1.86,1.27,3.43,3,3.87 v5.57l-6.97-3.87C3.39,17.22,3,16.55,3,15.82V8.14z M13,21.44v-5.57c1.73-0.44,3-2.01,3-3.87c0-0.35-0.04-0.69-0.13-1.01L21,8.14 l0,7.68c0,0.73-0.39,1.4-1.03,1.75L13,21.44z" />
+                <path
+                  d="M22.5 0H1.5C1.10218 0 0.720644 0.166815 0.43934 0.463748C0.158035 0.76068 0 1.16341 0 1.58333V17.4167C0 17.8366 0.158035 18.2393 0.43934 18.5363C0.720644 18.8332 1.10218 19 1.5 19H22.5C22.8978 19 23.2794 18.8332 23.5607 18.5363C23.842 18.2393 24 17.8366 24 17.4167V1.58333C24 1.16341 23.842 0.76068 23.5607 0.463748C23.2794 0.166815 22.8978 0 22.5 0ZM12.75 12.6667H5.25C5.05109 12.6667 4.86032 12.5833 4.71967 12.4348C4.57902 12.2863 4.5 12.085 4.5 11.875C4.5 11.665 4.57902 11.4637 4.71967 11.3152C4.86032 11.1667 5.05109 11.0833 5.25 11.0833H12.75C12.9489 11.0833 13.1397 11.1667 13.2803 11.3152C13.421 11.4637 13.5 11.665 13.5 11.875C13.5 12.085 13.421 12.2863 13.2803 12.4348C13.1397 12.5833 12.9489 12.6667 12.75 12.6667ZM18.75 9.5H5.25C5.05109 9.5 4.86032 9.41659 4.71967 9.26813C4.57902 9.11966 4.5 8.9183 4.5 8.70833C4.5 8.49837 4.57902 8.29701 4.71967 8.14854C4.86032 8.00007 5.05109 7.91667 5.25 7.91667H18.75C18.9489 7.91667 19.1397 8.00007 19.2803 8.14854C19.421 8.29701 19.5 8.49837 19.5 8.70833C19.5 8.9183 19.421 9.11966 19.2803 9.26813C19.1397 9.41659 18.9489 9.5 18.75 9.5ZM18.75 6.33333H5.25C5.05109 6.33333 4.86032 6.24993 4.71967 6.10146C4.57902 5.95299 4.5 5.75163 4.5 5.54167C4.5 5.3317 4.57902 5.13034 4.71967 4.98187C4.86032 4.83341 5.05109 4.75 5.25 4.75H18.75C18.9489 4.75 19.1397 4.83341 19.2803 4.98187C19.421 5.13034 19.5 5.3317 19.5 5.54167C19.5 5.75163 19.421 5.95299 19.2803 6.10146C19.1397 6.24993 18.9489 6.33333 18.75 6.33333Z"
+                  fill="#F8F8F8"
+                />
               </svg>
               Dao Details
             </li>
@@ -374,17 +370,7 @@ function Dashboard() {
                 dashboardLinks("DataDAOs");
               }}
             >
-              <svg
-                className="dash-svg"
-                xmlns="http://www.w3.org/2000/svg"
-                height="24px"
-                viewBox="0 0 24 24"
-                width="24px"
-                fill="#000000"
-              >
-                <path d="M0 0h24v24H0V0z" fill="none" />
-                <path d="M19 13H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zM7 19c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zM19 3H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM7 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z" />
-              </svg>
+              <img className="dash-svg" src={Dash1} alt="Dash" />
               Template
             </li>
           </ul>
@@ -393,8 +379,10 @@ function Dashboard() {
           {dashboard ? (
             <>
               <div className="select-main" id="right-db-inside">
-                <h1>Manage Your DataDAO</h1>
-                <p>Click on any datadao to open dashboard for that dao.</p>
+                <h1 className="select-header">Manage Your DataDAO</h1>
+                <p className="select-para">
+                  Click on any datadao to open dashboard for that dao.
+                </p>
                 <div className="templates-div">
                   {data.map((item, key) => {
                     return (
@@ -422,7 +410,7 @@ function Dashboard() {
                               gutterBottom
                               variant="h5"
                               component="div"
-                              sx={{ textAlign: "center" }}
+                              sx={{ textAlign: "center", color: "#fff" }}
                             >
                               {item.title}
                             </Typography>
@@ -430,6 +418,7 @@ function Dashboard() {
                               variant="body2"
                               color="text.secondary"
                               className="template-info"
+                              sx={{ textAlign: "center", color: "#fff" }}
                             >
                               {item.info}
                             </Typography>

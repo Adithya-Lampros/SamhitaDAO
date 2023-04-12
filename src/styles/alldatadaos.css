@@ -69,13 +69,33 @@
 }
 
 button.view-more-all-dao {
+  display: flex;
   margin: 10px;
-  padding: 10px 20px;
-  background-color: #4c2ffd;
+  padding: 10px 30px;
+  background: #ffffff;
+  border-radius: 50px;
   color: #fefcfc;
-  border: 1px solid #4c2ffd;
-  border-radius: 5px;
-  width: 120px;
+  border: none;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 131.02%;
+  text-align: center;
+  letter-spacing: 0.055em;
+  text-transform: capitalize;
+  color: #ff6054;
+  width: 180px;
+}
+
+.view-more-btn {
+  position: absolute;
+  height: 30px;
+  width: 30px;
+  margin-top: -44px;
+  margin-left: -40px;
+  z-index: 10;
+  cursor: pointer;
 }
 
 .your-dao-bg-images{

@@ -5,6 +5,7 @@ import Select from "@mui/material/Select";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
+import Arrow from "../assets/Arrow.svg";
 
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -173,6 +174,19 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
                                     >
                                       View More
                                     </button>
+                                    <div>
+                                      <img
+                                        className="view-more-btn"
+                                        src={Arrow}
+                                        alt="arrow"
+                                        onClick={() => {
+                                          // setSingleYourDataDao(true);
+                                          // setYourDaos(false);
+                                          // setDaoAddress(dao.dataDaoAddress);
+                                          openDaoPage();
+                                        }}
+                                      />
+                                    </div>
                                   </td>
                                 </tr>
                               </table>

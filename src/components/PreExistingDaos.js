@@ -207,7 +207,7 @@ function Dashboard() {
                             gutterBottom
                             variant="h5"
                             component="div"
-                            sx={{ textAlign: "center" }}
+                            sx={{ textAlign: "center", color: "#ffffff" }}
                           >
                             {item.title}
                           </Typography>
@@ -215,6 +215,7 @@ function Dashboard() {
                             variant="body2"
                             color="text.secondary"
                             className="template-info"
+                            id="temp-info"
                           >
                             {item.info}
                           </Typography>
