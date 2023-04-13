@@ -10,7 +10,6 @@ import Arrow from "../assets/Arrow.svg";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { ContractFactory, ethers } from "ethers";
-import dataDaoFactory from "../contracts/artifacts/dataDaoFactory.json";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useAccount, useSigner } from "wagmi";
@@ -18,8 +17,13 @@ import { useNavigate } from "react-router-dom";
 import leftCurvedLinesDAO from "../assets/yourDaos/left-curved-lines-your-dao.svg";
 import mainYourDAOBg from "../assets/yourDaos/main-your-dao-Bg.svg";
 import topCurvedLinesDAO from "../assets/yourDaos/top-curved-lines-your-dao.svg";
+import languageFactoryAbi from "../contracts/artifacts/LanguageDAOFactory.json";
+import languageTokenAbi from "../contracts/artifacts/LanguageDAOToken.json";
+import samhitaAbi from "../contracts/artifacts/Samhita.json";
+import { sign } from "@pushprotocol/restapi/src/lib/chat/helpers";
 
-const dataDaoFactoryContract = "0x0caC8C986452628Ed38483bcEE0D1cF85816946D";
+const samhitaAddress = "0x246A9A278D74c69DE816905a3f6Fc9a3dFDB029d";
+const languageFactoryAddress = "0x733A11b0cdBf8931614C4416548B74eeA1fbd0A4";
 
 function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
   const navigate = useNavigate();
@@ -28,8 +32,38 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
   };
   const [allDataDaos, setDataDaos] = useState([]);
   const { address, isConnected } = useAccount();
+  const [isJoined, setIsJoined] = useState();
 
-  const getContract = async () => {
+  // const getContract = async () => {
+  //   try {
+  //     const { ethereum } = window;
+  //     console.log("in");
+  //     if (ethereum) {
+  //       const provider = new ethers.providers.Web3Provider(ethereum);
+  //       const signer = provider.getSigner();
+  //       if (!provider) {
+  //         console.log("Metamask is not installed, please install!");
+  //       }
+  //       const { chainId } = await provider.getNetwork();
+  //       console.log("switch case for this case is: " + chainId);
+  //       if (chainId === 1029) {
+  //         const contract = new ethers.Contract(
+  //           languageFactoryAddress,
+  //           languageFactoryAbi,
+  //           signer
+  //         );
+  //         console.log(contract);
+  //         return contract;
+  //       } else {
+  //         alert("Please connect to the BitTorrent Chain Donau!");
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  const getAllDataDaos = async () => {
     try {
       const { ethereum } = window;
       console.log("in");
@@ -42,13 +76,33 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
         const { chainId } = await provider.getNetwork();
         console.log("switch case for this case is: " + chainId);
         if (chainId === 1029) {
-          const contract = new ethers.Contract(
-            dataDaoFactoryContract,
-            dataDaoFactory.abi,
+          const samhitaContract = new ethers.Contract(
+            samhitaAddress,
+            samhitaAbi,
             signer
           );
+          const isJoined = await samhitaContract.checkIsMemberAdded(address);
+          console.log(isJoined);
+          setIsJoined(isJoined);
+          const contract = new ethers.Contract(
+            languageFactoryAddress,
+            languageFactoryAbi,
+            signer
+          );
+          const dataDaos = await contract.getUserDataDaos(address);
+          console.log(dataDaos);
+          setDataDaos(dataDaos);
           console.log(contract);
-          return contract;
+          // const tokenAddress = ethers.utils.getAddress(
+          //   dataDaos.dataDAOTokenAddress
+          // );
+          // const tokenContract = new ethers.Contract(
+          //   dataDaos.dataDAOTokenAddress,
+          //   languageTokenAbi,
+          //   signer
+          // );
+          // console.log(tokenContract);
+          // return contract;
         } else {
           alert("Please connect to the BitTorrent Chain Donau!");
         }
@@ -56,13 +110,7 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
     } catch (error) {
       console.log(error);
     }
-  };
-
-  const getAllDataDaos = async () => {
-    const contract = await getContract();
-    const dataDaos = await contract.getUserDataDaos(address);
-    console.log(dataDaos);
-    setDataDaos(dataDaos);
+    // const contract = await getContract();
   };
 
   useEffect(() => {
@@ -93,9 +141,9 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
         <div className="all-datadao-main-div">
           <div className="all-datadao-div ">
             <div className="all-datadao-section1">
-              <h1 className="all-datadao-title">Your DataDAOs</h1>
+              <h1 className="all-datadao-title">Your Language DAOs</h1>
               <p className="all-datadao-subtext">
-                All the dataDAOs on the platform
+                {/* All the language DAOs on the platform */}
               </p>
             </div>
 
@@ -104,6 +152,90 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
                 <Grid container spacing={1}>
                   <Grid container item spacing={3}>
                     <React.Fragment>
+                    <Grid item xs={4}>
+                            {" "}
+                            <div className="proposal-details">
+                              <table>
+                                <thead>
+                                  <tr>
+                                    <th colSpan={2}>Samhita DAO</th>
+                                  </tr>
+                                </thead>
+                                <tr>
+                                  <td>
+                                    {" "}
+                                    <p className="proposal-header">
+                                      This is the samhita DAO{" "}
+                                    </p>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <div className="datadao-address">
+                                      <h3 className="proposal-info">
+                                        {" "}
+                                        Token Address : 0x3D79C81fa0EdE22A05Cd5D5AF089BCf214F39AcB
+                                      </h3>
+                                      <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        enable-background="new 0 0 24 24"
+                                        height="18px"
+                                        viewBox="0 0 24 24"
+                                        width="18px"
+                                        fill="#4c2ffd"
+                                        style={{
+                                          margin: "0px 20px",
+                                          cursor: "pointer",
+                                        }}
+                                        onClick={() =>
+                                          copyContent("0x246A9A278D74c69DE816905a3f6Fc9a3dFDB029d")
+                                        }
+                                      >
+                                        <g>
+                                          <rect
+                                            fill="none"
+                                            height="24"
+                                            width="24"
+                                          />
+                                        </g>
+                                        <g>
+                                          <path d="M15,20H5V7c0-0.55-0.45-1-1-1h0C3.45,6,3,6.45,3,7v13c0,1.1,0.9,2,2,2h10c0.55,0,1-0.45,1-1v0C16,20.45,15.55,20,15,20z M20,16V4c0-1.1-0.9-2-2-2H9C7.9,2,7,2.9,7,4v12c0,1.1,0.9,2,2,2h9C19.1,18,20,17.1,20,16z M18,16H9V4h9V16z" />
+                                        </g>
+                                      </svg>
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td style={{ textAlign: "center" }}>
+                                    <button
+                                      className="view-more-all-dao"
+                                      onClick={() => {
+                                        // setSingleYourDataDao(true);
+                                        // setYourDaos(false);
+                                        // setDaoAddress(dao.dataDaoAddress);
+                                        openDaoPage();
+                                      }}
+                                    >
+                                      View More
+                                    </button>
+                                    <div>
+                                      <img
+                                        className="view-more-btn"
+                                        src={Arrow}
+                                        alt="arrow"
+                                        onClick={() => {
+                                          // setSingleYourDataDao(true);
+                                          // setYourDaos(false);
+                                          // setDaoAddress(dao.dataDaoAddress);
+                                          openDaoPage();
+                                        }}
+                                      />
+                                    </div>
+                                  </td>
+                                </tr>
+                              </table>
+                            </div>
+                          </Grid>
                       {allDataDaos.length > 0 ? (
                         allDataDaos.map((dao, i) => (
                           <Grid item xs={4}>
@@ -127,7 +259,12 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
                                   <td>
                                     <div className="datadao-address">
                                       <h3 className="proposal-info">
-                                        {dao.dataDaoAddress.substring(0, 6) +
+                                        {" "}
+                                        Token Address :
+                                        {dao.dataDAOTokenAddress.substring(
+                                          0,
+                                          6
+                                        ) +
                                           "..." +
                                           dao.dataDaoAddress.substring(
                                             dao.dataDaoAddress.length - 5,

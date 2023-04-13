@@ -16,7 +16,6 @@ import languageDAOBytecode from "../../contracts/artifacts/LanguageDAOBytecode.j
 import { useAccount } from "wagmi";
 import { ConstructionOutlined } from "@mui/icons-material";
 
-const dataDaoFactoryContract = "0x0caC8C986452628Ed38483bcEE0D1cF85816946D";
 const languageFactoryAddress = "0x733A11b0cdBf8931614C4416548B74eeA1fbd0A4";
 
 function ReviewInfo({
