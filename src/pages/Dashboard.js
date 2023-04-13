@@ -472,15 +472,15 @@ function Dashboard() {
                   <div className="datadao-details-button">
                     <button
                       className="create-proposal-btn"
-                      onClick={handleOpen2}
+                      // onClick={() => navigate("/open-existing-data-dao/meet")}
                     >
-                      Create Proposal
+                      Buy Token
                     </button>
                     <button
                       className="create-proposal-btn"
-                      onClick={() => navigate("/open-existing-data-dao/meet")}
+                      onClick={handleOpen2}
                     >
-                      Start Meet
+                      Create Proposal
                     </button>
                   </div>
                 </div>
