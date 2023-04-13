@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {useNavigate} from "react-router-dom";
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -25,6 +26,10 @@ function ReviewInfo({
   setDataDaoDetails,
 }) {
   const { address } = useAccount();
+const [btnloading, setbtnloading] = useState(false);
+const navigate = useNavigate()
+
+
   const getContract = async () => {
     try {
       const { ethereum } = window;
@@ -94,6 +99,7 @@ function ReviewInfo({
   const signer = provider.getSigner();
 
   const luanchDataDao = async () => {
+   try{ setbtnloading(true)
     const contract = await getContract();
     console.log(contract);
     const tokenFactory = new ContractFactory(
@@ -129,7 +135,7 @@ function ReviewInfo({
     );
     const languageDaoAddress = languageContract.address;
     console.log(languageDaoAddress);
-    console.log("languagefactory deployed");
+    console.log("language factory deployed");
 
     const con = new ethers.Contract(tokenAddress, languageTokenAbi, signer);
     const tx1 = await con.transfer(
@@ -153,6 +159,12 @@ function ReviewInfo({
     );
     await tx.wait(); //dataDaoAddress,name, description, token, tokenPrice, totalSupply
     console.log(tx);
+    setbtnloading(false);
+    navigate("/your-daos")}
+    catch(error){
+      console.log(error)
+      setbtnloading(false)
+    }
   };
 
   console.log(dataDaoDetails);
@@ -343,7 +355,21 @@ function ReviewInfo({
             luanchDataDao();
           }}
         >
-          Launch DataDao
+          {btnloading ? (
+                <svg
+                  className="animate-spin button-spin-svg-pic"
+                  version="1.1"
+                  id="L9"
+                  xmlns="http://www.w3.org/2000/svg"
+                  x="0px"
+                  y="0px"
+                  viewBox="0 0 100 100"
+                >
+                  <path d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50"></path>
+                </svg>
+              ) : (
+                <>"Launch DataDAO"</>
+              )}
         </button>
       </div>
     </div>
