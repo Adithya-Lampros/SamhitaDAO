@@ -108,17 +108,17 @@ function DataDaoDetails({
               {dataDaoInfo.dataDaoDescription}
             </p>
             <div className="dao-details-flext">
-              <table className="dao-details-table ">
-                <thead className="text-center">
+              <table className="dao-details-table table-borderless ">
+                <thead className="text-center" >
                   <tr style={{borderRadius:"1.5rem 0 0 0 "}}>
-                    <th style={{borderRadius:"1.5rem 0 0 0 "}}>Token Name</th>
-                    <th style={{borderRadius:"0 1.5rem 0 0"}}>No of Tokens</th>
+                    <th style={{borderRadius:"1.5rem 0 0 0 ",fontWeight:"500"}}>Token Name</th>
+                    <th style={{borderRadius:"0 1.5rem 0 0",fontWeight:"500"}}>No of Tokens</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody >
                   <tr>
-                    <td>Something</td>
-                    <td>100</td>
+                    <td style={{borderRadius:"0 0 0 1.5rem "}}>Something</td>
+                    <td style={{borderRadius:"0 0 1.5rem 0 "}}>100</td>
                   </tr>
                 </tbody>
               </table>

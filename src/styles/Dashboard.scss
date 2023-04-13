@@ -7,6 +7,12 @@
   z-index: 1;
 }
 
+.dashboard-vector {
+  position: absolute;
+  z-index: 10;
+  top: 0;
+}
+
 .select-main {
   .select-header {
     font-family: "MuseoModerno";

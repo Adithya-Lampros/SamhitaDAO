@@ -243,7 +243,7 @@ function YourDataDaoDetails({
               <table className="dao-details-table">
                 <thead>
                   <tr>
-                    <th>Token Name</th>
+                    <td>Token Name</td>
                     <th>No of Tokens</th>
                   </tr>
                 </thead>

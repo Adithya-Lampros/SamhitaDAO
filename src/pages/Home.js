@@ -1,4 +1,4 @@
-import React,{ useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Home.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -10,7 +10,7 @@ import yellowCircle from "../assets/landingPage/yellow-circle.png";
 import purpleCircle from "../assets/landingPage/purple-circle.png";
 import orangeCircle from "../assets/landingPage/orange-circle.svg";
 import languageImage from "../assets/landingPage/language.svg";
-import mainHeroBg from "../assets/landingPage/main-hero-bg.svg"
+import mainHeroBg from "../assets/landingPage/main-hero-bg.svg";
 
 function Home() {
   const [isOpen, setIsOpen] = useState(false);
@@ -192,72 +192,76 @@ function Home() {
   };
   return (
     <>
-    <section className="hero-section">
-      <div className="main-hero">
-        
-        <div className="hero-bg-images">
+      <section className="hero-section">
+        <div className="main-hero">
+          <div className="hero-bg-images">
+            <img src={mainHeroBg} className="main-hero-orange-bg" />
+            <img src={orangeCurvedLines} className="orange-curved-lines" />
+            <img src={orangeSecondary} className="orange-secondary" />
+            <img src={yellowCircle} className="yellow-circle" />
+            <img src={purpleCircle} className="purple-circle" />
+            <img src={orangeCircle} className="orange-circle" />
+          </div>
+          <div className=" px-3 d-flex justify-content-center align-items-center">
+            <div className="hero-text-image d-flex  align-items-center">
+              <div className="hero-text  ">
+                <p className="hero-text-head">
+                  Welcome to <br /> SamhitaDAO
+                </p>
+                <p className="hero-sub-text">
+                  We preserve the Past for <br />
+                  Future
+                </p>
+                <button
+                  className="rounded-button button-to-join"
+                  onClick={() => setIsOpen(!isOpen)}
+                >
+                  <span className="hero-button-text"> Join SamhitaDAO </span>
+                  <span className="circle d-flex justify-content-center align-items-center ">
+                    <i className="fas fa-arrow-right"></i>
+                  </span>
+                </button>
 
-          <img src={mainHeroBg} className="main-hero-orange-bg" />
-          <img src={orangeCurvedLines} className="orange-curved-lines" />
-          <img src={orangeSecondary} className="orange-secondary" />
-          <img src={yellowCircle} className="yellow-circle" />
-          <img src={purpleCircle} className="purple-circle" />
-          <img src={orangeCircle} className="orange-circle" />
-        </div>
-        <div className=" px-3 d-flex justify-content-center align-items-center">
-          <div className="hero-text-image d-flex  align-items-center">
-            <div className="hero-text  ">
-              <p className="hero-text-head">
-                Welcome to <br /> SamhitaDAO
-              </p>
-              <p className="hero-sub-text">
-                We preserve the Past for <br />
-                Future
-              </p>
-              <button className="rounded-button button-to-join" onClick={() => setIsOpen(!isOpen)} >
-                <span className="hero-button-text"> Join SamhitaDAO </span>
-                <span className="circle d-flex justify-content-center align-items-center ">
-                  <i className="fas fa-arrow-right"></i>
-                </span>
-              </button>
-      
-          {isOpen && (
-            <>
-              <div className="popup-overlay" />
-              <div ref={popupRef} className="popup">
-                <div className="language-header">Language DAO</div>
-                <div className="hero-btns">
-                  <button
-                    className="create-dao-btn"
-                    onClick={() => openCreateDaoPage()}
-                  >
-                    Create DataDao
-                  </button>
-                  <button
-                    className="your-dao-btn"
-                    onClick={() => openYourdaos()}
-                  >
-                    Your DAOs
-                  </button>
-                  <button
-                    className="existing-dao-btn"
-                    onClick={() => openExistingDaoPage()}
-                  >
-                    Existing DataDao
-                  </button>
-                </div>
+                {isOpen && (
+                  <>
+                    <div className="popup-overlay" />
+                    <div ref={popupRef} className="popup">
+                      <div className="language-header">Language DAO</div>
+                      <div className="hero-btns">
+                        <button
+                          className="create-dao-btn"
+                          onClick={() => openCreateDaoPage()}
+                        >
+                          Create DataDao
+                        </button>
+                        <button
+                          className="your-dao-btn"
+                          onClick={() => openYourdaos()}
+                        >
+                          Your DAOs
+                        </button>
+                        <button
+                          className="existing-dao-btn"
+                          onClick={() => openExistingDaoPage()}
+                        >
+                          Existing DataDao
+                        </button>
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
-            </>
-          )}
-        
-            </div>
-            <div className="language-image-div text-center">
-              <img src={languageImage} className="language-image" />
+              <div className="language-image-div text-center">
+                <img
+                  src={languageImage}
+                  className="language-image"
+                  alt="LangImg"
+                />
+              </div>
             </div>
           </div>
         </div>
-        </div>
-        </section>
+      </section>
     </>
   );
 }
