@@ -86,20 +86,23 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
           );
           const dataDaos = await contract.getAllDataDaos();
           console.log(dataDaos);
-          setDataDaos(dataDaos);
           const user = await signer.getAddress();
-          let newData;
+          let newData = [];
           for (let i = 0; i < dataDaos.length; i++) {
             const contract = new ethers.Contract(
               dataDaos[i].dataDaoAddress,
               languageDAOAbi,
               signer
             );
-            console.log(dataDaos[i]);
             const joined = await contract.isMemberAdded(user);
-            newData = dataDaos.map((item) => ({ ...item, hasJoined: joined }));
+
+            newData.push(dataDaos.filter((item) => {return item.dataDaoAddress===dataDaos[i].dataDaoAddress}).map((item) => ({ ...item, hasJoined: joined })));
+            
+            console.log(newData);
+
           }
-          console.log(newData);
+          setDataDaos(newData);
+          // console.log(newData);
           // setHasJoinedDao(newData)
         } else {
           alert("Please connect to the BitTorrent Chain Donau!");
@@ -425,27 +428,27 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
                                 <table>
                                   <thead>
                                     <tr>
-                                      <th colSpan={2}>{dao.dataDaoName}</th>
+                                      <th colSpan={2}>{dao[0].dataDaoName}</th>
                                     </tr>
                                   </thead>
                                   <tr>
                                     <td>
-                                      <span>{dao.dataDaoDescription} </span>
+                                      <span>{dao[0].dataDaoDescription} </span>
                                     </td>
                                   </tr>
                                   <tr>
                                     <td>
                                       <div className="datadao-address">
                                         <p className=" my-auto">
-                                          {dao.dataDAOTokenAddress.substring(
+                                          {dao[0].dataDAOTokenAddress.substring(
                                             0,
                                             6
                                           ) +
                                             "..." +
-                                            dao.dataDAOTokenAddress.substring(
-                                              dao.dataDAOTokenAddress.length -
+                                            dao[0].dataDAOTokenAddress.substring(
+                                              dao[0].dataDAOTokenAddress.length -
                                                 5,
-                                              dao.dataDAOTokenAddress.length
+                                              dao[0].dataDAOTokenAddress.length
                                             )}
                                         </p>
                                         <svg
@@ -476,7 +479,7 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
                                           onClick={() => {
                                             setSingleDataDao(true);
                                             setDatadaos(false);
-                                            setDaoAddress(dao.dataDaoAddress);
+                                            setDaoAddress(dao[0].dataDaoAddress);
                                           }}
                                         >
                                           <span className="view-button-text">
@@ -487,7 +490,7 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
                                           </span>
                                         </button>
 
-                                        {!dao["hasJoined"] ? (
+                                        {!dao[0]["hasJoined"] ? (
                                           <button
                                             className="rounded-join-data-dao-button button-to-join"
                                             onClick={() => {
@@ -537,10 +540,11 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
                                                   className="rounded-join-data-dao-button button-to-join"
                                                   id="datadao-joinbtn"
                                                   onClick={() => {
+                                                    console.log("joi lan")
                                                     joinLanguageDAO(
-                                                      allDataDaos[daoKeyValue]
+                                                      allDataDaos[daoKeyValue][0]
                                                         .dataDaoAddress,
-                                                      allDataDaos[daoKeyValue]
+                                                      allDataDaos[daoKeyValue][0]
                                                         .dataDAOTokenAddress
                                                     );
                                                   }}
