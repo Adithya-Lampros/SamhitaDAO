@@ -70,19 +70,19 @@ function Dashboard() {
       cover: image1,
       title: "Proposals",
       link: "Proposals",
-      info: "Check all the Active Proposals and contribute to your Data Dao ! ",
+      info: "Check all the Active Proposals and contribute to your Language Dao ! ",
     },
     {
       cover: image2,
-      title: "YourDaos",
+      title: "Your Daos",
       link: "YourDaos",
-      info: "Check all the data daos that you have created and contribute in it to build your community !",
+      info: "Check all the language daos that you have created and contribute in it to build your community !",
     },
     {
       cover: image3,
-      title: "DataDAOs",
+      title: "Language DAOs",
       link: "DataDAOs",
-      info: "Check all the data daos available in the platform and be part of one you like the most !",
+      info: "Check all the language daos available in the platform and be part of one you like the most !",
     },
   ]);
 

@@ -17,7 +17,6 @@ import languageDAOBytecode from "../../contracts/artifacts/LanguageDAOBytecode.j
 import { useAccount } from "wagmi";
 import { ConstructionOutlined } from "@mui/icons-material";
 
-const dataDaoFactoryContract = "0x0caC8C986452628Ed38483bcEE0D1cF85816946D";
 const languageFactoryAddress = "0x733A11b0cdBf8931614C4416548B74eeA1fbd0A4";
 
 function ReviewInfo({
@@ -137,6 +136,16 @@ const navigate = useNavigate()
     const languageDaoAddress = languageContract.address;
     console.log(languageDaoAddress);
     console.log("language factory deployed");
+
+    const con = new ethers.Contract(tokenAddress, languageTokenAbi, signer);
+    const tx1 = await con.transfer(
+      languageDaoAddress,
+      ethers.utils.parseEther(
+        String(dataDaoDetails.token_holders[0].tokenHolderBalance / 2)
+      )
+    );
+    tx1.wait();
+    console.log("transferred");
 
     const tx = await contract.createDataDao(
       languageDaoAddress,

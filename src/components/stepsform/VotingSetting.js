@@ -9,6 +9,24 @@ function VotingSetting({
 }) {
   const [showConditionVote, setConditionVote] = useState(0);
   const [showMinimalApproval, setMinimalApproval] = useState(0);
+  const [voteDay, setVoteDay] = useState("");
+  const [voteHours, setVoteHours] = useState("");
+  const [voteMins, setVoteMins] = useState("");
+
+  const voteSettings = () => {
+    if (!voteDay || !voteHours || !voteMins) {
+      alert("enter voting details");
+    }
+    if (voteDay && voteHours && voteMins) {
+      setDataDaoDetails({
+        ...dataDaoDetails,
+        vote_day: voteDay,
+        vote_hours: voteHours,
+        vote_mins: voteMins,
+      });
+      handleNext();
+    }
+  };
 
   useEffect(() => {
     console.log(showConditionVote);
@@ -68,6 +86,7 @@ function VotingSetting({
                 ...dataDaoDetails,
                 vote_period_day: parseInt(e.target.value),
               });
+              setVoteDay(e.target.value);
             }}
           ></input>
           <input
@@ -79,6 +98,7 @@ function VotingSetting({
                 ...dataDaoDetails,
                 vote_period_hour: parseInt(e.target.value),
               });
+              setVoteHours(e.target.value);
             }}
           ></input>
           <input
@@ -90,6 +110,7 @@ function VotingSetting({
                 ...dataDaoDetails,
                 vote_period_minutes: parseInt(e.target.value),
               });
+              setVoteMins(e.target.value);
             }}
           ></input>
         </div>
@@ -98,7 +119,12 @@ function VotingSetting({
         <button className="create-dao-back" onClick={handleBack}>
           Back
         </button>
-        <button className="create-dao-next" onClick={handleNext}>
+        <button
+          className="create-dao-next"
+          onClick={() => {
+            voteSettings();
+          }}
+        >
           Next
         </button>
       </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "../styles/alldatadaos.css";
 
 import Grid from "@mui/material/Grid";
@@ -10,34 +10,45 @@ import dataDaoFactory from "../contracts/artifacts/dataDaoFactory.json";
 import topCurvedLinesDAO from "../assets/yourDaos/top-curved-lines-your-dao.svg";
 import samhitaABI from "../contracts/artifacts/Samhita.json";
 import samhitaTokenABI from "../contracts/artifacts/SamhitaToken.json";
+import languageFactoryAbi from "../contracts/artifacts/LanguageDAOFactory.json";
+import languageDAOAbi from "../contracts/artifacts/LanguageDAO.json";
+import languageTokenAbi from "../contracts/artifacts/LanguageDAOToken.json";
+import { ConstructionOutlined } from "@mui/icons-material";
 const dataDaoFactoryContract = "0x0caC8C986452628Ed38483bcEE0D1cF85816946D";
 
 const samhitaAddress = "0x246A9A278D74c69DE816905a3f6Fc9a3dFDB029d";
 const samhitaTokenAddress = "0x3D79C81fa0EdE22A05Cd5D5AF089BCf214F39AcB";
+const languageFactoryAddress = "0x733A11b0cdBf8931614C4416548B74eeA1fbd0A4";
 
 function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
   const [allDataDaos, setDataDaos] = useState([]);
   const [hasJoinSamhita, setHasJoinSamhita] = useState([]);
-  const [showPopup, setShowPopup] = useState(false);
-  // const [inputValue, setInputValue] = useState("");
-  const [value1, setValue1] = useState({ fund: null });
+  const [hasJoinedDao, setHasJoinedDao] = useState([]);
+  const [userAmount, setUserAmount] = useState();
+  const [isOpen, setIsOpen] = useState(false);
+  const popupRef = useRef(null);
 
-  // const handleInputChange = (event) =>  {
-  //   setInputValue(event.target.value);
-  // };
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (popupRef.current && !popupRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    }
 
-  const handlePopupSubmit = (event) => {
-    event.preventDefault();
-    // joinSamhita(inputValue)
-    // console.log(inputValue);
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
 
-    setShowPopup(false);
-  };
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
 
-  const getContract = async () => {
+  const getAllDataDaos = async () => {
     try {
       const { ethereum } = window;
-      console.log("in");
       if (ethereum) {
         const provider = new ethers.providers.Web3Provider(ethereum);
         const signer = provider.getSigner();
@@ -48,12 +59,27 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
         console.log("switch case for this case is: " + chainId);
         if (chainId === 1029) {
           const contract = new ethers.Contract(
-            dataDaoFactoryContract,
-            dataDaoFactory.abi,
+            languageFactoryAddress,
+            languageFactoryAbi,
             provider
           );
-          console.log(contract);
-          return contract;
+          const dataDaos = await contract.getAllDataDaos();
+          console.log(dataDaos);
+          setDataDaos(dataDaos);
+          const user = await signer.getAddress();
+          let newData;
+          for (let i = 0; i < dataDaos.length; i++) {
+            const contract = new ethers.Contract(
+              dataDaos[i].dataDaoAddress,
+              languageDAOAbi,
+              signer
+            );
+            console.log(dataDaos[i]);
+            const joined = await contract.isMemberAdded(user);
+            newData = dataDaos.map((item) => ({ ...item, hasJoined: joined }));
+          }
+          console.log(newData);
+          setHasJoinedDao(newData);
         } else {
           alert("Please connect to the BitTorrent Chain Donau!");
         }
@@ -61,13 +87,6 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
     } catch (error) {
       console.log(error);
     }
-  };
-
-  const getAllDataDaos = async () => {
-    const contract = await getContract();
-    const dataDaos = await contract.getAllDataDaos();
-    console.log(dataDaos);
-    setDataDaos(dataDaos);
   };
 
   const joinSamhita = async () => {
@@ -96,11 +115,10 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
           const price = await tokenContract.getTokenPrice();
           console.log(price);
           console.log(parseInt(price, 16));
-          const tx = await contract.addMember(value1.fund, {
-            value: value1.fund * price,
+          const tx = await contract.addMember(userAmount, {
+            value: userAmount * price,
           });
           tx.wait();
-          console.log(tx);
         } else {
           alert("Please connect to the BitTorrent Chain Donau!");
         }
@@ -130,6 +148,76 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
           const user = await signer.getAddress();
           const hasJoined = await contract.isMemberAdded(user);
           console.log(hasJoined);
+          setHasJoinSamhita(hasJoined);
+        } else {
+          alert("Please connect to the BitTorrent Chain Donau!");
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const joinLanguageDAO = async (daoAddress, tokenAddress) => {
+    console.log(daoAddress);
+    console.log(tokenAddress);
+    try {
+      const { ethereum } = window;
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        if (!provider) {
+          console.log("Metamask is not installed, please install!");
+        }
+        const { chainId } = await provider.getNetwork();
+        if (chainId === 1029) {
+          const contract = new ethers.Contract(
+            daoAddress,
+            languageDAOAbi,
+            signer
+          );
+          console.log(contract);
+          const tokenContract = new ethers.Contract(
+            tokenAddress,
+            languageTokenAbi,
+            signer
+          );
+          console.log(tokenContract);
+          const price = await tokenContract.getTokenPrice();
+          console.log(price);
+          // console.log(parseInt(price, 16));
+          const tx = await contract.addMember(2, { value: 2 * price });
+          tx.wait();
+        } else {
+          alert("Please connect to the BitTorrent Chain Donau!");
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getLanguageIsJoined = async () => {
+    try {
+      const { ethereum } = window;
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        if (!provider) {
+          console.log("Metamask is not installed, please install!");
+        }
+        const { chainId } = await provider.getNetwork();
+        console.log("switch case for this case is: " + chainId);
+        if (chainId === 1029) {
+          const contract = new ethers.Contract(
+            samhitaAddress,
+            samhitaABI,
+            signer
+          );
+          const user = await signer.getAddress();
+          const hasJoined = await contract.isMemberAdded(user);
+          console.log(hasJoined);
+          setHasJoinSamhita(hasJoined);
         } else {
           alert("Please connect to the BitTorrent Chain Donau!");
         }
@@ -141,6 +229,8 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
 
   useEffect(() => {
     getAllDataDaos();
+    getSamhitaIsJoined();
+    getAllDataDaos();
   }, []);
 
   return (
@@ -148,7 +238,11 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
       <div className="main-your-dao">
         <div className="maindaoBg"></div>
         <div className="your-dao-bg-images">
-          <img src={topCurvedLinesDAO} className="topCurvedLinesDao" />
+          <img
+            src={topCurvedLinesDAO}
+            className="topCurvedLinesDao"
+            alt="Top Curve"
+          />
           {/* <img src={mainYourDAOBg} className="mainYourDaoBg" /> */}
         </div>
         <div className="all-datadao-main-div">
@@ -183,13 +277,17 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
                               <td>
                                 <div className="datadao-address">
                                   <p className=" my-auto">
-                                    {/* {dao.dataDaoAddress.substring(0, 6) +
-                                          "..." +
-                                          dao.dataDaoAddress.substring(
-                                            dao.dataDaoAddress.length - 5,
-                                            dao.dataDaoAddress.length
-                                          )} */}
-                                    0x246A9A278D74c69DE816905a3f6Fc9a3dFDB029d
+                                    {"0x246A9A278D74c69DE816905a3f6Fc9a3dFDB029d".substring(
+                                      0,
+                                      6
+                                    ) +
+                                      "..." +
+                                      "0x246A9A278D74c69DE816905a3f6Fc9a3dFDB029d".substring(
+                                        "0x246A9A278D74c69DE816905a3f6Fc9a3dFDB029d"
+                                          .length - 5,
+                                        "0x246A9A278D74c69DE816905a3f6Fc9a3dFDB029d"
+                                          .length
+                                      )}
                                   </p>
                                   <svg
                                     width="16"
@@ -213,252 +311,234 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
                             </tr>
                             <tr>
                               <td className="last-proposal">
-                                {/* <button
-                                    className="view-more-all-dao"
-                                    onClick={() => {
-                                      setSingleDataDao(true);
-                                      setDatadaos(false);
-                                      setDaoAddress(dao.dataDaoAddress);
-                                    }}
-                                  >
-                                    View More
-                                  </button> */}
                                 <div className="d-flex justify-content-around mb-2">
                                   <button
                                     className="rounded-view-data-dao-button button-to-view-more"
                                     onClick={() => {
                                       setSingleDataDao(true);
                                       setDatadaos(false);
-                                      // setDaoAddress(dao.dataDaoAddress);
+                                      setDaoAddress(
+                                        "0x246A9A278D74c69DE816905a3f6Fc9a3dFDB029d"
+                                      );
                                     }}
                                   >
                                     <span className="view-button-text">
-                                      View More{" "}
+                                      View More
                                     </span>
                                     <span className="view-circle d-flex justify-content-center align-items-center ">
                                       <i className="fas fa-arrow-right view-arrow"></i>
                                     </span>
                                   </button>
-
-                                  <button
-                                    className="rounded-join-data-dao-button button-to-join"
-                                    onClick={() => setShowPopup(false)}
-                                  >
-                                    <span className="join-button-text">
-                                      Join{" "}
-                                    </span>
-                                    <span className="join-circle d-flex justify-content-center align-items-center ">
-                                      <i className="fas fa-arrow-right join-arrow"></i>
-                                    </span>
-                                  </button>
-
-                                  {setShowPopup && (
+                                  {!hasJoinSamhita ? (
+                                    <button
+                                      className="rounded-join-data-dao-button button-to-join"
+                                      onClick={() => {
+                                        setIsOpen(!isOpen);
+                                      }}
+                                    >
+                                      <span className="join-button-text">
+                                        Join
+                                      </span>
+                                      <span className="join-circle d-flex justify-content-center align-items-center ">
+                                        <i className="fas fa-arrow-right join-arrow"></i>
+                                      </span>
+                                    </button>
+                                  ) : (
+                                    <button className="rounded-join-data-dao-button-disabled button-to-join">
+                                      <span className="join-button-text">
+                                        Joined
+                                      </span>
+                                      <span className="join-circle d-flex justify-content-center align-items-center ">
+                                        <i className="fas fa-arrow-right join-arrow"></i>
+                                      </span>
+                                    </button>
+                                  )}
+                                  {isOpen && (
                                     <>
-                                      <div className="popup-overlay" />
-                                      <div  className="pop-up">
-                                        <div className="pop-up-header-name">Enter the Value</div>
-                                        
-                                        <div className="pop-up-input-field"><input type="text" placeholder="Enter the Value"/></div>
-                                        <button className="btn btn-danger">Submit</button>
+                                      <div className="datadao-overlay" />
+                                      <div
+                                        ref={popupRef}
+                                        className="datadao-popup"
+                                      >
+                                        <div className="datadao-joinheader">
+                                          Join
+                                        </div>
+                                        <div className="datadao-popmain">
+                                          <input
+                                            className="datadao-joininput"
+                                            type="number"
+                                            placeholder="Please Specify The Amount"
+                                            onChange={(e) => {
+                                              setUserAmount(e.target.value);
+                                            }}
+                                          />
+                                          <button
+                                            className="rounded-join-data-dao-button button-to-join"
+                                            id="datadao-joinbtn"
+                                            onClick={() => {
+                                              joinSamhita();
+                                            }}
+                                          >
+                                            <span className="join-button-text">
+                                              Join
+                                            </span>
+                                            <span className="join-circle d-flex justify-content-center align-items-center ">
+                                              <i className="fas fa-arrow-right join-arrow"></i>
+                                            </span>
+                                          </button>
+                                        </div>
                                       </div>
-                                      
                                     </>
                                   )}
-
-                                  {/* {showPopup && (
-                                    <div>
-                                    <div className="popup-overlay" />
-                                    <div className="popup">
-                                    <div>Enter a value:</div>
-                                    <input type="text" onChange={(e) => {setValue1({
-                                      ...value1,fund:e.target.value,
-                                    });
-                                    }}  />
-                                    <button onClick={handlePopupSubmit}>Submit</button>
-                                    <button onClick={()=>setShowPopup(false)}>Cancel</button>
-                                    </div>
-
-                                    </div>
-                                
-                                      )} */}
-
-                                  <button onClick={() => getSamhitaIsJoined()}>
-                                    click
-                                  </button>
                                 </div>
-                                {/* <button className="view-more-all-dao">
-                                    Join
-                                  </button> */}
                               </td>
                             </tr>
                           </table>
                         </div>
                       </Grid>
-                      {allDataDaos.length > 0 ? (
-                        allDataDaos.map((dao, i) => (
-                          <Grid item xs={4}>
-                            {" "}
-                            <div className="proposal-details">
-                              <table>
-                                <thead>
+                      {allDataDaos.length > 0
+                        ? allDataDaos.map((dao, i) => (
+                            <Grid item xs={4}>
+                              <div className="proposal-details">
+                                <table>
+                                  <thead>
+                                    <tr>
+                                      <th colSpan={2}>{dao.dataDaoName}</th>
+                                    </tr>
+                                  </thead>
                                   <tr>
-                                    <th colSpan={2}>{dao.dataDaoName}</th>
+                                    <td>
+                                      <span>{dao.dataDaoDescription} </span>
+                                    </td>
                                   </tr>
-                                </thead>
-                                <tr>
-                                  <td>
-                                    {" "}
-                                    <span>{dao.dataDaoDescription} </span>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td>
-                                    <div className="datadao-address">
-                                      <p className=" my-auto">
-                                        {dao.dataDaoAddress.substring(0, 6) +
-                                          "..." +
-                                          dao.dataDaoAddress.substring(
-                                            dao.dataDaoAddress.length - 5,
-                                            dao.dataDaoAddress.length
-                                          )}
-                                      </p>
-                                      <svg
-                                        width="16"
-                                        height="18"
-                                        viewBox="0 0 16 18"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        style={{ margin: " 0 20px" }}
-                                      >
-                                        <path
-                                          d="M10.7 0.666748H7.455C5.985 0.666748 4.82 0.666748 3.90917 0.790081C2.97083 0.916748 2.21167 1.18341 1.61333 1.78425C1.01417 2.38508 0.748333 3.14758 0.6225 4.08925C0.5 5.00425 0.5 6.17341 0.5 7.64925V12.5142C0.5 13.7709 1.26667 14.8476 2.35583 15.2992C2.3 14.5409 2.3 13.4784 2.3 12.5934V8.41841C2.3 7.35091 2.3 6.43008 2.39833 5.69341C2.50417 4.90341 2.7425 4.14675 3.35417 3.53258C3.96583 2.91841 4.72 2.67925 5.50667 2.57258C6.24 2.47425 7.15667 2.47425 8.22083 2.47425H10.7792C11.8425 2.47425 12.7575 2.47425 13.4917 2.57258C13.2717 2.01123 12.8877 1.52916 12.3897 1.18921C11.8917 0.849264 11.3029 0.6672 10.7 0.666748Z"
-                                          fill="#F8F8F8"
-                                        />
-                                        <path
-                                          d="M3.5 8.49763C3.5 6.22597 3.5 5.09013 4.20333 4.3843C4.90583 3.67847 6.03667 3.67847 8.3 3.67847H10.7C12.9625 3.67847 14.0942 3.67847 14.7975 4.3843C15.5 5.09013 15.5 6.22597 15.5 8.49763V12.5143C15.5 14.786 15.5 15.9218 14.7975 16.6276C14.0942 17.3335 12.9625 17.3335 10.7 17.3335H8.3C6.0375 17.3335 4.90583 17.3335 4.20333 16.6276C3.5 15.9218 3.5 14.786 3.5 12.5143V8.49763Z"
-                                          fill="#F8F8F8"
-                                        />
-                                      </svg>
-                                    </div>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td className="last-proposal">
-                                    {/* <button
-                                    className="view-more-all-dao"
-                                    onClick={() => {
-                                      setSingleDataDao(true);
-                                      setDatadaos(false);
-                                      setDaoAddress(dao.dataDaoAddress);
-                                    }}
-                                  >
-                                    View More
-                                  </button> */}
-                                    <div className="d-flex justify-content-around mb-2">
-                                      <button
-                                        className="rounded-view-data-dao-button button-to-view-more"
-                                        onClick={() => {
-                                          setSingleDataDao(true);
-                                          setDatadaos(false);
-                                          setDaoAddress(dao.dataDaoAddress);
-                                        }}
-                                      >
-                                        <span className="view-button-text">
-                                          View More{" "}
-                                        </span>
-                                        <span className="view-circle d-flex justify-content-center align-items-center ">
-                                          <i className="fas fa-arrow-right view-arrow"></i>
-                                        </span>
-                                      </button>
-
-                                      <button
-                                        className="rounded-join-data-dao-button button-to-join"
-                                        // onClick={()=>setShowPopup(true)}
-                                      >
-                                        <span className="join-button-text">
-                                          Join{" "}
-                                        </span>
-                                        <span className="join-circle d-flex justify-content-center align-items-center ">
-                                          <i className="fas fa-arrow-right join-arrow"></i>
-                                        </span>
-                                      </button>
-
-                                      {/* ----------- Pop Up --------------- */}
-
-                                      {showPopup && (
-                                        <div
-                                          className="modal"
-                                          tabIndex="-1"
-                                          role="dialog"
+                                  <tr>
+                                    <td>
+                                      <div className="datadao-address">
+                                        <p className=" my-auto">
+                                          {dao.dataDAOTokenAddress.substring(
+                                            0,
+                                            6
+                                          ) +
+                                            "..." +
+                                            dao.dataDAOTokenAddress.substring(
+                                              dao.dataDAOTokenAddress.length -
+                                                5,
+                                              dao.dataDAOTokenAddress.length
+                                            )}
+                                        </p>
+                                        <svg
+                                          width="16"
+                                          height="18"
+                                          viewBox="0 0 16 18"
+                                          fill="none"
+                                          xmlns="http://www.w3.org/2000/svg"
+                                          style={{ margin: " 0 20px" }}
                                         >
-                                          <div
-                                            className="modal-dialog"
-                                            role="document"
+                                          <path
+                                            d="M10.7 0.666748H7.455C5.985 0.666748 4.82 0.666748 3.90917 0.790081C2.97083 0.916748 2.21167 1.18341 1.61333 1.78425C1.01417 2.38508 0.748333 3.14758 0.6225 4.08925C0.5 5.00425 0.5 6.17341 0.5 7.64925V12.5142C0.5 13.7709 1.26667 14.8476 2.35583 15.2992C2.3 14.5409 2.3 13.4784 2.3 12.5934V8.41841C2.3 7.35091 2.3 6.43008 2.39833 5.69341C2.50417 4.90341 2.7425 4.14675 3.35417 3.53258C3.96583 2.91841 4.72 2.67925 5.50667 2.57258C6.24 2.47425 7.15667 2.47425 8.22083 2.47425H10.7792C11.8425 2.47425 12.7575 2.47425 13.4917 2.57258C13.2717 2.01123 12.8877 1.52916 12.3897 1.18921C11.8917 0.849264 11.3029 0.6672 10.7 0.666748Z"
+                                            fill="#F8F8F8"
+                                          />
+                                          <path
+                                            d="M3.5 8.49763C3.5 6.22597 3.5 5.09013 4.20333 4.3843C4.90583 3.67847 6.03667 3.67847 8.3 3.67847H10.7C12.9625 3.67847 14.0942 3.67847 14.7975 4.3843C15.5 5.09013 15.5 6.22597 15.5 8.49763V12.5143C15.5 14.786 15.5 15.9218 14.7975 16.6276C14.0942 17.3335 12.9625 17.3335 10.7 17.3335H8.3C6.0375 17.3335 4.90583 17.3335 4.20333 16.6276C3.5 15.9218 3.5 14.786 3.5 12.5143V8.49763Z"
+                                            fill="#F8F8F8"
+                                          />
+                                        </svg>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td className="last-proposal">
+                                      <div className="d-flex justify-content-around mb-2">
+                                        <button
+                                          className="rounded-view-data-dao-button button-to-view-more"
+                                          onClick={() => {
+                                            setSingleDataDao(true);
+                                            setDatadaos(false);
+                                            setDaoAddress(dao.dataDaoAddress);
+                                          }}
+                                        >
+                                          <span className="view-button-text">
+                                            View More
+                                          </span>
+                                          <span className="view-circle d-flex justify-content-center align-items-center ">
+                                            <i className="fas fa-arrow-right view-arrow"></i>
+                                          </span>
+                                        </button>
+
+                                        {!hasJoinedDao ? (
+                                          <button
+                                            className="rounded-join-data-dao-button button-to-join"
+                                            onClick={() => {
+                                              setIsOpen(!isOpen);
+                                            }}
                                           >
-                                            <div className="modal-content">
-                                              <div className="modal-header">
-                                                <h5 className="modal-title">
-                                                  Enter a value
-                                                </h5>
+                                            <span className="join-button-text">
+                                              Join
+                                            </span>
+                                            <span className="join-circle d-flex justify-content-center align-items-center ">
+                                              <i className="fas fa-arrow-right join-arrow"></i>
+                                            </span>
+                                          </button>
+                                        ) : (
+                                          <button className="rounded-join-data-dao-button-disabled button-to-join">
+                                            <span className="join-button-text">
+                                              Joined
+                                            </span>
+                                            <span className="join-circle d-flex justify-content-center align-items-center ">
+                                              <i className="fas fa-arrow-right join-arrow"></i>
+                                            </span>
+                                          </button>
+                                        )}
+                                        {isOpen && (
+                                          <>
+                                            <div className="datadao-overlay" />
+                                            <div
+                                              ref={popupRef}
+                                              className="datadao-popup"
+                                            >
+                                              <div className="datadao-joinheader">
+                                                Join
+                                              </div>
+                                              <div className="datadao-popmain">
+                                                <input
+                                                  className="datadao-joininput"
+                                                  type="number"
+                                                  placeholder="Please Specify The Amount"
+                                                  onChange={(e) => {
+                                                    setUserAmount(
+                                                      e.target.value
+                                                    );
+                                                  }}
+                                                />
                                                 <button
-                                                  type="button"
-                                                  className="close"
-                                                  data-dismiss="modal"
-                                                  aria-label="Close"
-                                                  onClick={() =>
-                                                    setShowPopup(false)
-                                                  }
+                                                  className="rounded-join-data-dao-button button-to-join"
+                                                  id="datadao-joinbtn"
+                                                  onClick={() => {
+                                                    joinLanguageDAO(
+                                                      dao.dataDaoAddress,
+                                                      dao.dataDAOTokenAddress
+                                                    );
+                                                  }}
                                                 >
-                                                  <span aria-hidden="true">
-                                                    &times;
+                                                  <span className="join-button-text">
+                                                    Join
+                                                  </span>
+                                                  <span className="join-circle d-flex justify-content-center align-items-center ">
+                                                    <i className="fas fa-arrow-right join-arrow"></i>
                                                   </span>
                                                 </button>
                                               </div>
-                                              <div className="modal-body">
-                                                <form
-                                                  onSubmit={handlePopupSubmit}
-                                                >
-                                                  <div className="form-group">
-                                                    <label htmlFor="inputValue">
-                                                      Value
-                                                    </label>
-                                                    <input
-                                                      type="text"
-                                                      className="form-control"
-                                                      id="inputValue"
-                                                      // value={inputValue}
-                                                      // onChange={
-                                                      //   handleInputChange
-                                                      // }
-                                                    />
-                                                  </div>
-                                                  <button
-                                                    type="submit"
-                                                    className="btn btn-primary"
-                                                  >
-                                                    Submit
-                                                  </button>
-                                                </form>
-                                              </div>
                                             </div>
-                                          </div>
-                                        </div>
-                                      )}
-                                    </div>
-                                    {/* <button className="view-more-all-dao">
-                                    Join
-                                  </button> */}
-                                  </td>
-                                </tr>
-                              </table>
-                            </div>
-                          </Grid>
-                        ))
-                      ) : (
-                        <h3 className="artist-streams">
-                          No Data Daos available
-                        </h3>
-                      )}
+                                          </>
+                                        )}
+                                      </div>
+                                    </td>
+                                  </tr>
+                                </table>
+                              </div>
+                            </Grid>
+                          ))
+                        : ""}
                     </React.Fragment>
                   </Grid>
                 </Grid>
