@@ -8,9 +8,15 @@ import { ContractFactory, ethers } from "ethers";
 import MembershipToken from "../../contracts/artifacts/DataDaoToken.json";
 import dataDaoInstace from "../../contracts/artifacts/dataDaoInstace.json";
 import dataDaoFactory from "../../contracts/artifacts/dataDaoFactory.json";
+import languageFactoryAbi from "../../contracts/artifacts/LanguageDAOFactory.json";
+import languageTokenAbi from "../../contracts/artifacts/LanguageDAOToken.json";
+import languageTokenBytecode from "../../contracts/artifacts/LanguageDAOTokenBytecode.json";
+import languageDAOAbi from "../../contracts/artifacts/LanguageDAO.json";
+import languageDAOBytecode from "../../contracts/artifacts/LanguageDAOBytecode.json";
 import { useAccount } from "wagmi";
 
 const dataDaoFactoryContract = "0x0caC8C986452628Ed38483bcEE0D1cF85816946D";
+const languageFactoryAddress = "0x733A11b0cdBf8931614C4416548B74eeA1fbd0A4";
 
 function ReviewInfo({
   handleNext,
@@ -32,8 +38,8 @@ function ReviewInfo({
         console.log("switch case for this case is: " + chainId);
         if (chainId === 1029) {
           const contract = new ethers.Contract(
-            dataDaoFactoryContract,
-            dataDaoFactory.abi,
+            languageFactoryAddress,
+            languageFactoryAbi,
             signer
           );
           return contract;
@@ -89,44 +95,44 @@ function ReviewInfo({
 
   const luanchDataDao = async () => {
     const contract = await getContract();
-    const tokecFactory = new ContractFactory(
-      MembershipToken.abi,
-      MembershipToken.data.bytecode,
+    console.log(contract);
+    const tokenFactory = new ContractFactory(
+      languageTokenAbi,
+      languageTokenBytecode.bytecode,
       signer
     );
-    const tokenContract = await tokecFactory.deploy(
+    const tokenContract = await tokenFactory.deploy(
       dataDaoDetails.token_name,
       dataDaoDetails.token_symbol,
-      10000
+      dataDaoDetails.token_holders[0].tokenHolderBalance
     );
-
+    await tokenContract.wait()
     const tokenAddress = tokenContract.address;
-
     console.log(tokenAddress);
-    const daoFactory = new ContractFactory(
-      dataDaoInstace.abi,
-      dataDaoInstace.data.bytecode,
+
+    const languageFactory = new ContractFactory(
+      languageDAOAbi,
+      languageDAOBytecode.bytecode,
       signer
     );
-    const daoContract = await daoFactory.deploy(
-      address,
-      tokenAddress,
-      dataDaoDetails.vote_condition,
-      dataDaoDetails.vote_minapproval,
-      votingPeriodEpoch,
-      0
+    const languageContract = await languageFactory.deploy(
+      "0x246A9A278D74c69DE816905a3f6Fc9a3dFDB029d",
+      "0x378fDf90216725F9684C00Bb0dbA8814fEfDB3a2",
+      tokenAddress
     );
-    const dataDaoAddress = daoContract.address;
+    await languageContract.wait()
+    const languageDaoAddress = languageContract.address;
+    console.log(languageDaoAddress)
 
     const tx = await contract.createDataDao(
-      dataDaoAddress,
+      languageDaoAddress,
       dataDaoDetails.name,
       dataDaoDetails.description,
       tokenAddress,
       0,
       dataDaoDetails.token_holders[0].tokenHolderBalance
     );
-    // await tx.wait(); //dataDaoAddress,name, description, token, tokenPrice, totalSupply
+    await tx.wait(); //dataDaoAddress,name, description, token, tokenPrice, totalSupply
     console.log(tx);
   };
 
