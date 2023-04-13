@@ -9,7 +9,9 @@ import { Box, Modal } from "@mui/material";
 import uploadfile from "../assets/upload.png";
 import languageFactoryAbi from "../contracts/artifacts/LanguageDAOFactory.json";
 import languageTokenAbi from "../contracts/artifacts/LanguageDAOToken.json";
+import languageDAOAbi from "../contracts/artifacts/LanguageDAO.json";
 import { sign } from "crypto";
+import { async } from "q";
 
 const dataDaoFactoryContract = "0x0caC8C986452628Ed38483bcEE0D1cF85816946D";
 const languageFactoryAddress = "0x733A11b0cdBf8931614C4416548B74eeA1fbd0A4";
@@ -42,6 +44,9 @@ function DataDaoDetails({
   const { ethereum } = window;
 
   const [dataDaoInfo, setDataDaoInfo] = useState([]);
+  const [name, setName] = useState([]);
+  const [userAmount, setUserAmount] = useState();
+  const [tokenAddress, setTokenAddress] = useState();
 
   const getDataDaos = async () => {
     try {
@@ -63,12 +68,54 @@ function DataDaoDetails({
           const dataDao = await contract.allDataDaos(daoAddress);
           setDataDaoInfo(dataDao);
           console.log(dataDao);
+          setTokenAddress(dataDao.dataDAOTokenAddress);
           const tokenContract = new ethers.Contract(
             dataDao.dataDAOTokenAddress,
             languageTokenAbi,
             signer
           );
+          const tokenName = await tokenContract.name();
+          console.log(tokenName);
+          setName(tokenName);
           console.log(tokenContract);
+        } else {
+          alert("Please connect to the BitTorrent Chain Donau!");
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const buyToken = async () => {
+    try {
+      console.log("in");
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        if (!provider) {
+          console.log("Metamask is not installed, please install!");
+        }
+        const { chainId } = await provider.getNetwork();
+        if (chainId === 1029) {
+          const contract = new ethers.Contract(
+            daoAddress,
+            languageDAOAbi,
+            signer
+          );
+          console.log(userAmount);
+          console.log(tokenAddress);
+          const tokenContract = new ethers.Contract(
+            tokenAddress,
+            languageTokenAbi,
+            signer
+          );
+          const price = await tokenContract.getTokenPrice();
+          console.log(price);
+          const tx = await contract.addMember(userAmount, {
+            value: userAmount * price,
+          });
+          tx.wait();
         } else {
           alert("Please connect to the BitTorrent Chain Donau!");
         }
@@ -136,19 +183,27 @@ function DataDaoDetails({
                 </thead>
                 <tbody>
                   <tr>
-                    <td style={{ borderRadius: "0 0 0 1.5rem " }}>Something</td>
+                    <td style={{ borderRadius: "0 0 0 1.5rem " }}>{name}</td>
                     <td style={{ borderRadius: "0 0 1.5rem 0 " }}>
                       {dataDaoInfo.dataDAOTokenAddress}
                     </td>
                     <td>
-                      <input type="Number" />
+                      <input
+                        type="Number"
+                        onChange={(e) => {
+                          setUserAmount(e.target.value);
+                        }}
+                      />
                     </td>
                   </tr>
                 </tbody>
               </table>
             </div>
             <div className="datadao-details-button ">
-              <button className="datadao-details-buyrequestbtn">
+              <button
+                className="datadao-details-buyrequestbtn"
+                onClick={() => buyToken()}
+              >
                 Buy Token
               </button>
             </div>
