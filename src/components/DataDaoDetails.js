@@ -28,6 +28,7 @@ function DataDaoDetails({
   const inputRefEnd = useRef();
   const fileInputRef = useRef();
   const [showCreateProposal, setCreateProposal] = useState(false);
+  const [btnloading, setbtnloading]= useState(false)
   const handleOpen2 = () => setCreateProposal(true);
   const handleClose2 = () => setCreateProposal(false);
 
@@ -89,6 +90,7 @@ function DataDaoDetails({
 
   const buyToken = async () => {
     try {
+      setbtnloading(true)
       console.log("in");
       if (ethereum) {
         const provider = new ethers.providers.Web3Provider(ethereum);
@@ -120,8 +122,10 @@ function DataDaoDetails({
           alert("Please connect to the BitTorrent Chain Donau!");
         }
       }
+      setbtnloading(false)
     } catch (error) {
       console.log(error);
+      setbtnloading(false)
     }
   };
 
@@ -194,15 +198,17 @@ function DataDaoDetails({
                 <tbody>
                   <tr>
                     <td style={{ borderRadius: "0 0 0 1.5rem " }}>{name}</td>
-                    <td style={{ borderRadius: "0 0 1.5rem 0 " }}>
+                    <td>
                       {dataDaoInfo.dataDAOTokenAddress}
                     </td>
-                    <td>
+                    <td style={{ borderRadius: "0 0 1.5rem 0" }}>
                       <input
                         type="Number"
                         onChange={(e) => {
                           setUserAmount(e.target.value);
                         }}
+                        className="enter-value "
+                        placeholder="Enter the Value"
                       />
                     </td>
                   </tr>
@@ -214,7 +220,21 @@ function DataDaoDetails({
                 className="datadao-details-buyrequestbtn"
                 onClick={() => buyToken()}
               >
-                Buy Token
+                {btnloading ? (
+                <svg
+                  className="animate-spin button-spin-svg-pic"
+                  version="1.1"
+                  id="L9"
+                  xmlns="http://www.w3.org/2000/svg"
+                  x="0px"
+                  y="0px"
+                  viewBox="0 0 100 100"
+                >
+                  <path d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50"></path>
+                </svg>
+              ) : (
+                <>Buy Token</>
+              )}
               </button>
             </div>
           </div>
