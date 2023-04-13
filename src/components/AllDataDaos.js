@@ -26,6 +26,7 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
   const [hasJoinedDao, setHasJoinedDao] = useState([]);
   const [userAmount, setUserAmount] = useState();
   const [isOpen, setIsOpen] = useState(false);
+  const [daoKeyValue, setDaoKeyValue] = useState();
   const popupRef = useRef(null);
 
   useEffect(() => {
@@ -79,7 +80,7 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
             newData = dataDaos.map((item) => ({ ...item, hasJoined: joined }));
           }
           console.log(newData);
-          setHasJoinedDao(newData);
+          // setHasJoinedDao(newData)
         } else {
           alert("Please connect to the BitTorrent Chain Donau!");
         }
@@ -186,7 +187,7 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
           const price = await tokenContract.getTokenPrice();
           console.log(price);
           // console.log(parseInt(price, 16));
-          const tx = await contract.addMember(2, { value: 2 * price });
+          const tx = await contract.addMember(2, { value: userAmount * price });
           tx.wait();
         } else {
           alert("Please connect to the BitTorrent Chain Donau!");
@@ -465,10 +466,11 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
                                           </span>
                                         </button>
 
-                                        {hasJoinedDao ? (
+                                        {dao["hasJoined"] ? (
                                           <button
                                             className="rounded-join-data-dao-button button-to-join"
                                             onClick={() => {
+                                              setDaoKeyValue(i);
                                               setIsOpen(!isOpen);
                                             }}
                                           >
@@ -515,8 +517,10 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
                                                   id="datadao-joinbtn"
                                                   onClick={() => {
                                                     joinLanguageDAO(
-                                                      dao.dataDaoAddress,
-                                                      dao.dataDAOTokenAddress
+                                                      allDataDaos[daoKeyValue]
+                                                        .dataDaoAddress,
+                                                      allDataDaos[daoKeyValue]
+                                                        .dataDAOTokenAddress
                                                     );
                                                   }}
                                                 >

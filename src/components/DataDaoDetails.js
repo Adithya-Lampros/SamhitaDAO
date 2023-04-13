@@ -139,7 +139,11 @@ function DataDaoDetails({
 
       <div className="maindaoBg"></div>
       <div className="your-dao-bg-images">
-        <img src={topCurvedLinesDAO} className="topCurvedLinesDao" />
+        <img
+          src={topCurvedLinesDAO}
+          className="topCurvedLinesDao"
+          alt="Top Curve"
+        />
         {/* <img src={mainYourDAOBg} className="mainYourDaoBg" /> */}
       </div>
       <div className="datadao-details-main-div">
@@ -181,11 +185,14 @@ function DataDaoDetails({
                     >
                       Token address
                     </th>
-                    <th style={{
+                    <th
+                      style={{
                         borderRadius: "0 1.5rem 0 0",
                         fontWeight: "500",
-                      }}>
-                        Number of Tokens</th>
+                      }}
+                    >
+                      Number of Tokens
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
