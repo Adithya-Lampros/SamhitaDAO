@@ -101,7 +101,7 @@ function Navbar() {
       position="static"
       sx={{
         backgroundColor: "transparent",
-        padding: "10px 10px 10px 50px",
+        padding: "10px 10px 10px 15px",
         position: "relative",
         zIndex: "50",
         boxShadow: "none",
