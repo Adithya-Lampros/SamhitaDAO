@@ -59,19 +59,19 @@ function Dashboard() {
       cover: image1,
       title: "Proposals",
       link: "Proposals",
-      info: "Check all the Active Proposals and contribute to your Data Dao ! ",
+      info: "Check all the Active Proposals and contribute to your Language Dao ! ",
     },
     {
       cover: image2,
       title: "YourDaos",
       link: "YourDaos",
-      info: "Check all the data daos that you have created and contribute in it to build your community !",
+      info: "Check all the language daos that you have created and contribute in it to build your community !",
     },
     {
       cover: image3,
-      title: "DataDAOs",
+      title: "LanguageDAOs",
       link: "DataDAOs",
-      info: "Check all the data daos available in the platform and be part of one you like the most !",
+      info: "Check all the language daos available in the platform and be part of one you like the most !",
     },
   ]);
 
@@ -178,9 +178,9 @@ function Dashboard() {
         {dashboard ? (
           <>
             <div className="select-main" id="right-db-inside">
-              <h1>Manage Your DataDAO</h1>
+              <h1>Manage Your Language DAO</h1>
               <p>Click on any datadao to open dashboard for that dao.</p>
-              <div className="templates-div">
+              <div className="temdplates-div">
                 {data.map((item, key) => {
                   return (
                     <Card
