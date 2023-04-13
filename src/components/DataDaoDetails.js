@@ -9,7 +9,7 @@ import { Box, Modal } from "@mui/material";
 import uploadfile from "../assets/upload.png";
 import languageFactoryAbi from "../contracts/artifacts/LanguageDAOFactory.json";
 import languageTokenAbi from "../contracts/artifacts/LanguageDAOToken.json";
-import { sign } from "crypto";
+// import { sign } from "crypto";
 
 const dataDaoFactoryContract = "0x0caC8C986452628Ed38483bcEE0D1cF85816946D";
 const languageFactoryAddress = "0x733A11b0cdBf8931614C4416548B74eeA1fbd0A4";
@@ -88,7 +88,11 @@ function DataDaoDetails({
 
       <div className="maindaoBg"></div>
       <div className="your-dao-bg-images">
-        <img src={topCurvedLinesDAO} className="topCurvedLinesDao" />
+        <img
+          src={topCurvedLinesDAO}
+          className="topCurvedLinesDao"
+          alt="Top Curve"
+        />
         {/* <img src={mainYourDAOBg} className="mainYourDaoBg" /> */}
       </div>
       <div className="datadao-details-main-div">

@@ -84,7 +84,8 @@
 .all-datadao-section2 {
   width: auto;
   margin: 0 auto;
-  margin-left: -15vh;
+  margin-left: 150px;
+  /* margin-left: -15vh; */
 }
 .dataDAo-details {
   width: 20%;
