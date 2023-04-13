@@ -45,10 +45,9 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
     };
   }, [isOpen]);
 
-  const getContract = async () => {
+  const getAllDataDaos = async () => {
     try {
       const { ethereum } = window;
-      console.log("in");
       if (ethereum) {
         const provider = new ethers.providers.Web3Provider(ethereum);
         const signer = provider.getSigner();
@@ -63,8 +62,22 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
             languageFactoryAbi,
             provider
           );
-          console.log(contract);
-          return contract;
+          const dataDaos = await contract.getAllDataDaos();
+          console.log(dataDaos);
+          setDataDaos(dataDaos);
+          const user = await signer.getAddress();
+          let newData;
+          for (let i = 0; i < dataDaos.length; i++) {
+            const contract = new ethers.Contract(
+              dataDaos[i].dataDaoAddress,
+              languageDAOAbi,
+              signer
+            );
+            console.log(dataDaos[i]);
+            const joined = await contract.isMemberAdded(user);
+            newData = dataDaos.map((item) => ({ ...item, hasJoined: joined }));
+          }
+          console.log(newData);
         } else {
           alert("Please connect to the BitTorrent Chain Donau!");
         }
@@ -72,13 +85,6 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
     } catch (error) {
       console.log(error);
     }
-  };
-
-  const getAllDataDaos = async () => {
-    const contract = await getContract();
-    const dataDaos = await contract.getAllDataDaos();
-    console.log(dataDaos);
-    setDataDaos(dataDaos);
   };
 
   const joinSamhita = async () => {
@@ -152,6 +158,7 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
 
   const joinLanguageDAO = async (daoAddress, tokenAddress) => {
     console.log(daoAddress);
+    console.log(tokenAddress);
     try {
       const { ethereum } = window;
       if (ethereum) {
@@ -177,8 +184,38 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
           const price = await tokenContract.getTokenPrice();
           console.log(price);
           // console.log(parseInt(price, 16));
-          const tx = await contract.addMember(1, { value: 1 * price });
+          const tx = await contract.addMember(2, { value: 2 * price });
           tx.wait();
+        } else {
+          alert("Please connect to the BitTorrent Chain Donau!");
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getLanguageIsJoined = async () => {
+    try {
+      const { ethereum } = window;
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        if (!provider) {
+          console.log("Metamask is not installed, please install!");
+        }
+        const { chainId } = await provider.getNetwork();
+        console.log("switch case for this case is: " + chainId);
+        if (chainId === 1029) {
+          const contract = new ethers.Contract(
+            samhitaAddress,
+            samhitaABI,
+            signer
+          );
+          const user = await signer.getAddress();
+          const hasJoined = await contract.isMemberAdded(user);
+          console.log(hasJoined);
+          setHasJoinSamhita(hasJoined);
         } else {
           alert("Please connect to the BitTorrent Chain Donau!");
         }
@@ -283,7 +320,9 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
                                     onClick={() => {
                                       setSingleDataDao(true);
                                       setDatadaos(false);
-                                      // setDaoAddress(dao.dataDaoAddress);
+                                      setDaoAddress(
+                                        "0x246A9A278D74c69DE816905a3f6Fc9a3dFDB029d"
+                                      );
                                     }}
                                   >
                                     <span className="view-button-text">

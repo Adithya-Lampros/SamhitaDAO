@@ -131,6 +131,16 @@ function ReviewInfo({
     console.log(languageDaoAddress);
     console.log("languagefactory deployed");
 
+    const con = new ethers.Contract(tokenAddress, languageTokenAbi, signer);
+    const tx1 = await con.transfer(
+      languageDaoAddress,
+      ethers.utils.parseEther(
+        String(dataDaoDetails.token_holders[0].tokenHolderBalance / 2)
+      )
+    );
+    tx1.wait();
+    console.log("transferred");
+
     const tx = await contract.createDataDao(
       languageDaoAddress,
       dataDaoDetails.name,
