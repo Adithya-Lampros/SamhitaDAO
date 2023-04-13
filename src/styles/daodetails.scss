@@ -224,11 +224,12 @@ table.dao-details-table thead th {
   color: #ff5731;
   padding: 0.5rem 0;
   border-bottom: 1px solid #ff5731;
-}
-table.dao-details-table thead th:first-of-type {
   border-right: 1px solid #ff5731;
-  
 }
+table.dao-details-table thead th:last-of-type {
+  border-right: none;
+}
+
 table.dao-details-table tbody td {
   background-color: #fff;
   font-family: "MuseoModerno";
@@ -239,9 +240,10 @@ table.dao-details-table tbody td {
   letter-spacing: 0.015em;
   color: #ff5731;
   padding: 0.5rem 1rem;
-}
-table.dao-details-table tbody td:first-of-type {
   border-right: 1px solid #ff5731;
+}
+table.dao-details-table tbody td:last-of-type {
+  border-right: none;
 }
 
 table.dataset-main-table {
@@ -272,6 +274,13 @@ table.dataset-main-table td {
   padding: 10px;
 }
 
+
+
+.enter-value{
+  border:2px solid #ff5731;
+  padding-left: 0.5rem;
+  border-radius: 0.7rem;
+}
 // ----- Data Dao Details Page Table Style ----------------------
 .dataDaoTablesBg {
   background: rgba(255, 87, 49, 0.41);

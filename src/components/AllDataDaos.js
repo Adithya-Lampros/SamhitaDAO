@@ -465,7 +465,7 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
                                           </span>
                                         </button>
 
-                                        {!hasJoinedDao ? (
+                                        {hasJoinedDao ? (
                                           <button
                                             className="rounded-join-data-dao-button button-to-join"
                                             onClick={() => {

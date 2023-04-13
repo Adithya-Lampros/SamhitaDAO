@@ -9,7 +9,7 @@ import { Box, Modal } from "@mui/material";
 import uploadfile from "../assets/upload.png";
 import languageFactoryAbi from "../contracts/artifacts/LanguageDAOFactory.json";
 import languageTokenAbi from "../contracts/artifacts/LanguageDAOToken.json";
-import { sign } from "crypto";
+// import { sign } from "crypto";
 
 const dataDaoFactoryContract = "0x0caC8C986452628Ed38483bcEE0D1cF85816946D";
 const languageFactoryAddress = "0x733A11b0cdBf8931614C4416548B74eeA1fbd0A4";
@@ -125,23 +125,28 @@ function DataDaoDetails({
                     </th>
                     <th
                       style={{
-                        borderRadius: "0 1.5rem 0 0",
                         fontWeight: "500",
                       }}
                     >
                       Token address
                     </th>
-                    <th>Number of Tokens</th>
+                    <th style={{
+                        borderRadius: "0 1.5rem 0 0",
+                        fontWeight: "500",
+                      }}>
+                        Number of Tokens</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td style={{ borderRadius: "0 0 0 1.5rem " }}>Something</td>
-                    <td style={{ borderRadius: "0 0 1.5rem 0 " }}>
+                    <td style={{ borderRadius: "0 0 0 1.5rem " }}> 
+                    Something
+                    </td>
+                    <td >
                       {dataDaoInfo.dataDAOTokenAddress}
                     </td>
-                    <td>
-                      <input type="Number" />
+                    <td style={{ borderRadius: "0 0 1.5rem 0 " }}>
+                      <input type="Number" className="enter-value" placeholder="Enter the Value" />
                     </td>
                   </tr>
                 </tbody>
