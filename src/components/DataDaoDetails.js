@@ -7,8 +7,12 @@ import topCurvedLinesDAO from "../assets/yourDaos/top-curved-lines-your-dao.svg"
 import { ContractFactory, ethers } from "ethers";
 import { Box, Modal } from "@mui/material";
 import uploadfile from "../assets/upload.png";
+import languageFactoryAbi from "../contracts/artifacts/LanguageDAOFactory.json";
+import languageTokenAbi from "../contracts/artifacts/LanguageDAOToken.json";
+import { sign } from "crypto";
 
 const dataDaoFactoryContract = "0x0caC8C986452628Ed38483bcEE0D1cF85816946D";
+const languageFactoryAddress = "0x733A11b0cdBf8931614C4416548B74eeA1fbd0A4";
 
 function DataDaoDetails({
   datadaos,
@@ -39,7 +43,7 @@ function DataDaoDetails({
 
   const [dataDaoInfo, setDataDaoInfo] = useState([]);
 
-  const getContract = async () => {
+  const getDataDaos = async () => {
     try {
       console.log("in");
       if (ethereum) {
@@ -52,12 +56,19 @@ function DataDaoDetails({
         console.log("switch case for this case is: " + chainId);
         if (chainId === 1029) {
           const contract = new ethers.Contract(
-            dataDaoFactoryContract,
-            dataDaoFactory.abi,
+            languageFactoryAddress,
+            languageFactoryAbi,
             provider
           );
-          console.log(contract);
-          return contract;
+          const dataDao = await contract.allDataDaos(daoAddress);
+          setDataDaoInfo(dataDao);
+          console.log(dataDao);
+          const tokenContract = new ethers.Contract(
+            dataDao.dataDAOTokenAddress,
+            languageTokenAbi,
+            signer
+          );
+          console.log(tokenContract);
         } else {
           alert("Please connect to the BitTorrent Chain Donau!");
         }
@@ -65,13 +76,6 @@ function DataDaoDetails({
     } catch (error) {
       console.log(error);
     }
-  };
-
-  const getDataDaos = async () => {
-    const contract = await getContract();
-    const dataDao = await contract.allDataDaos(daoAddress);
-    setDataDaoInfo(dataDao);
-    // console.log(dataDao);
   };
 
   useEffect(() => {
@@ -133,7 +137,9 @@ function DataDaoDetails({
                 <tbody>
                   <tr>
                     <td style={{ borderRadius: "0 0 0 1.5rem " }}>Something</td>
-                    <td style={{ borderRadius: "0 0 1.5rem 0 " }}>100</td>
+                    <td style={{ borderRadius: "0 0 1.5rem 0 " }}>
+                      {dataDaoInfo.dataDAOTokenAddress}
+                    </td>
                     <td>
                       <input type="Number" />
                     </td>
