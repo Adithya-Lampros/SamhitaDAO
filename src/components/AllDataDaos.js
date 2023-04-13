@@ -26,8 +26,10 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
   const [hasJoinedDao, setHasJoinedDao] = useState([]);
   const [userAmount, setUserAmount] = useState();
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenDAO, setIsOpenDAO] = useState(false);
   const [daoKeyValue, setDaoKeyValue] = useState();
   const popupRef = useRef(null);
+  const popupRefDAO = useRef(null);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -46,6 +48,24 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isOpen]);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (popupRefDAO.current && !popupRefDAO.current.contains(event.target)) {
+        setIsOpenDAO(false);
+      }
+    }
+
+    if (isOpenDAO) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpenDAO]);
 
   const getAllDataDaos = async () => {
     try {
@@ -472,7 +492,7 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
                                             className="rounded-join-data-dao-button button-to-join"
                                             onClick={() => {
                                               setDaoKeyValue(i);
-                                              setIsOpen(!isOpen);
+                                              setIsOpenDAO(!isOpenDAO);
                                             }}
                                           >
                                             <span className="join-button-text">
@@ -492,11 +512,11 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
                                             </span>
                                           </button>
                                         )}
-                                        {isOpen && (
+                                        {isOpenDAO && (
                                           <>
                                             <div className="datadao-overlay" />
                                             <div
-                                              ref={popupRef}
+                                              ref={popupRefDAO}
                                               className="datadao-popup"
                                             >
                                               <div className="datadao-joinheader">

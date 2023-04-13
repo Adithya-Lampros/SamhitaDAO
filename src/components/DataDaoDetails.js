@@ -217,7 +217,7 @@ function DataDaoDetails({
             </div>
             <div className="datadao-details-button ">
               <button
-                className="datadao-details-buyrequestbtn"
+                className="datadao-details-buyrequestbtn text-center"
                 onClick={() => buyToken()}
               >
                 {btnloading ? (
