@@ -26,8 +26,7 @@ import uploadfile from "../assets/upload.png";
 import dataDaoFactory from "../contracts/artifacts/dataDaoFactory.json";
 import dataDaoInstace from "../contracts/artifacts/dataDaoInstace.json";
 import Dash1 from "../assets/Dash1.svg";
-import Dash2 from "../assets/Dash2.svg";
-import Dash3 from "../assets/Dash3.svg";
+import Vector4 from "../assets/Vector4.svg";
 
 const dataDaoFactoryContract = "0x0caC8C986452628Ed38483bcEE0D1cF85816946D";
 
@@ -291,6 +290,7 @@ function Dashboard() {
     return (
       <div className="dashboard-main">
         <div className="dashboard-bg"></div>
+        <img className="dashboard-vector" src={Vector4} alt="Vector 4" />
         <div className="left-db">
           <ul>
             <li
@@ -444,16 +444,16 @@ function Dashboard() {
                   </p>
                   <div className="dao-details-flext">
                     <table className="dao-details-table">
-                      <thead>
-                        <tr>
-                          <th>Token Name</th>
-                          <th>No of Tokens</th>
-                        </tr>
-                      </thead>
                       <tbody>
                         <tr>
-                          <td>DMS</td>
-                          <td>100000</td>
+                          <td id="top1">Token Name</td>
+                          <td id="top2">No of Tokens</td>
+                        </tr>
+                      </tbody>
+                      <tbody>
+                        <tr>
+                          <td id="bottom1">DMS</td>
+                          <td id="bottom2">100000</td>
                         </tr>
                       </tbody>
                     </table>

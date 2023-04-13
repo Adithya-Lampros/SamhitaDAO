@@ -144,7 +144,9 @@ function AvailabelProposal() {
                     <table>
                       <thead>
                         <tr>
-                          <th className="proposal-details-head text-center" >MusicCaps</th>
+                          <th className="proposal-details-head text-center">
+                            MusicCaps
+                          </th>
                         </tr>
                       </thead>
                       <tbody>
@@ -158,7 +160,6 @@ function AvailabelProposal() {
                         <tr>
                           <td>
                             <button className="uploadfile">
-                              {" "}
                               View Uploaded file
                             </button>
                           </td>
@@ -173,8 +174,21 @@ function AvailabelProposal() {
                         </tr>
                         <tr>
                           <td className="vote-btns">
-                            <button className="up-vote-btn">Up Vote</button>
-                            <button className="down-vote-btn">Down Vote</button>
+                            <button className="rounded-view-data-dao-button button-to-view-more">
+                              <span className="view-button-text">Up Vote</span>
+                              <span className="view-circle d-flex justify-content-center align-items-center ">
+                                <i className="fas fa-arrow-right view-arrow"></i>
+                              </span>
+                            </button>
+                            <button className="rounded-join-data-dao-button button-to-join">
+                              {" "}
+                              <span className="join-button-text">
+                                Down Vote
+                              </span>
+                              <span className="join-circle d-flex justify-content-center align-items-center ">
+                                <i className="fas fa-arrow-right join-arrow"></i>
+                              </span>
+                            </button>
                           </td>
                         </tr>
                       </tbody>

@@ -136,7 +136,7 @@ button.view-more-all-dao {
   position: absolute;
   z-index: 22;
   top: 0;
-  left:0;
+  left: 0;
 }
 
 .mainYourDaoBg {
@@ -158,7 +158,7 @@ button.view-more-all-dao {
   background-color: #fff;
   color: #ff6054;
   border: none;
-  width: 45%;
+  width: 150px;
   position: relative;
   overflow: hidden;
   cursor: pointer;
@@ -174,7 +174,7 @@ button.view-more-all-dao {
   color: #fff;
   background-color: #ff5f00;
   border: none;
-  width: 25%;
+  width: 150px;
   position: relative;
   overflow: hidden;
   cursor: pointer;
