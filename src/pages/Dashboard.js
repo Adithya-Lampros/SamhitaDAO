@@ -447,13 +447,24 @@ function Dashboard() {
                       <tbody>
                         <tr>
                           <td id="top1">Token Name</td>
+                          <td id="" className="text-center" style={{borderBottom:"1px solid #ff5731"}}>Token Address</td>
                           <td id="top2">No of Tokens</td>
                         </tr>
                       </tbody>
                       <tbody>
                         <tr>
                           <td id="bottom1">DMS</td>
-                          <td id="bottom2">100000</td>
+                          <td id="">0x000000000000000000000000</td>
+                          <td id="bottom2">
+                          <input
+                        type="Number"
+                        // onChange={(e) => {
+                        //   setUserAmount(e.target.value);
+                        // }}
+                        className="enter-value "
+                        placeholder="Enter the Value"
+                      />
+                          </td>
                         </tr>
                       </tbody>
                     </table>
@@ -461,15 +472,15 @@ function Dashboard() {
                   <div className="datadao-details-button">
                     <button
                       className="create-proposal-btn"
-                      onClick={handleOpen2}
+                      // onClick={() => navigate("/open-existing-data-dao/meet")}
                     >
-                      Create Proposal
+                      Buy Token
                     </button>
                     <button
                       className="create-proposal-btn"
-                      onClick={() => navigate("/open-existing-data-dao/meet")}
+                      onClick={handleOpen2}
                     >
-                      Start Meet
+                      Create Proposal
                     </button>
                   </div>
                 </div>
