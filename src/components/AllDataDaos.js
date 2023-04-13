@@ -18,6 +18,21 @@ const samhitaTokenAddress = "0x3D79C81fa0EdE22A05Cd5D5AF089BCf214F39AcB";
 function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
   const [allDataDaos, setDataDaos] = useState([]);
   const [hasJoinSamhita, setHasJoinSamhita] = useState([]);
+  const [showPopup, setShowPopup] = useState(false);
+  // const [inputValue, setInputValue] = useState("");
+  const [value1, setValue1] = useState({ fund: null });
+
+  // const handleInputChange = (event) => {
+  //   setInputValue(event.target.value);
+  // };
+
+  const handlePopupSubmit = (event) => {
+    event.preventDefault();
+    // joinSamhita(inputValue)
+    // console.log(inputValue);
+
+    setShowPopup(false);
+  };
 
   const getContract = async () => {
     try {
@@ -81,8 +96,11 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
           const price = await tokenContract.getTokenPrice();
           console.log(price);
           console.log(parseInt(price, 16));
-          const tx = await contract.addMember(1, { value: 1 * price });
+          const tx = await contract.addMember(value1.fund, {
+            value: value1.fund * price,
+          });
           tx.wait();
+          console.log(tx);
         } else {
           alert("Please connect to the BitTorrent Chain Donau!");
         }
@@ -111,7 +129,7 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
           );
           const user = await signer.getAddress();
           const hasJoined = await contract.isMemberAdded(user);
-          console.log(hasJoined)
+          console.log(hasJoined);
         } else {
           alert("Please connect to the BitTorrent Chain Donau!");
         }
@@ -224,7 +242,7 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
 
                                   <button
                                     className="rounded-join-data-dao-button button-to-join"
-                                    onClick={() => joinSamhita()}
+                                    onClick={() => setShowPopup(false)}
                                   >
                                     <span className="join-button-text">
                                       Join{" "}
@@ -233,6 +251,37 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
                                       <i className="fas fa-arrow-right join-arrow"></i>
                                     </span>
                                   </button>
+
+                                  {setShowPopup && (
+                                    <>
+                                      <div className="popup-overlay" />
+                                      <div  className="pop-up">
+                                        <div className="pop-up-header-name">Enter the Value</div>
+                                        
+                                        <div className="pop-up-input-field"><input type="text" placeholder="Enter the Value"/></div>
+                                        <button className="btn btn-danger">Submit</button>
+                                      </div>
+                                      
+                                    </>
+                                  )}
+
+                                  {/* {showPopup && (
+                                    <div>
+                                    <div className="popup-overlay" />
+                                    <div className="popup">
+                                    <div>Enter a value:</div>
+                                    <input type="text" onChange={(e) => {setValue1({
+                                      ...value1,fund:e.target.value,
+                                    });
+                                    }}  />
+                                    <button onClick={handlePopupSubmit}>Submit</button>
+                                    <button onClick={()=>setShowPopup(false)}>Cancel</button>
+                                    </div>
+
+                                    </div>
+                                
+                                      )} */}
+
                                   <button onClick={() => getSamhitaIsJoined()}>
                                     click
                                   </button>
@@ -322,7 +371,10 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
                                         </span>
                                       </button>
 
-                                      <button className="rounded-join-data-dao-button button-to-join">
+                                      <button
+                                        className="rounded-join-data-dao-button button-to-join"
+                                        // onClick={()=>setShowPopup(true)}
+                                      >
                                         <span className="join-button-text">
                                           Join{" "}
                                         </span>
@@ -330,6 +382,68 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
                                           <i className="fas fa-arrow-right join-arrow"></i>
                                         </span>
                                       </button>
+
+                                      {/* ----------- Pop Up --------------- */}
+
+                                      {showPopup && (
+                                        <div
+                                          className="modal"
+                                          tabIndex="-1"
+                                          role="dialog"
+                                        >
+                                          <div
+                                            className="modal-dialog"
+                                            role="document"
+                                          >
+                                            <div className="modal-content">
+                                              <div className="modal-header">
+                                                <h5 className="modal-title">
+                                                  Enter a value
+                                                </h5>
+                                                <button
+                                                  type="button"
+                                                  className="close"
+                                                  data-dismiss="modal"
+                                                  aria-label="Close"
+                                                  onClick={() =>
+                                                    setShowPopup(false)
+                                                  }
+                                                >
+                                                  <span aria-hidden="true">
+                                                    &times;
+                                                  </span>
+                                                </button>
+                                              </div>
+                                              <div className="modal-body">
+                                                <form
+                                                  onSubmit={handlePopupSubmit}
+                                                >
+                                                  <div className="form-group">
+                                                    <label htmlFor="inputValue">
+                                                      Value
+                                                    </label>
+                                                    <input
+                                                      type="text"
+                                                      className="form-control"
+                                                      id="inputValue"
+                                                      // value={inputValue}
+                                                      // onChange={
+                                                      //   handleInputChange
+                                                      // }
+                                                    />
+                                                  </div>
+                                                  <button
+                                                    type="submit"
+                                                    className="btn btn-primary"
+                                                  >
+                                                    Submit
+                                                  </button>
+                                                </form>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      )}
                                     </div>
                                     {/* <button className="view-more-all-dao">
                                     Join
