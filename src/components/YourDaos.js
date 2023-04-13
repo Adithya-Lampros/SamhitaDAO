@@ -6,8 +6,11 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import Arrow from "../assets/Arrow.svg";
-
 import Box from "@mui/material/Box";
+import Tab from "@mui/material/Tab";
+import TabContext from "@mui/lab/TabContext";
+import TabList from "@mui/lab/TabList";
+import TabPanel from "@mui/lab/TabPanel";
 import Button from "@mui/material/Button";
 import { ContractFactory, ethers } from "ethers";
 import { ToastContainer, toast } from "react-toastify";
@@ -33,6 +36,11 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
   const [allDataDaos, setDataDaos] = useState([]);
   const { address, isConnected } = useAccount();
   const [isJoined, setIsJoined] = useState();
+  const [value, setValue] = React.useState("1");
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
 
   // const getContract = async () => {
   //   try {
@@ -142,205 +150,226 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
           <div className="all-datadao-div ">
             <div className="all-datadao-section1">
               <h1 className="all-datadao-title">Your Language DAOs</h1>
+              <Box sx={{ width: "100%", typography: "body1" }}>
+                <TabContext value={value}>
+                  <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                    <TabList
+                      onChange={handleChange}
+                      aria-label="lab API tabs example"
+                    >
+                      <Tab label="Item One" value="1" />
+                      <Tab label="Item Two" value="2" />
+                    </TabList>
+                  </Box>
+                  <TabPanel value="1">
+                    {" "}
+                    <Grid item xs={4}>
+                      {" "}
+                      <div className="proposal-details">
+                        <table>
+                          <thead>
+                            <tr>
+                              <th colSpan={2}>Samhita DAO</th>
+                            </tr>
+                          </thead>
+                          <tr>
+                            <td>
+                              {" "}
+                              <p className="proposal-header">
+                                This is the samhita DAO
+                              </p>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div className="datadao-address">
+                                <h3 className="proposal-info">
+                                  {" "}
+                                  Token Address :
+                                  0x3D79C81fa0EdE22A05Cd5D5AF089BCf214F39AcB
+                                </h3>
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  enable-background="new 0 0 24 24"
+                                  height="18px"
+                                  viewBox="0 0 24 24"
+                                  width="18px"
+                                  fill="#4c2ffd"
+                                  style={{
+                                    margin: "0px 20px",
+                                    cursor: "pointer",
+                                  }}
+                                  onClick={() =>
+                                    copyContent(
+                                      "0x246A9A278D74c69DE816905a3f6Fc9a3dFDB029d"
+                                    )
+                                  }
+                                >
+                                  <g>
+                                    <rect fill="none" height="24" width="24" />
+                                  </g>
+                                  <g>
+                                    <path d="M15,20H5V7c0-0.55-0.45-1-1-1h0C3.45,6,3,6.45,3,7v13c0,1.1,0.9,2,2,2h10c0.55,0,1-0.45,1-1v0C16,20.45,15.55,20,15,20z M20,16V4c0-1.1-0.9-2-2-2H9C7.9,2,7,2.9,7,4v12c0,1.1,0.9,2,2,2h9C19.1,18,20,17.1,20,16z M18,16H9V4h9V16z" />
+                                  </g>
+                                </svg>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style={{ textAlign: "center" }}>
+                              <button
+                                className="view-more-all-dao"
+                                onClick={() => {
+                                  // setSingleYourDataDao(true);
+                                  // setYourDaos(false);
+                                  // setDaoAddress(dao.dataDaoAddress);
+                                  openDaoPage();
+                                }}
+                              >
+                                View More
+                              </button>
+                              <div>
+                                <img
+                                  className="view-more-btn"
+                                  src={Arrow}
+                                  alt="arrow"
+                                  onClick={() => {
+                                    // setSingleYourDataDao(true);
+                                    // setYourDaos(false);
+                                    // setDaoAddress(dao.dataDaoAddress);
+                                    openDaoPage();
+                                  }}
+                                />
+                              </div>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </Grid>
+                  </TabPanel>
+                  <TabPanel value="2">
+                    {" "}
+                    <div className="all-datadao-section2">
+                      <Box sx={{ flexGrow: 1 }}>
+                        <Grid container spacing={1}>
+                          <Grid container item spacing={3}>
+                            <React.Fragment>
+                              {allDataDaos.length > 0
+                                ? allDataDaos.map((dao, i) => (
+                                    <Grid item xs={4}>
+                                      {" "}
+                                      <div className="proposal-details">
+                                        <table>
+                                          <thead>
+                                            <tr>
+                                              <th colSpan={2}>
+                                                {dao.dataDaoName}
+                                              </th>
+                                            </tr>
+                                          </thead>
+                                          <tr>
+                                            <td>
+                                              {" "}
+                                              <p className="proposal-header">
+                                                {dao.dataDaoDescription}{" "}
+                                              </p>
+                                            </td>
+                                          </tr>
+                                          <tr>
+                                            <td>
+                                              <div className="datadao-address">
+                                                <h3 className="proposal-info">
+                                                  {" "}
+                                                  Token Address :
+                                                  {dao.dataDAOTokenAddress.substring(
+                                                    0,
+                                                    6
+                                                  ) +
+                                                    "..." +
+                                                    dao.dataDaoAddress.substring(
+                                                      dao.dataDaoAddress
+                                                        .length - 5,
+                                                      dao.dataDaoAddress.length
+                                                    )}
+                                                </h3>
+                                                <svg
+                                                  xmlns="http://www.w3.org/2000/svg"
+                                                  enable-background="new 0 0 24 24"
+                                                  height="18px"
+                                                  viewBox="0 0 24 24"
+                                                  width="18px"
+                                                  fill="#4c2ffd"
+                                                  style={{
+                                                    margin: "0px 20px",
+                                                    cursor: "pointer",
+                                                  }}
+                                                  onClick={() =>
+                                                    copyContent(
+                                                      dao.dataDaoAddress
+                                                    )
+                                                  }
+                                                >
+                                                  <g>
+                                                    <rect
+                                                      fill="none"
+                                                      height="24"
+                                                      width="24"
+                                                    />
+                                                  </g>
+                                                  <g>
+                                                    <path d="M15,20H5V7c0-0.55-0.45-1-1-1h0C3.45,6,3,6.45,3,7v13c0,1.1,0.9,2,2,2h10c0.55,0,1-0.45,1-1v0C16,20.45,15.55,20,15,20z M20,16V4c0-1.1-0.9-2-2-2H9C7.9,2,7,2.9,7,4v12c0,1.1,0.9,2,2,2h9C19.1,18,20,17.1,20,16z M18,16H9V4h9V16z" />
+                                                  </g>
+                                                </svg>
+                                              </div>
+                                            </td>
+                                          </tr>
+                                          <tr>
+                                            <td style={{ textAlign: "center" }}>
+                                              <button
+                                                className="view-more-all-dao"
+                                                onClick={() => {
+                                                  // setSingleYourDataDao(true);
+                                                  // setYourDaos(false);
+                                                  // setDaoAddress(dao.dataDaoAddress);
+                                                  openDaoPage();
+                                                }}
+                                              >
+                                                View More
+                                              </button>
+                                              <div>
+                                                <img
+                                                  className="view-more-btn"
+                                                  src={Arrow}
+                                                  alt="arrow"
+                                                  onClick={() => {
+                                                    // setSingleYourDataDao(true);
+                                                    // setYourDaos(false);
+                                                    // setDaoAddress(dao.dataDaoAddress);
+                                                    openDaoPage();
+                                                  }}
+                                                />
+                                              </div>
+                                            </td>
+                                          </tr>
+                                        </table>
+                                      </div>
+                                    </Grid>
+                                  ))
+                                : // <h3 className="artist-streams">
+                                  //   No Data Daos available
+                                  // </h3>
+                                  ""}
+                            </React.Fragment>
+                          </Grid>
+                        </Grid>
+                      </Box>
+                    </div>
+                  </TabPanel>
+                </TabContext>
+              </Box>
               <p className="all-datadao-subtext">
                 {/* All the language DAOs on the platform */}
               </p>
-            </div>
-
-            <div className="all-datadao-section2">
-              <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={1}>
-                  <Grid container item spacing={3}>
-                    <React.Fragment>
-                    <Grid item xs={4}>
-                            {" "}
-                            <div className="proposal-details">
-                              <table>
-                                <thead>
-                                  <tr>
-                                    <th colSpan={2}>Samhita DAO</th>
-                                  </tr>
-                                </thead>
-                                <tr>
-                                  <td>
-                                    {" "}
-                                    <p className="proposal-header">
-                                      This is the samhita DAO{" "}
-                                    </p>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td>
-                                    <div className="datadao-address">
-                                      <h3 className="proposal-info">
-                                        {" "}
-                                        Token Address : 0x3D79C81fa0EdE22A05Cd5D5AF089BCf214F39AcB
-                                      </h3>
-                                      <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        enable-background="new 0 0 24 24"
-                                        height="18px"
-                                        viewBox="0 0 24 24"
-                                        width="18px"
-                                        fill="#4c2ffd"
-                                        style={{
-                                          margin: "0px 20px",
-                                          cursor: "pointer",
-                                        }}
-                                        onClick={() =>
-                                          copyContent("0x246A9A278D74c69DE816905a3f6Fc9a3dFDB029d")
-                                        }
-                                      >
-                                        <g>
-                                          <rect
-                                            fill="none"
-                                            height="24"
-                                            width="24"
-                                          />
-                                        </g>
-                                        <g>
-                                          <path d="M15,20H5V7c0-0.55-0.45-1-1-1h0C3.45,6,3,6.45,3,7v13c0,1.1,0.9,2,2,2h10c0.55,0,1-0.45,1-1v0C16,20.45,15.55,20,15,20z M20,16V4c0-1.1-0.9-2-2-2H9C7.9,2,7,2.9,7,4v12c0,1.1,0.9,2,2,2h9C19.1,18,20,17.1,20,16z M18,16H9V4h9V16z" />
-                                        </g>
-                                      </svg>
-                                    </div>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td style={{ textAlign: "center" }}>
-                                    <button
-                                      className="view-more-all-dao"
-                                      onClick={() => {
-                                        // setSingleYourDataDao(true);
-                                        // setYourDaos(false);
-                                        // setDaoAddress(dao.dataDaoAddress);
-                                        openDaoPage();
-                                      }}
-                                    >
-                                      View More
-                                    </button>
-                                    <div>
-                                      <img
-                                        className="view-more-btn"
-                                        src={Arrow}
-                                        alt="arrow"
-                                        onClick={() => {
-                                          // setSingleYourDataDao(true);
-                                          // setYourDaos(false);
-                                          // setDaoAddress(dao.dataDaoAddress);
-                                          openDaoPage();
-                                        }}
-                                      />
-                                    </div>
-                                  </td>
-                                </tr>
-                              </table>
-                            </div>
-                          </Grid>
-                      {allDataDaos.length > 0 ? (
-                        allDataDaos.map((dao, i) => (
-                          <Grid item xs={4}>
-                            {" "}
-                            <div className="proposal-details">
-                              <table>
-                                <thead>
-                                  <tr>
-                                    <th colSpan={2}>{dao.dataDaoName}</th>
-                                  </tr>
-                                </thead>
-                                <tr>
-                                  <td>
-                                    {" "}
-                                    <p className="proposal-header">
-                                      {dao.dataDaoDescription}{" "}
-                                    </p>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td>
-                                    <div className="datadao-address">
-                                      <h3 className="proposal-info">
-                                        {" "}
-                                        Token Address :
-                                        {dao.dataDAOTokenAddress.substring(
-                                          0,
-                                          6
-                                        ) +
-                                          "..." +
-                                          dao.dataDaoAddress.substring(
-                                            dao.dataDaoAddress.length - 5,
-                                            dao.dataDaoAddress.length
-                                          )}
-                                      </h3>
-                                      <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        enable-background="new 0 0 24 24"
-                                        height="18px"
-                                        viewBox="0 0 24 24"
-                                        width="18px"
-                                        fill="#4c2ffd"
-                                        style={{
-                                          margin: "0px 20px",
-                                          cursor: "pointer",
-                                        }}
-                                        onClick={() =>
-                                          copyContent(dao.dataDaoAddress)
-                                        }
-                                      >
-                                        <g>
-                                          <rect
-                                            fill="none"
-                                            height="24"
-                                            width="24"
-                                          />
-                                        </g>
-                                        <g>
-                                          <path d="M15,20H5V7c0-0.55-0.45-1-1-1h0C3.45,6,3,6.45,3,7v13c0,1.1,0.9,2,2,2h10c0.55,0,1-0.45,1-1v0C16,20.45,15.55,20,15,20z M20,16V4c0-1.1-0.9-2-2-2H9C7.9,2,7,2.9,7,4v12c0,1.1,0.9,2,2,2h9C19.1,18,20,17.1,20,16z M18,16H9V4h9V16z" />
-                                        </g>
-                                      </svg>
-                                    </div>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td style={{ textAlign: "center" }}>
-                                    <button
-                                      className="view-more-all-dao"
-                                      onClick={() => {
-                                        // setSingleYourDataDao(true);
-                                        // setYourDaos(false);
-                                        // setDaoAddress(dao.dataDaoAddress);
-                                        openDaoPage();
-                                      }}
-                                    >
-                                      View More
-                                    </button>
-                                    <div>
-                                      <img
-                                        className="view-more-btn"
-                                        src={Arrow}
-                                        alt="arrow"
-                                        onClick={() => {
-                                          // setSingleYourDataDao(true);
-                                          // setYourDaos(false);
-                                          // setDaoAddress(dao.dataDaoAddress);
-                                          openDaoPage();
-                                        }}
-                                      />
-                                    </div>
-                                  </td>
-                                </tr>
-                              </table>
-                            </div>
-                          </Grid>
-                        ))
-                      ) : (
-                        <h3 className="artist-streams">
-                          No Data Daos available
-                        </h3>
-                      )}
-                    </React.Fragment>
-                  </Grid>
-                </Grid>
-              </Box>
             </div>
           </div>
           <ToastContainer
