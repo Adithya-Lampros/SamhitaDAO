@@ -377,6 +377,7 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
                                             className="rounded-join-data-dao-button button-to-join"
                                             id="datadao-joinbtn"
                                             onClick={() => {
+                                              console.log("samhita");
                                               joinSamhita();
                                             }}
                                           >

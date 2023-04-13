@@ -117,7 +117,7 @@ function DataDaoDetails({
           const tx = await contract.addMember(userAmount, {
             value: userAmount * price,
           });
-          tx.wait();
+          await tx.wait();
         } else {
           alert("Please connect to the BitTorrent Chain Donau!");
         }
