@@ -137,7 +137,6 @@ button.datadao-details-buyrequestbtn {
 table.dao-details-table {
   width: 60%;
   margin: 20px 0px;
-  border: none;
   border-radius: 5px;
   background-color: transparent;
   // border: 1px solid #ff5731;
@@ -214,7 +213,7 @@ table.dao-details-table tbody #bottom2 {
   border-radius: 0px 0px 20px 0px;
 }
 
-table.dao-details-table tbody td:first-of-type {
+table.dao-details-table thead th {
   background-color: #fff;
   font-family: "MuseoModerno";
   font-style: normal;
@@ -223,6 +222,25 @@ table.dao-details-table tbody td:first-of-type {
   line-height: 131.02%;
   letter-spacing: 0.015em;
   color: #ff5731;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #ff5731;
+}
+table.dao-details-table thead th:first-of-type {
+  border-right: 1px solid #ff5731;
+  
+}
+table.dao-details-table tbody td {
+  background-color: #fff;
+  font-family: "MuseoModerno";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 131.02%;
+  letter-spacing: 0.015em;
+  color: #ff5731;
+  padding: 0.5rem 1rem;
+}
+table.dao-details-table tbody td:first-of-type {
   border-right: 1px solid #ff5731;
 }
 
