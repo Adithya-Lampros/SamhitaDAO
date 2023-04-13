@@ -10,10 +10,15 @@ import dataDaoFactory from "../contracts/artifacts/dataDaoFactory.json";
 import topCurvedLinesDAO from "../assets/yourDaos/top-curved-lines-your-dao.svg";
 import samhitaABI from "../contracts/artifacts/Samhita.json";
 import samhitaTokenABI from "../contracts/artifacts/SamhitaToken.json";
+import languageFactoryAbi from "../contracts/artifacts/LanguageDAOFactory.json";
+import languageDAOAbi from "../contracts/artifacts/LanguageDAO.json";
+import languageTokenAbi from "../contracts/artifacts/LanguageDAOToken.json";
+import { ConstructionOutlined } from "@mui/icons-material";
 const dataDaoFactoryContract = "0x0caC8C986452628Ed38483bcEE0D1cF85816946D";
 
 const samhitaAddress = "0x246A9A278D74c69DE816905a3f6Fc9a3dFDB029d";
 const samhitaTokenAddress = "0x3D79C81fa0EdE22A05Cd5D5AF089BCf214F39AcB";
+const languageFactoryAddress = "0x733A11b0cdBf8931614C4416548B74eeA1fbd0A4";
 
 function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
   const [allDataDaos, setDataDaos] = useState([]);
@@ -54,8 +59,8 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
         console.log("switch case for this case is: " + chainId);
         if (chainId === 1029) {
           const contract = new ethers.Contract(
-            dataDaoFactoryContract,
-            dataDaoFactory.abi,
+            languageFactoryAddress,
+            languageFactoryAbi,
             provider
           );
           console.log(contract);
@@ -102,7 +107,9 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
           const price = await tokenContract.getTokenPrice();
           console.log(price);
           console.log(parseInt(price, 16));
-          const tx = await contract.addMember(1, { value: userAmount * price });
+          const tx = await contract.addMember(userAmount, {
+            value: userAmount * price,
+          });
           tx.wait();
         } else {
           alert("Please connect to the BitTorrent Chain Donau!");
@@ -134,6 +141,44 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
           const hasJoined = await contract.isMemberAdded(user);
           console.log(hasJoined);
           setHasJoinSamhita(hasJoined);
+        } else {
+          alert("Please connect to the BitTorrent Chain Donau!");
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const joinLanguageDAO = async (daoAddress, tokenAddress) => {
+    console.log(daoAddress);
+    try {
+      const { ethereum } = window;
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        if (!provider) {
+          console.log("Metamask is not installed, please install!");
+        }
+        const { chainId } = await provider.getNetwork();
+        if (chainId === 1029) {
+          const contract = new ethers.Contract(
+            daoAddress,
+            languageDAOAbi,
+            signer
+          );
+          console.log(contract);
+          const tokenContract = new ethers.Contract(
+            tokenAddress,
+            languageTokenAbi,
+            signer
+          );
+          console.log(tokenContract);
+          const price = await tokenContract.getTokenPrice();
+          console.log(price);
+          // console.log(parseInt(price, 16));
+          const tx = await contract.addMember(1, { value: 1 * price });
+          tx.wait();
         } else {
           alert("Please connect to the BitTorrent Chain Donau!");
         }
@@ -188,13 +233,17 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
                               <td>
                                 <div className="datadao-address">
                                   <p className=" my-auto">
-                                    {/* {dao.dataDaoAddress.substring(0, 6) +
-                                          "..." +
-                                          dao.dataDaoAddress.substring(
-                                            dao.dataDaoAddress.length - 5,
-                                            dao.dataDaoAddress.length
-                                          )} */}
-                                    0x246A9A278D74c69DE816905a3f6Fc9a3dFDB029d
+                                    {"0x246A9A278D74c69DE816905a3f6Fc9a3dFDB029d".substring(
+                                      0,
+                                      6
+                                    ) +
+                                      "..." +
+                                      "0x246A9A278D74c69DE816905a3f6Fc9a3dFDB029d".substring(
+                                        "0x246A9A278D74c69DE816905a3f6Fc9a3dFDB029d"
+                                          .length - 5,
+                                        "0x246A9A278D74c69DE816905a3f6Fc9a3dFDB029d"
+                                          .length
+                                      )}
                                   </p>
                                   <svg
                                     width="16"
@@ -340,11 +389,15 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
                                     <td>
                                       <div className="datadao-address">
                                         <p className=" my-auto">
-                                          {dao.dataDaoAddress.substring(0, 6) +
+                                          {dao.dataDAOTokenAddress.substring(
+                                            0,
+                                            6
+                                          ) +
                                             "..." +
-                                            dao.dataDaoAddress.substring(
-                                              dao.dataDaoAddress.length - 5,
-                                              dao.dataDaoAddress.length
+                                            dao.dataDAOTokenAddress.substring(
+                                              dao.dataDAOTokenAddress.length -
+                                                5,
+                                              dao.dataDAOTokenAddress.length
                                             )}
                                         </p>
                                         <svg
@@ -396,7 +449,15 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
                                           </span>
                                         </button>
 
-                                        <button className="rounded-join-data-dao-button button-to-join">
+                                        <button
+                                          className="rounded-join-data-dao-button button-to-join"
+                                          onClick={() =>
+                                            joinLanguageDAO(
+                                              dao.dataDaoAddress,
+                                              dao.dataDAOTokenAddress
+                                            )
+                                          }
+                                        >
                                           <span className="join-button-text">
                                             Join{" "}
                                           </span>
