@@ -14,6 +14,7 @@ import languageTokenBytecode from "../../contracts/artifacts/LanguageDAOTokenByt
 import languageDAOAbi from "../../contracts/artifacts/LanguageDAO.json";
 import languageDAOBytecode from "../../contracts/artifacts/LanguageDAOBytecode.json";
 import { useAccount } from "wagmi";
+import { ConstructionOutlined } from "@mui/icons-material";
 
 const dataDaoFactoryContract = "0x0caC8C986452628Ed38483bcEE0D1cF85816946D";
 const languageFactoryAddress = "0x733A11b0cdBf8931614C4416548B74eeA1fbd0A4";
@@ -101,28 +102,35 @@ function ReviewInfo({
       languageTokenBytecode.bytecode,
       signer
     );
+    console.log("languagetoken");
+    // console.log(ethers.utils.parseEther(
+    //   String(dataDaoDetails.token_holders[0].tokenHolderBalance)
+    // ))
     const tokenContract = await tokenFactory.deploy(
       dataDaoDetails.token_name,
       dataDaoDetails.token_symbol,
-      dataDaoDetails.token_holders[0].tokenHolderBalance
+      ethers.utils.parseEther(
+        String(dataDaoDetails.token_holders[0].tokenHolderBalance)
+      )
     );
-    await tokenContract.wait()
     const tokenAddress = tokenContract.address;
     console.log(tokenAddress);
+    console.log("languagetoken deployed");
 
     const languageFactory = new ContractFactory(
       languageDAOAbi,
       languageDAOBytecode.bytecode,
       signer
     );
+    console.log("languagefactory");
     const languageContract = await languageFactory.deploy(
       "0x246A9A278D74c69DE816905a3f6Fc9a3dFDB029d",
       "0x378fDf90216725F9684C00Bb0dbA8814fEfDB3a2",
       tokenAddress
     );
-    await languageContract.wait()
     const languageDaoAddress = languageContract.address;
-    console.log(languageDaoAddress)
+    console.log(languageDaoAddress);
+    console.log("languagefactory deployed");
 
     const tx = await contract.createDataDao(
       languageDaoAddress,
@@ -130,7 +138,9 @@ function ReviewInfo({
       dataDaoDetails.description,
       tokenAddress,
       0,
-      dataDaoDetails.token_holders[0].tokenHolderBalance
+      ethers.utils.parseEther(
+        String(dataDaoDetails.token_holders[0].tokenHolderBalance)
+      )
     );
     await tx.wait(); //dataDaoAddress,name, description, token, tokenPrice, totalSupply
     console.log(tx);
