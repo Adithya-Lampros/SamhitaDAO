@@ -27,12 +27,15 @@ button.chain-button {
   padding: 5px;
   font-size: 0.865rem;
   background-color: #ffffff;
-  color: #0914d9;
+  color: #f14c2c;
   font-weight: 700;
   // border: 1px solid #f14c2c;
   border: 1px solid #ffffff;
   border-radius: 10px;
   // letter-spacing: 1.5px;
+  div {
+    display: none;
+  }
 }
 button.address-balance {
   display: flex;
@@ -44,7 +47,7 @@ button.address-balance {
   font-size: 0.865rem;
   // background-color: #0914d9;
   background-color: #ffffff;
-  color: #0914d9;
+  color: #f14c2c;
   // border: 1px solid #0914d9;
   border: 1px solid #ffffff;
   font-weight: 700;
@@ -59,7 +62,7 @@ button.address-balance {
 }
 
 span.account-balance {
-  background-color: #3842f7;
+  background-color: #f14c2c;
   // padding: 5px;
   color: #ffffff;
   margin-left: 5px;
