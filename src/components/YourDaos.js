@@ -142,9 +142,16 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
       <div className="main-your-dao">
         <div className="your-dao-bg"></div>
         <div className="your-dao-bg-images">
-          <img src={leftCurvedLinesDAO} className="leftCurvedLinesDao" />
-          <img src={topCurvedLinesDAO} className="topCurvedLinesDao" />
-          {/* <img src={mainYourDAOBg} className="mainYourDaoBg" /> */}
+          <img
+            src={leftCurvedLinesDAO}
+            className="leftCurvedLinesDao"
+            alt="leftcurve"
+          />
+          <img
+            src={topCurvedLinesDAO}
+            className="topCurvedLinesDao"
+            alt="topcurve"
+          />
         </div>
         <div className="all-datadao-main-div">
           <div className="all-datadao-div ">
@@ -157,14 +164,12 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
                       onChange={handleChange}
                       aria-label="lab API tabs example"
                     >
-                      <Tab label="Item One" value="1" />
-                      <Tab label="Item Two" value="2" />
+                      <Tab label="Joined DAOs" value="1" />
+                      <Tab label="Created DAOs" value="2" />
                     </TabList>
                   </Box>
                   <TabPanel value="1">
-                    {" "}
                     <Grid item xs={4}>
-                      {" "}
                       <div className="proposal-details">
                         <table>
                           <thead>
@@ -174,7 +179,6 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
                           </thead>
                           <tr>
                             <td>
-                              {" "}
                               <p className="proposal-header">
                                 This is the samhita DAO
                               </p>
@@ -184,7 +188,6 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
                             <td>
                               <div className="datadao-address">
                                 <h3 className="proposal-info">
-                                  {" "}
                                   Token Address :
                                   0x3D79C81fa0EdE22A05Cd5D5AF089BCf214F39AcB
                                 </h3>
@@ -220,9 +223,6 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
                               <button
                                 className="view-more-all-dao"
                                 onClick={() => {
-                                  // setSingleYourDataDao(true);
-                                  // setYourDaos(false);
-                                  // setDaoAddress(dao.dataDaoAddress);
                                   openDaoPage();
                                 }}
                               >
@@ -234,9 +234,6 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
                                   src={Arrow}
                                   alt="arrow"
                                   onClick={() => {
-                                    // setSingleYourDataDao(true);
-                                    // setYourDaos(false);
-                                    // setDaoAddress(dao.dataDaoAddress);
                                     openDaoPage();
                                   }}
                                 />
@@ -248,7 +245,6 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
                     </Grid>
                   </TabPanel>
                   <TabPanel value="2">
-                    {" "}
                     <div className="all-datadao-section2">
                       <Box sx={{ flexGrow: 1 }}>
                         <Grid container spacing={1}>
@@ -257,7 +253,6 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
                               {allDataDaos.length > 0
                                 ? allDataDaos.map((dao, i) => (
                                     <Grid item xs={4}>
-                                      {" "}
                                       <div className="proposal-details">
                                         <table>
                                           <thead>
@@ -269,9 +264,8 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
                                           </thead>
                                           <tr>
                                             <td>
-                                              {" "}
                                               <p className="proposal-header">
-                                                {dao.dataDaoDescription}{" "}
+                                                {dao.dataDaoDescription}
                                               </p>
                                             </td>
                                           </tr>
@@ -279,7 +273,6 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
                                             <td>
                                               <div className="datadao-address">
                                                 <h3 className="proposal-info">
-                                                  {" "}
                                                   Token Address :
                                                   {dao.dataDAOTokenAddress.substring(
                                                     0,
@@ -328,9 +321,6 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
                                               <button
                                                 className="view-more-all-dao"
                                                 onClick={() => {
-                                                  // setSingleYourDataDao(true);
-                                                  // setYourDaos(false);
-                                                  // setDaoAddress(dao.dataDaoAddress);
                                                   openDaoPage();
                                                 }}
                                               >
@@ -342,9 +332,6 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
                                                   src={Arrow}
                                                   alt="arrow"
                                                   onClick={() => {
-                                                    // setSingleYourDataDao(true);
-                                                    // setYourDaos(false);
-                                                    // setDaoAddress(dao.dataDaoAddress);
                                                     openDaoPage();
                                                   }}
                                                 />
@@ -355,10 +342,7 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
                                       </div>
                                     </Grid>
                                   ))
-                                : // <h3 className="artist-streams">
-                                  //   No Data Daos available
-                                  // </h3>
-                                  ""}
+                                : ""}
                             </React.Fragment>
                           </Grid>
                         </Grid>
@@ -367,9 +351,7 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
                   </TabPanel>
                 </TabContext>
               </Box>
-              <p className="all-datadao-subtext">
-                {/* All the language DAOs on the platform */}
-              </p>
+              <p className="all-datadao-subtext"></p>
             </div>
           </div>
           <ToastContainer

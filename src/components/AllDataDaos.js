@@ -23,6 +23,7 @@ const languageFactoryAddress = "0x733A11b0cdBf8931614C4416548B74eeA1fbd0A4";
 function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
   const [allDataDaos, setDataDaos] = useState([]);
   const [hasJoinSamhita, setHasJoinSamhita] = useState([]);
+  const [hasJoinedDao, setHasJoinedDao] = useState([]);
   const [userAmount, setUserAmount] = useState();
   const [isOpen, setIsOpen] = useState(false);
   const popupRef = useRef(null);
@@ -78,6 +79,7 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
             newData = dataDaos.map((item) => ({ ...item, hasJoined: joined }));
           }
           console.log(newData);
+          setHasJoinedDao(newData);
         } else {
           alert("Please connect to the BitTorrent Chain Donau!");
         }
@@ -228,6 +230,7 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
   useEffect(() => {
     getAllDataDaos();
     getSamhitaIsJoined();
+    getAllDataDaos();
   }, []);
 
   return (
@@ -235,7 +238,11 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
       <div className="main-your-dao">
         <div className="maindaoBg"></div>
         <div className="your-dao-bg-images">
-          <img src={topCurvedLinesDAO} className="topCurvedLinesDao" />
+          <img
+            src={topCurvedLinesDAO}
+            className="topCurvedLinesDao"
+            alt="Top Curve"
+          />
           {/* <img src={mainYourDAOBg} className="mainYourDaoBg" /> */}
         </div>
         <div className="all-datadao-main-div">
@@ -304,16 +311,6 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
                             </tr>
                             <tr>
                               <td className="last-proposal">
-                                {/* <button
-                                    className="view-more-all-dao"
-                                    onClick={() => {
-                                      setSingleDataDao(true);
-                                      setDatadaos(false);
-                                      setDaoAddress(dao.dataDaoAddress);
-                                    }}
-                                  >
-                                    View More
-                                  </button> */}
                                 <div className="d-flex justify-content-around mb-2">
                                   <button
                                     className="rounded-view-data-dao-button button-to-view-more"
@@ -326,13 +323,12 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
                                     }}
                                   >
                                     <span className="view-button-text">
-                                      View More{" "}
+                                      View More
                                     </span>
                                     <span className="view-circle d-flex justify-content-center align-items-center ">
                                       <i className="fas fa-arrow-right view-arrow"></i>
                                     </span>
                                   </button>
-
                                   {!hasJoinSamhita ? (
                                     <button
                                       className="rounded-join-data-dao-button button-to-join"
@@ -384,7 +380,7 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
                                             }}
                                           >
                                             <span className="join-button-text">
-                                              Join{" "}
+                                              Join
                                             </span>
                                             <span className="join-circle d-flex justify-content-center align-items-center ">
                                               <i className="fas fa-arrow-right join-arrow"></i>
@@ -394,14 +390,7 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
                                       </div>
                                     </>
                                   )}
-                                  {/* 
-                                  <button onClick={() => getSamhitaIsJoined()}>
-                                    click
-                                  </button> */}
                                 </div>
-                                {/* <button className="view-more-all-dao">
-                                    Join
-                                  </button> */}
                               </td>
                             </tr>
                           </table>
@@ -410,7 +399,6 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
                       {allDataDaos.length > 0
                         ? allDataDaos.map((dao, i) => (
                             <Grid item xs={4}>
-                              {" "}
                               <div className="proposal-details">
                                 <table>
                                   <thead>
@@ -420,7 +408,6 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
                                   </thead>
                                   <tr>
                                     <td>
-                                      {" "}
                                       <span>{dao.dataDaoDescription} </span>
                                     </td>
                                   </tr>
@@ -461,16 +448,6 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
                                   </tr>
                                   <tr>
                                     <td className="last-proposal">
-                                      {/* <button
-                                    className="view-more-all-dao"
-                                    onClick={() => {
-                                      setSingleDataDao(true);
-                                      setDatadaos(false);
-                                      setDaoAddress(dao.dataDaoAddress);
-                                    }}
-                                  >
-                                    View More
-                                  </button> */}
                                       <div className="d-flex justify-content-around mb-2">
                                         <button
                                           className="rounded-view-data-dao-button button-to-view-more"
@@ -481,43 +458,87 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
                                           }}
                                         >
                                           <span className="view-button-text">
-                                            View More{" "}
+                                            View More
                                           </span>
                                           <span className="view-circle d-flex justify-content-center align-items-center ">
                                             <i className="fas fa-arrow-right view-arrow"></i>
                                           </span>
                                         </button>
 
-                                        <button
-                                          className="rounded-join-data-dao-button button-to-join"
-                                          onClick={() =>
-                                            joinLanguageDAO(
-                                              dao.dataDaoAddress,
-                                              dao.dataDAOTokenAddress
-                                            )
-                                          }
-                                        >
-                                          <span className="join-button-text">
-                                            Join{" "}
-                                          </span>
-                                          <span className="join-circle d-flex justify-content-center align-items-center ">
-                                            <i className="fas fa-arrow-right join-arrow"></i>
-                                          </span>
-                                        </button>
+                                        {!hasJoinedDao ? (
+                                          <button
+                                            className="rounded-join-data-dao-button button-to-join"
+                                            onClick={() => {
+                                              setIsOpen(!isOpen);
+                                            }}
+                                          >
+                                            <span className="join-button-text">
+                                              Join
+                                            </span>
+                                            <span className="join-circle d-flex justify-content-center align-items-center ">
+                                              <i className="fas fa-arrow-right join-arrow"></i>
+                                            </span>
+                                          </button>
+                                        ) : (
+                                          <button className="rounded-join-data-dao-button-disabled button-to-join">
+                                            <span className="join-button-text">
+                                              Joined
+                                            </span>
+                                            <span className="join-circle d-flex justify-content-center align-items-center ">
+                                              <i className="fas fa-arrow-right join-arrow"></i>
+                                            </span>
+                                          </button>
+                                        )}
+                                        {isOpen && (
+                                          <>
+                                            <div className="datadao-overlay" />
+                                            <div
+                                              ref={popupRef}
+                                              className="datadao-popup"
+                                            >
+                                              <div className="datadao-joinheader">
+                                                Join
+                                              </div>
+                                              <div className="datadao-popmain">
+                                                <input
+                                                  className="datadao-joininput"
+                                                  type="number"
+                                                  placeholder="Please Specify The Amount"
+                                                  onChange={(e) => {
+                                                    setUserAmount(
+                                                      e.target.value
+                                                    );
+                                                  }}
+                                                />
+                                                <button
+                                                  className="rounded-join-data-dao-button button-to-join"
+                                                  id="datadao-joinbtn"
+                                                  onClick={() => {
+                                                    joinLanguageDAO(
+                                                      dao.dataDaoAddress,
+                                                      dao.dataDAOTokenAddress
+                                                    );
+                                                  }}
+                                                >
+                                                  <span className="join-button-text">
+                                                    Join
+                                                  </span>
+                                                  <span className="join-circle d-flex justify-content-center align-items-center ">
+                                                    <i className="fas fa-arrow-right join-arrow"></i>
+                                                  </span>
+                                                </button>
+                                              </div>
+                                            </div>
+                                          </>
+                                        )}
                                       </div>
-                                      {/* <button className="view-more-all-dao">
-                                    Join
-                                  </button> */}
                                     </td>
                                   </tr>
                                 </table>
                               </div>
                             </Grid>
                           ))
-                        : // <h3 className="artist-streams">
-                          //   No Data Daos available
-                          // </h3>
-                          ""}
+                        : ""}
                     </React.Fragment>
                   </Grid>
                 </Grid>

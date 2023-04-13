@@ -314,6 +314,39 @@ button.view-more-all-dao {
   text-align: left;
 }
 
+.css-1gsv261 {
+  border: none !important;
+}
+
+.css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected {
+  background-color: #ffa046 !important;
+  color: white !important;
+  border-radius: 20px;
+  font-family: "MuseoModerno";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+.css-1h9z7r5-MuiButtonBase-root-MuiTab-root {
+  color: white !important;
+  border-radius: 20px;
+  font-family: "MuseoModerno" !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
+  font-size: 16px !important;
+  margin-top: 20px !important;
+}
+
+.css-1aquho2-MuiTabs-indicator {
+  background-color: transparent !important;
+}
+
+.css-heg063-MuiTabs-flexContainer {
+  margin-left: 40vw;
+}
+
 @media screen and (min-width: 2561px) {
 }
 
