@@ -117,7 +117,7 @@ function DataDaoDetails({
           const tx = await contract.addMember(userAmount, {
             value: userAmount * price,
           });
-          tx.wait();
+          await tx.wait();
         } else {
           alert("Please connect to the BitTorrent Chain Donau!");
         }
@@ -217,7 +217,7 @@ function DataDaoDetails({
             </div>
             <div className="datadao-details-button ">
               <button
-                className="datadao-details-buyrequestbtn"
+                className="datadao-details-buyrequestbtn text-center"
                 onClick={() => buyToken()}
               >
                 {btnloading ? (
