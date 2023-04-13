@@ -22,7 +22,7 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
   // const [inputValue, setInputValue] = useState("");
   const [value1, setValue1] = useState({ fund: null });
 
-  // const handleInputChange = (event) => {
+  // const handleInputChange = (event) =>  {
   //   setInputValue(event.target.value);
   // };
 
