@@ -173,13 +173,13 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
                                   <th colSpan={2}>Samhita DAO</th>
                                 </tr>
 
-                                <tr>
+                                {/* <tr>
                                   <td>
                                     <p className="proposal-header">
                                       This is the samhita DAO
                                     </p>
                                   </td>
-                                </tr>
+                                </tr> */}
                               </thead>
                               <tr>
                                 <td>
@@ -237,23 +237,21 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
                                 </td>
                               </tr>
                               <tr>
-                                <td
-                                  style={{ textAlign: "center" }}
-                                  onClick={() => {
-                                    // setIsSamhita(true);
-                                    openDaoPage(true, samhitaAddress);
-                                  }}
-                                >
-                                  <button className="view-more-all-dao">
-                                    View More
+                                <td style={{ textAlign: "center" }}>
+                                  <button
+                                    className="rounded-view-data-dao-button button-to-view-more"
+                                    onClick={() => {
+                                      // setIsSamhita(true);
+                                      openDaoPage(true, samhitaAddress);
+                                    }}
+                                  >
+                                    <span className="view-button-text">
+                                      View More
+                                    </span>
+                                    <span className="view-circle d-flex justify-content-center align-items-center ">
+                                      <i className="fas fa-arrow-right view-arrow"></i>
+                                    </span>
                                   </button>
-                                  <div>
-                                    <img
-                                      className="view-more-btn"
-                                      src={Arrow}
-                                      alt="arrow"
-                                    />
-                                  </div>
                                 </td>
                               </tr>
                             </table>
