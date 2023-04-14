@@ -34,7 +34,7 @@ function AvailabelProposal({ daoAddress, isSamhita }) {
 
   const getProposals = async () => {
     console.log(daoAddress);
-    setLoading(false);
+
     const { ethereum } = window;
     try {
       if (ethereum) {
@@ -68,7 +68,7 @@ function AvailabelProposal({ daoAddress, isSamhita }) {
           alert("Please connect to the BitTorrent Chain Donau!");
         }
       }
-      setLoading(true);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -76,6 +76,7 @@ function AvailabelProposal({ daoAddress, isSamhita }) {
 
   const upVote = async (id) => {
     const { ethereum } = window;
+    setLoading(true);
     try {
       if (ethereum) {
         const provider = new ethers.providers.Web3Provider(ethereum);
@@ -103,18 +104,21 @@ function AvailabelProposal({ daoAddress, isSamhita }) {
               value: 10000000000000,
             });
             await tx.wait();
+            setLoading(false);
           }
         } else {
           alert("Please connect to the BitTorrent Chain Donau!");
         }
       }
     } catch (error) {
+      setLoading(false);
       console.log(error);
     }
   };
 
   const downVote = async (id) => {
     const { ethereum } = window;
+    setLoading(true);
     try {
       if (ethereum) {
         const provider = new ethers.providers.Web3Provider(ethereum);
@@ -142,6 +146,7 @@ function AvailabelProposal({ daoAddress, isSamhita }) {
               value: 10000000000000,
             });
             await tx.wait();
+            setLoading(false);
           }
         } else {
           alert("Please connect to the BitTorrent Chain Donau!");
@@ -294,7 +299,9 @@ function AvailabelProposal({ daoAddress, isSamhita }) {
                               <tbody>
                                 <tr className="proposal-details-content">
                                   <label>Description</label>
-                                  <td>{items.proposalDescription}</td>
+                                  <td className="p-details-content">
+                                    {items.proposalDescription}
+                                  </td>
                                 </tr>
                                 <tr className="proposal-details-content">
                                   <label>Proposal File </label>
@@ -332,33 +339,67 @@ function AvailabelProposal({ daoAddress, isSamhita }) {
                                 </tr>
                                 <tr>
                                   <td className="vote-btns">
-                                    <button
-                                      className="rounded-view-data-dao-button button-to-view-more"
-                                      onClick={() =>
-                                        upVote(parseInt(items.proposalID, 16))
-                                      }
-                                    >
-                                      <span className="view-button-text">
-                                        Up Vote
-                                      </span>
-                                      <span className="view-circle d-flex justify-content-center align-items-center ">
-                                        <i className="fas fa-arrow-right view-arrow"></i>
-                                      </span>
-                                    </button>
-                                    <button
-                                      className="rounded-join-data-dao-button button-to-join"
-                                      onClick={() =>
-                                        downVote(parseInt(items.proposalID, 16))
-                                      }
-                                    >
-                                      {" "}
-                                      <span className="join-button-text">
-                                        Down Vote
-                                      </span>
-                                      <span className="join-circle d-flex justify-content-center align-items-center ">
-                                        <i className="fas fa-arrow-right join-arrow"></i>
-                                      </span>
-                                    </button>
+                                    {!loading ? (
+                                      <button
+                                        className="rounded-view-data-dao-button button-to-view-more"
+                                        onClick={() =>
+                                          upVote(parseInt(items.proposalID, 16))
+                                        }
+                                      >
+                                        <span className="view-button-text">
+                                          Up Vote
+                                        </span>
+                                        <span className="view-circle d-flex justify-content-center align-items-center ">
+                                          <i className="fas fa-arrow-right view-arrow"></i>
+                                        </span>
+                                      </button>
+                                    ) : (
+                                      <div className="alldao-load">
+                                        <svg
+                                          className="animate-spin button-spin-svg-pic"
+                                          version="1.1"
+                                          id="L9"
+                                          xmlns="http://www.w3.org/2000/svg"
+                                          x="0px"
+                                          y="0px"
+                                          viewBox="0 0 100 100"
+                                        >
+                                          <path d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50"></path>
+                                        </svg>
+                                      </div>
+                                    )}
+                                    {!loading ? (
+                                      <button
+                                        className="rounded-join-data-dao-button button-to-join"
+                                        onClick={() =>
+                                          downVote(
+                                            parseInt(items.proposalID, 16)
+                                          )
+                                        }
+                                      >
+                                        {" "}
+                                        <span className="join-button-text">
+                                          Down Vote
+                                        </span>
+                                        <span className="join-circle d-flex justify-content-center align-items-center ">
+                                          <i className="fas fa-arrow-right join-arrow"></i>
+                                        </span>
+                                      </button>
+                                    ) : (
+                                      <div className="alldao-load">
+                                        <svg
+                                          className="animate-spin button-spin-svg-pic"
+                                          version="1.1"
+                                          id="L9"
+                                          xmlns="http://www.w3.org/2000/svg"
+                                          x="0px"
+                                          y="0px"
+                                          viewBox="0 0 100 100"
+                                        >
+                                          <path d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50"></path>
+                                        </svg>
+                                      </div>
+                                    )}
                                   </td>
                                 </tr>
                               </tbody>
@@ -369,7 +410,6 @@ function AvailabelProposal({ daoAddress, isSamhita }) {
                     })
                   : "no proposals"}
               </Grid>
-              ;
             </Box>
           </div>
         </div>

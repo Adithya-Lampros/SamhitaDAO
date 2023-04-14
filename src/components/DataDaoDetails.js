@@ -53,6 +53,7 @@ function DataDaoDetails({
   const [name, setName] = useState([]);
   const [userAmount, setUserAmount] = useState();
   const [tokenAddress, setTokenAddress] = useState();
+  const [loading, setLoading] = useState(false);
 
   const getDataDaos = async () => {
     console.log(daoAddress);

@@ -137,7 +137,7 @@ function Navbar() {
       </Container>
 
       {/******************** push notification popup *******************/}
-      <Modal
+      {/* <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
@@ -206,7 +206,7 @@ function Navbar() {
             ) : null}
           </Typography>
         </Box>
-      </Modal>
+      </Modal> */}
     </AppBar>
   );
 }
