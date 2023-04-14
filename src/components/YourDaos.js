@@ -39,8 +39,8 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
   const [value, setValue] = React.useState("1");
   const [loading, setLoading] = useState(false);
   const [isSamhita, setIsSamhita] = useState();
-  const openDaoPage = (a) => {
-    navigate("/open-existing-data-dao", { state: { data: a } });
+  const openDaoPage = (a, b) => {
+    navigate("/open-existing-data-dao", { state: { data: a, address: b } });
   };
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -233,7 +233,7 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
                                 style={{ textAlign: "center" }}
                                 onClick={() => {
                                   // setIsSamhita(true);
-                                  openDaoPage(true);
+                                  openDaoPage(true, samhitaAddress);
                                 }}
                               >
                                 <button className="view-more-all-dao">
@@ -321,7 +321,7 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
                                     style={{ textAlign: "center" }}
                                     onClick={() => {
                                       // setIsSamhita(false);
-                                      openDaoPage(false);
+                                      openDaoPage(false, dao.dataDaoAddress);
                                     }}
                                   >
                                     <button className="view-more-all-dao">
@@ -420,7 +420,10 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
                                               <td
                                                 style={{ textAlign: "center" }}
                                                 onClick={() => {
-                                                  openDaoPage(false);
+                                                  openDaoPage(
+                                                    false,
+                                                    dao.dataDaoAddress
+                                                  );
                                                 }}
                                               >
                                                 <button className="view-more-all-dao">
