@@ -77,6 +77,7 @@ function YourDataDaoDetails({
   };
 
   const getDataDaos = async () => {
+    console.log(daoAddress);
     const contract = await getContract();
     const dataDao = await contract.allDataDaos(daoAddress);
     setDataDaoInfo(dataDao);
@@ -186,30 +187,29 @@ function YourDataDaoDetails({
   };
 
   const createProposal = async () => {
-    const provider = new ethers.providers.Web3Provider(ethereum);
-    const signer = provider.getSigner();
-    const contract = new ethers.Contract(
-      daoAddress,
-      dataDaoInstace.abi,
-      signer
-    );
-    const date1 = new Date(proposalInfo.startDate);
-    const date2 = new Date(proposalInfo.endDate);
-    const diffTime = Math.abs(date2 - date1);
-    console.log(diffTime);
-
-    // console.log(String2Hex(fileInfo.data.Hash));
-    contract.createDataSetDealProposal(
-      fileInfo.data.Hash,
-      fileInfo.data.Size,
-      diffTime / 1000,
-      0,
-      proposalInfo.Name,
-      proposalInfo.Description,
-      {
-        gasLimit: 10000000,
-      }
-    );
+    // const provider = new ethers.providers.Web3Provider(ethereum);
+    // const signer = provider.getSigner();
+    // const contract = new ethers.Contract(
+    //   daoAddress,
+    //   dataDaoInstace.abi,
+    //   signer
+    // );
+    // const date1 = new Date(proposalInfo.startDate);
+    // const date2 = new Date(proposalInfo.endDate);
+    // const diffTime = Math.abs(date2 - date1);
+    // console.log(diffTime);
+    // // console.log(String2Hex(fileInfo.data.Hash));
+    // contract.createDataSetDealProposal(
+    //   fileInfo.data.Hash,
+    //   fileInfo.data.Size,
+    //   diffTime / 1000,
+    //   0,
+    //   proposalInfo.Name,
+    //   proposalInfo.Description,
+    //   {
+    //     gasLimit: 10000000,
+    //   }
+    // );
   };
 
   useEffect(() => {
@@ -269,7 +269,7 @@ function YourDataDaoDetails({
           </div>
 
           <div className="datadao-details-section2">
-            <h1 className="datadao-details-dataset">Available Dataset</h1>
+            <h1 className="datadao-details-dataset"> </h1>
             <div className="dataset-main-flex">
               <table className="dataset-main-table">
                 <thead>

@@ -39,8 +39,8 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
   const [value, setValue] = React.useState("1");
   const [loading, setLoading] = useState(false);
   const [isSamhita, setIsSamhita] = useState();
-  const openDaoPage = (a) => {
-    navigate("/open-existing-data-dao", { state: { data: a } });
+  const openDaoPage = (a, b) => {
+    navigate("/open-existing-data-dao", { state: { data: a, address: b } });
   };
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -172,6 +172,14 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
                                 <tr>
                                   <th colSpan={2}>Samhita DAO</th>
                                 </tr>
+
+                                <tr>
+                                  <td>
+                                    <p className="proposal-header">
+                                      This is the samhita DAO
+                                    </p>
+                                  </td>
+                                </tr>
                               </thead>
                               <tr>
                                 <td>
@@ -229,21 +237,23 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
                                 </td>
                               </tr>
                               <tr>
-                                <td style={{ textAlign: "center" }}>
-                                  <button
-                                    className="rounded-view-data-dao-button button-to-view-more"
-                                    onClick={() => {
-                                      // setIsSamhita(true);
-                                      openDaoPage(true);
-                                    }}
-                                  >
-                                    <span className="view-button-text">
-                                      View More
-                                    </span>
-                                    <span className="view-circle d-flex justify-content-center align-items-center ">
-                                      <i className="fas fa-arrow-right view-arrow"></i>
-                                    </span>
+                                <td
+                                  style={{ textAlign: "center" }}
+                                  onClick={() => {
+                                    // setIsSamhita(true);
+                                    openDaoPage(true, samhitaAddress);
+                                  }}
+                                >
+                                  <button className="view-more-all-dao">
+                                    View More
                                   </button>
+                                  <div>
+                                    <img
+                                      className="view-more-btn"
+                                      src={Arrow}
+                                      alt="arrow"
+                                    />
+                                  </div>
                                 </td>
                               </tr>
                             </table>
@@ -252,6 +262,90 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
                       ) : (
                         ""
                       )}
+                      {/* {loading &&
+                      joinedDaos.map((dao, i) => (
+                        <>
+                          <Grid item xs={4}>
+                            <div className="proposal-details">
+                              <table>
+                                <thead>
+                                  <tr>
+                                    <th colSpan={2}>{dao.dataDaoName}</th>
+                                  </tr>
+                                </thead>
+                                <tr>
+                                  <td>
+                                    <p className="proposal-header">
+                                      {dao.dataDaoDescription}
+                                    </p>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <div className="datadao-address">
+                                      <h3 className="proposal-info">
+                                        Token Address :
+                                        {dao.dataDAOTokenAddress.substring(
+                                          0,
+                                          6
+                                        ) +
+                                          "..." +
+                                          dao.dataDaoAddress.substring(
+                                            dao.dataDaoAddress.length - 5,
+                                            dao.dataDaoAddress.length
+                                          )}
+                                      </h3>
+                                      <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        enable-background="new 0 0 24 24"
+                                        height="18px"
+                                        viewBox="0 0 24 24"
+                                        width="18px"
+                                        fill="#4c2ffd"
+                                        style={{
+                                          margin: "0px 20px",
+                                          cursor: "pointer",
+                                        }}
+                                        onClick={() =>
+                                          copyContent(dao.dataDaoAddress)
+                                        }
+                                      >
+                                        <g>
+                                          <rect
+                                            fill="none"
+                                            height="24"
+                                            width="24"
+                                          />
+                                        </g>
+                                        <g>
+                                          <path d="M15,20H5V7c0-0.55-0.45-1-1-1h0C3.45,6,3,6.45,3,7v13c0,1.1,0.9,2,2,2h10c0.55,0,1-0.45,1-1v0C16,20.45,15.55,20,15,20z M20,16V4c0-1.1-0.9-2-2-2H9C7.9,2,7,2.9,7,4v12c0,1.1,0.9,2,2,2h9C19.1,18,20,17.1,20,16z M18,16H9V4h9V16z" />
+                                        </g>
+                                      </svg>
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td
+                                    style={{ textAlign: "center" }}
+                                    onClick={() => {
+                                      // setIsSamhita(false);
+                                      openDaoPage(false, dao.dataDaoAddress);
+                                    }}
+                                  >
+                                    <span className="view-button-text">
+                                      View More
+                                    </span>
+                                    <span className="view-circle d-flex justify-content-center align-items-center ">
+                                      <i className="fas fa-arrow-right view-arrow"></i>
+                                    </span>
+                                </td>
+                              </tr>
+                            </table>
+                          </div>
+                        </Grid>
+                      ) : 
+                        ""
+                      } */}
                       {loading &&
                         joinedDaos.map((dao, i) => (
                           <>
@@ -416,6 +510,12 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
                                             <tr>
                                               <td
                                                 style={{ textAlign: "center" }}
+                                                onClick={() => {
+                                                  openDaoPage(
+                                                    false,
+                                                    dao.dataDaoAddress
+                                                  );
+                                                }}
                                               >
                                                 <button
                                                   className="rounded-view-data-dao-button button-to-view-more"

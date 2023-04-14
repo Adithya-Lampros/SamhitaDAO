@@ -29,8 +29,16 @@ import { Web3Storage } from "web3.storage";
 
 import Dash1 from "../assets/Dash1.svg";
 import Vector4 from "../assets/Vector4.svg";
+import languageFactoryAbi from "../contracts/artifacts/LanguageDAOFactory.json";
+import languageTokenAbi from "../contracts/artifacts/LanguageDAOToken.json";
+import languageDAOAbi from "../contracts/artifacts/LanguageDAO.json";
+import samhitaABI from "../contracts/artifacts/Samhita.json";
+import samhitaTokenABI from "../contracts/artifacts/SamhitaToken.json";
 
 const dataDaoFactoryContract = "0x0caC8C986452628Ed38483bcEE0D1cF85816946D";
+const languageFactoryAddress = "0x733A11b0cdBf8931614C4416548B74eeA1fbd0A4";
+const samhitaAddress = "0x246A9A278D74c69DE816905a3f6Fc9a3dFDB029d";
+const samhitaTokenAddress = "0x3D79C81fa0EdE22A05Cd5D5AF089BCf214F39AcB";
 
 function Dashboard() {
   const client = new Web3Storage({
@@ -44,12 +52,19 @@ function Dashboard() {
   const [proposals, setProposals] = useState(false);
   const [yourDaos, setYourDaos] = useState(false);
   const [datadaos, setDatadaos] = useState(false);
-  const [daoAddress, setDaoAddress] = useState();
+  const [daoAddress, setDaoAddress] = useState(
+    location.state.address ? location.state.address : ""
+  );
   const [singleDataDao, setSingleDataDao] = useState(false);
   const [singleYourDataDao, setSingleYourDataDao] = useState(false);
+  const [tokenAddress, setTokenAddress] = useState();
+  const [name, setName] = useState([]);
+  const [userAmount, setUserAmount] = useState();
+  const [cid, setCid] = useState();
 
   console.log(location.state);
   const isSamhita = location.state.data ? location.state.data : "";
+
   const dashboardLinks = (a) => {
     if (a === "Dashboard") {
       setDashboard(true);
@@ -120,16 +135,16 @@ function Dashboard() {
     const [proposalInfo, setProposalInfo] = useState({
       Name: null,
       Description: null,
-      Lang: null,
+      // Lang: null,
       SamhitaCatagory: null,
       LangTemID: null,
-      startDate: null,
-      endDate: null,
+      // startDate: null,
+      // endDate: null,
     });
     const [fileInfo, setFileInfo] = useState(null);
     const { ethereum } = window;
 
-    console.log(dataDaoInfo);
+    // console.log(dataDaoInfo);
 
     const upload = async () => {
       const fileInput = document.querySelector("#fimg");
@@ -138,11 +153,13 @@ function Dashboard() {
       // console.log(CID);
       const fileCid = CID + ".ipfs.w3s.link/" + fileInput.files[0].name;
       console.log(fileCid);
+      setCid(fileCid);
     };
 
-    const getContract = async () => {
+    const getDataDaos = async () => {
+      console.log(daoAddress);
+      console.log(isSamhita);
       try {
-        console.log("in");
         if (ethereum) {
           const provider = new ethers.providers.Web3Provider(ethereum);
           const signer = provider.getSigner();
@@ -150,15 +167,29 @@ function Dashboard() {
             console.log("Metamask is not installed, please install!");
           }
           const { chainId } = await provider.getNetwork();
-          console.log("switch case for this case is: " + chainId);
           if (chainId === 1029) {
-            const contract = new ethers.Contract(
-              dataDaoFactoryContract,
-              dataDaoFactory.abi,
-              signer
-            );
-            console.log(contract);
-            return contract;
+            if (!isSamhita) {
+              const contract = new ethers.Contract(
+                languageFactoryAddress,
+                languageFactoryAbi,
+                provider
+              );
+              const dataDao = await contract.allDataDaos(daoAddress);
+              setDataDaoInfo(dataDao);
+              console.log(dataDao);
+              setTokenAddress(dataDao.dataDAOTokenAddress);
+              const tokenContract = new ethers.Contract(
+                dataDao.dataDAOTokenAddress,
+                languageTokenAbi,
+                signer
+              );
+              const tokenName = await tokenContract.name();
+              console.log(tokenName);
+              setName(tokenName);
+              console.log(tokenContract);
+            } else {
+              setName("Samhita");
+            }
           } else {
             alert("Please connect to the BitTorrent Chain Donau!");
           }
@@ -168,11 +199,61 @@ function Dashboard() {
       }
     };
 
-    const getDataDaos = async () => {
-      const contract = await getContract();
-      const dataDao = await contract.allDataDaos(daoAddress);
-      setDataDaoInfo(dataDao);
-      console.log(dataDao);
+    const buyToken = async () => {
+      try {
+        if (ethereum) {
+          const provider = new ethers.providers.Web3Provider(ethereum);
+          const signer = provider.getSigner();
+          if (!provider) {
+            console.log("Metamask is not installed, please install!");
+          }
+          const { chainId } = await provider.getNetwork();
+          if (chainId === 1029) {
+            if (isSamhita) {
+              const contract = new ethers.Contract(
+                samhitaAddress,
+                samhitaABI,
+                signer
+              );
+              const tokenContract = new ethers.Contract(
+                samhitaTokenAddress,
+                samhitaTokenABI,
+                signer
+              );
+              const price = await tokenContract.getTokenPrice();
+              console.log(price);
+              console.log(parseInt(price, 16));
+              const tx = await contract.addMember(userAmount, {
+                value: userAmount * price,
+              });
+              tx.wait();
+            } else {
+              const contract = new ethers.Contract(
+                daoAddress,
+                languageDAOAbi,
+                signer
+              );
+              console.log(userAmount);
+              console.log(tokenAddress);
+              const tokenContract = new ethers.Contract(
+                tokenAddress,
+                languageTokenAbi,
+                signer
+              );
+              const price = await tokenContract.getTokenPrice();
+              console.log(price);
+              const tx = await contract.addMember(userAmount, {
+                value: userAmount * price,
+              });
+              await tx.wait();
+            }
+          } else {
+            alert("Please connect to the BitTorrent Chain Donau!");
+          }
+        }
+      } catch (error) {
+        console.log(error);
+      }
     };
 
     /// lighthouse encrypted upload *************************************************************
@@ -209,94 +290,124 @@ function Dashboard() {
     };
 
     /* Deploy file along with encryption */
-    const deployEncrypted = async (e) => {
-      const sig = await encryptionSignature();
-      const response = await lighthouse.uploadEncrypted(
-        e,
-        sig.publicKey,
-        "710d524c-69dd-4666-93dc-54d7107d1172",
-        sig.signedMessage,
-        progressCallback
-      );
+    // const deployEncrypted = async (e) => {
+    //   const sig = await encryptionSignature();
+    //   const response = await lighthouse.uploadEncrypted(
+    //     e,
+    //     sig.publicKey,
+    //     "710d524c-69dd-4666-93dc-54d7107d1172",
+    //     sig.signedMessage,
+    //     progressCallback
+    //   );
 
-      setFileInfo(response);
-      console.log(response);
-      /*
-          output:
-            {
-              Name: "c04b017b6b9d1c189e15e6559aeb3ca8.png",
-              Size: "318557",
-              Hash: "QmcuuAtmYqbPYmPx3vhJvPDi61zMxYvJbfENMjBQjq7aM3"
-            }
-          Note: Hash in response is CID.
-        */
+    //   setFileInfo(response);
+    //   console.log(response);
+    //   /*
+    //       output:
+    //         {
+    //           Name: "c04b017b6b9d1c189e15e6559aeb3ca8.png",
+    //           Size: "318557",
+    //           Hash: "QmcuuAtmYqbPYmPx3vhJvPDi61zMxYvJbfENMjBQjq7aM3"
+    //         }
+    //       Note: Hash in response is CID.
+    //     */
 
-      // Conditions to add
-      const conditions = [
-        {
-          id: 1,
-          chain: "Hyperspace",
-          method: "balanceOf",
-          standardContractType: "ERC20",
-          contractAddress: dataDaoInfo.dataDAOTokenAddress,
-          returnValueTest: { comparator: ">=", value: "1" },
-          parameters: [sig.publicKey],
-        },
-      ];
+    //   // Conditions to add
+    //   const conditions = [
+    //     {
+    //       id: 1,
+    //       chain: "Hyperspace",
+    //       method: "balanceOf",
+    //       standardContractType: "ERC20",
+    //       contractAddress: dataDaoInfo.dataDAOTokenAddress,
+    //       returnValueTest: { comparator: ">=", value: "1" },
+    //       parameters: [sig.publicKey],
+    //     },
+    //   ];
 
-      // Aggregator is what kind of operation to apply to access conditions
-      // Suppose there are two conditions then you can apply ([1] and [2]), ([1] or [2]), !([1] and [2]).
-      const aggregator = "([1])";
-      const { publicKey, signedMessage } = await encryptionSignature_();
+    //   // Aggregator is what kind of operation to apply to access conditions
+    //   // Suppose there are two conditions then you can apply ([1] and [2]), ([1] or [2]), !([1] and [2]).
+    //   const aggregator = "([1])";
+    //   const { publicKey, signedMessage } = await encryptionSignature_();
 
-      /*
-        accessCondition(publicKey, cid, signedMessage, conditions, aggregator)
-          Parameters:
-            publicKey: owners public key
-            CID: CID of file to decrypt
-            signedMessage: message signed by owner of publicKey
-            conditions: should be in format like above
-            aggregator: aggregator to apply on conditions
-      */
-      const response_ = await lighthouse.accessCondition(
-        publicKey,
-        response.data.Hash,
-        signedMessage,
-        conditions,
-        aggregator
-      );
+    //   /*
+    //     accessCondition(publicKey, cid, signedMessage, conditions, aggregator)
+    //       Parameters:
+    //         publicKey: owners public key
+    //         CID: CID of file to decrypt
+    //         signedMessage: message signed by owner of publicKey
+    //         conditions: should be in format like above
+    //         aggregator: aggregator to apply on conditions
+    //   */
+    //   const response_ = await lighthouse.accessCondition(
+    //     publicKey,
+    //     response.data.Hash,
+    //     signedMessage,
+    //     conditions,
+    //     aggregator
+    //   );
 
-      console.log(response_);
-    };
+    //   console.log(response_);
+    // };
 
     const createProposal = async () => {
-      const provider = new ethers.providers.Web3Provider(ethereum);
-      const signer = provider.getSigner();
-      const contract = new ethers.Contract(
-        daoAddress,
-        dataDaoInstace.abi,
-        signer
-      );
-      const date1 = new Date(proposalInfo.startDate);
-      const date2 = new Date(proposalInfo.endDate);
-      const diffTime = Math.abs(date2 - date1);
-      console.log(diffTime);
-
-      // console.log(String2Hex(fileInfo.data.Hash));
-      contract.createDataSetDealProposal(
-        fileInfo.data.Hash,
-        fileInfo.data.Size,
-        diffTime / 1000,
-        0,
-        proposalInfo.Name,
-        proposalInfo.Description,
-        proposalInfo.Lang,
-        proposalInfo.SamhitaCatagory,
-        proposalInfo.LangTemID,
-        {
-          gasLimit: 10000000,
+      console.log(proposalInfo);
+      console.log(cid);
+      try {
+        if (ethereum) {
+          const provider = new ethers.providers.Web3Provider(ethereum);
+          const signer = provider.getSigner();
+          if (!provider) {
+            console.log("Metamask is not installed, please install!");
+          }
+          const { chainId } = await provider.getNetwork();
+          if (chainId === 1029) {
+            if (isSamhita) {
+              const contract = new ethers.Contract(
+                samhitaAddress,
+                samhitaABI,
+                signer
+              );
+              // const stakeValue = await contract.proposalStake;
+              // console.log(stakeValue);
+              const tx = await contract.createProposal(
+                proposalInfo.Name,
+                proposalInfo.Description,
+                cid,
+                proposalInfo.SamhitaCatagory,
+                { value: 10000000000000 }
+              );
+              tx.wait();
+            } else {
+              const contract = new ethers.Contract(
+                daoAddress,
+                languageDAOAbi,
+                signer
+              );
+              // const t = await contract.setDataDaoVotingConfig(
+              //   30,
+              //   20,
+              //   1,
+              //   10000000000000,
+              //   10000000000000
+              // );
+              // t.wait();
+              const tx = await contract.createProposal(
+                proposalInfo.Name,
+                proposalInfo.Description,
+                cid,
+                1,
+                { value: 10000000000000 }
+              );
+              await tx.wait();
+            }
+          } else {
+            alert("Please connect to the BitTorrent Chain Donau!");
+          }
         }
-      );
+      } catch (error) {
+        console.log(error);
+      }
     };
 
     useEffect(() => {
@@ -476,14 +587,18 @@ function Dashboard() {
                       </tbody>
                       <tbody>
                         <tr>
-                          <td id="bottom1">DMS</td>
-                          <td id="">0x000000000000000000000000</td>
+                          <td id="bottom1">{name}</td>
+                          <td id="">
+                            {isSamhita
+                              ? "0x3D79C81fa0EdE22A05Cd5D5AF089BCf214F39AcB"
+                              : dataDaoInfo.dataDAOTokenAddress}
+                          </td>
                           <td id="bottom2">
                             <input
                               type="Number"
-                              // onChange={(e) => {
-                              //   setUserAmount(e.target.value);
-                              // }}
+                              onChange={(e) => {
+                                setUserAmount(e.target.value);
+                              }}
                               className="enter-value "
                               placeholder="Enter the Value"
                             />
@@ -495,6 +610,7 @@ function Dashboard() {
                   <div className="datadao-details-button">
                     <button
                       className="create-proposal-btn"
+                      onClick={() => buyToken()}
                       // onClick={() => navigate("/open-existing-data-dao/meet")}
                     >
                       Buy Token
@@ -603,7 +719,7 @@ function Dashboard() {
                             }
                           />
                         </div>
-                        <label className="create-proposal-label">
+                        {/* <label className="create-proposal-label">
                           Language
                         </label>
                         <div className="textfields-width">
@@ -616,7 +732,7 @@ function Dashboard() {
                               })
                             }
                           />
-                        </div>
+                        </div> */}
                         {isSamhita ? (
                           <>
                             <label className="create-proposal-label">
@@ -707,7 +823,7 @@ function Dashboard() {
                             onChange={() => upload()}
                           />
                         </div>
-                        <label className="create-proposal-label">
+                        {/* <label className="create-proposal-label">
                           Proposal Date
                         </label>
                         <div className="start-end-div">
@@ -739,9 +855,12 @@ function Dashboard() {
                             onFocus={() => (inputRefEnd.current.type = "date")}
                             onBlur={() => (inputRefEnd.current.type = "text")}
                           />
-                        </div>
+                        </div> */}
                         <div className="uploadfile textfields-width">
-                          <button className="create-proposal-btn-popup">
+                          <button
+                            className="create-proposal-btn-popup"
+                            onClick={() => createProposal()}
+                          >
                             Create Proposal
                           </button>
                         </div>
