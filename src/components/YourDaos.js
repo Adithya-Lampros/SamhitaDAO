@@ -414,7 +414,10 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
                                         className="rounded-view-data-dao-button button-to-view-more"
                                         onClick={() => {
                                           // setIsSamhita(false);
-                                          openDaoPage(false);
+                                          openDaoPage(
+                                            false,
+                                            dao.dataDaoAddress
+                                          );
                                         }}
                                       >
                                         <span className="view-button-text">
@@ -520,7 +523,10 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
                                                 <button
                                                   className="rounded-view-data-dao-button button-to-view-more"
                                                   onClick={() => {
-                                                    openDaoPage(false);
+                                                    openDaoPage(
+                                                      false,
+                                                      dao.dataDaoAddress
+                                                    );
                                                   }}
                                                 >
                                                   <span className="view-button-text">

@@ -47,7 +47,7 @@ function Dashboard() {
   });
 
   const location = useLocation();
-
+  console.log(location.state.data);
   const [dashboard, setDashboard] = useState(true);
   const [proposals, setProposals] = useState(false);
   const [yourDaos, setYourDaos] = useState(false);
@@ -61,9 +61,10 @@ function Dashboard() {
   const [name, setName] = useState([]);
   const [userAmount, setUserAmount] = useState();
   const [cid, setCid] = useState();
+  const [isSamhita, setIsSamhita] = useState(location.state.data);
 
   console.log(location.state);
-  const isSamhita = location.state.data ? location.state.data : "";
+  // const isSamhita = location.state.data ? location.state.data : "";
 
   const dashboardLinks = (a) => {
     if (a === "Dashboard") {
@@ -871,7 +872,14 @@ function Dashboard() {
               </Modal>
             </div>
           ) : proposals ? (
-            <AvailabelProposal />
+            <>
+              {" "}
+              {console.log(isSamhita)}
+              <AvailabelProposal
+                daoAddress={daoAddress}
+                isSamhita={isSamhita}
+              />
+            </>
           ) : datadaos ? (
             <Template />
           ) : singleDataDao ? (
