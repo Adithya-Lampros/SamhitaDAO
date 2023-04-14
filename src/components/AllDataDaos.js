@@ -86,20 +86,23 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
           );
           const dataDaos = await contract.getAllDataDaos();
           console.log(dataDaos);
-          setDataDaos(dataDaos);
           const user = await signer.getAddress();
-          let newData;
+          let newData = [];
           for (let i = 0; i < dataDaos.length; i++) {
             const contract = new ethers.Contract(
               dataDaos[i].dataDaoAddress,
               languageDAOAbi,
               signer
             );
-            console.log(dataDaos[i]);
             const joined = await contract.isMemberAdded(user);
-            newData = dataDaos.map((item) => ({ ...item, hasJoined: joined }));
+
+            newData.push(dataDaos.filter((item) => {return item.dataDaoAddress===dataDaos[i].dataDaoAddress}).map((item) => ({ ...item, hasJoined: joined })));
+            
+            console.log(newData);
+
           }
-          console.log(newData);
+          setDataDaos(newData);
+          // console.log(newData);
           // setHasJoinedDao(newData)
         } else {
           alert("Please connect to the BitTorrent Chain Donau!");
@@ -425,29 +428,31 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
                                 <table>
                                   <thead>
                                     <tr>
-                                      <th colSpan={2}>{dao.dataDaoName}</th>
+                                      <th colSpan={2}>{dao[0].dataDaoName}</th>
                                     </tr>
                                   </thead>
                                   <tr>
                                     <td>
-                                      <span>{dao.dataDaoDescription} </span>
+                                      <span>{dao[0].dataDaoDescription} </span>
                                     </td>
                                   </tr>
                                   <tr>
                                     <td>
                                       <div className="datadao-address">
                                         <p className=" my-auto">
-                                          {dao.dataDAOTokenAddress.substring(
+                                          {dao[0].dataDAOTokenAddress.substring(
                                             0,
                                             6
                                           ) +
                                             "..." +
-                                            dao.dataDAOTokenAddress.substring(
-                                              dao.dataDAOTokenAddress.length -
+                                            dao[0].dataDAOTokenAddress.substring(
+                                              dao[0].dataDAOTokenAddress.length -
                                                 5,
-                                              dao.dataDAOTokenAddress.length
+                                              dao[0].dataDAOTokenAddress.length
                                             )}
                                         </p>
+                                        {/* <button onClick={() =>  navigator.clipboard.writeText({Address: JSON.stringify(dao.dataDAOTokenAddress)})}> */}
+                                          
                                         <svg
                                           width="16"
                                           height="18"
@@ -455,16 +460,17 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
                                           fill="none"
                                           xmlns="http://www.w3.org/2000/svg"
                                           style={{ margin: " 0 20px" }}
-                                        >
+                                          >
                                           <path
                                             d="M10.7 0.666748H7.455C5.985 0.666748 4.82 0.666748 3.90917 0.790081C2.97083 0.916748 2.21167 1.18341 1.61333 1.78425C1.01417 2.38508 0.748333 3.14758 0.6225 4.08925C0.5 5.00425 0.5 6.17341 0.5 7.64925V12.5142C0.5 13.7709 1.26667 14.8476 2.35583 15.2992C2.3 14.5409 2.3 13.4784 2.3 12.5934V8.41841C2.3 7.35091 2.3 6.43008 2.39833 5.69341C2.50417 4.90341 2.7425 4.14675 3.35417 3.53258C3.96583 2.91841 4.72 2.67925 5.50667 2.57258C6.24 2.47425 7.15667 2.47425 8.22083 2.47425H10.7792C11.8425 2.47425 12.7575 2.47425 13.4917 2.57258C13.2717 2.01123 12.8877 1.52916 12.3897 1.18921C11.8917 0.849264 11.3029 0.6672 10.7 0.666748Z"
                                             fill="#F8F8F8"
-                                          />
+                                            />
                                           <path
                                             d="M3.5 8.49763C3.5 6.22597 3.5 5.09013 4.20333 4.3843C4.90583 3.67847 6.03667 3.67847 8.3 3.67847H10.7C12.9625 3.67847 14.0942 3.67847 14.7975 4.3843C15.5 5.09013 15.5 6.22597 15.5 8.49763V12.5143C15.5 14.786 15.5 15.9218 14.7975 16.6276C14.0942 17.3335 12.9625 17.3335 10.7 17.3335H8.3C6.0375 17.3335 4.90583 17.3335 4.20333 16.6276C3.5 15.9218 3.5 14.786 3.5 12.5143V8.49763Z"
                                             fill="#F8F8F8"
-                                          />
+                                            />
                                         </svg>
+                                          {/* </button> */}
                                       </div>
                                     </td>
                                   </tr>
@@ -476,7 +482,7 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
                                           onClick={() => {
                                             setSingleDataDao(true);
                                             setDatadaos(false);
-                                            setDaoAddress(dao.dataDaoAddress);
+                                            setDaoAddress(dao[0].dataDaoAddress);
                                           }}
                                         >
                                           <span className="view-button-text">
@@ -487,7 +493,7 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
                                           </span>
                                         </button>
 
-                                        {!dao["hasJoined"] ? (
+                                        {!dao[0]["hasJoined"] ? (
                                           <button
                                             className="rounded-join-data-dao-button button-to-join"
                                             onClick={() => {
@@ -537,10 +543,11 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
                                                   className="rounded-join-data-dao-button button-to-join"
                                                   id="datadao-joinbtn"
                                                   onClick={() => {
+                                                    console.log("joi lan")
                                                     joinLanguageDAO(
-                                                      allDataDaos[daoKeyValue]
+                                                      allDataDaos[daoKeyValue][0]
                                                         .dataDaoAddress,
-                                                      allDataDaos[daoKeyValue]
+                                                      allDataDaos[daoKeyValue][0]
                                                         .dataDAOTokenAddress
                                                     );
                                                   }}

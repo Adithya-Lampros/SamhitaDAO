@@ -37,10 +37,10 @@
 //   // justify-content: flex-start;
 //   // align-items: center;
 // }
-.datadao-details-button button {
-  // margin: 0px 20px;
-  /* width: max-content; */
-}
+// .datadao-details-button button {
+//    margin: 0px 20px;
+//    width: max-content; 
+// }
 .datadao-details-section1 {
   padding: 20px;
 }
@@ -280,6 +280,11 @@ table.dataset-main-table td {
   border:2px solid #ff5731;
   padding-left: 0.5rem;
   border-radius: 0.7rem;
+  color:#ff5731;
+}
+
+.enter-value::placeholder{
+  color:#ff5731;
 }
 // ----- Data Dao Details Page Table Style ----------------------
 .dataDaoTablesBg {
