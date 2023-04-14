@@ -32,14 +32,11 @@
   padding: 10px;
 }
 
-// .datadao-details-button {
-//   // display: flex;
-//   // justify-content: flex-start;
-//   // align-items: center;
-// }
+.datadao-details-button {
+}
 // .datadao-details-button button {
 //    margin: 0px 20px;
-//    width: max-content; 
+//    width: max-content;
 // }
 .datadao-details-section1 {
   padding: 20px;
@@ -135,7 +132,8 @@ button.datadao-details-buyrequestbtn {
 }
 
 table.dao-details-table {
-  width: 60%;
+  width: 80%;
+  height: 10vh;
   margin: 20px 0px;
   border-radius: 5px;
   background-color: transparent;
@@ -163,6 +161,7 @@ table.dao-details-table tbody #top1 {
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
+  text-align: center;
   line-height: 131.02%;
   letter-spacing: 0.015em;
   color: #ff5731;
@@ -178,6 +177,7 @@ table.dao-details-table tbody #top2 {
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
+  text-align: center;
   line-height: 131.02%;
   letter-spacing: 0.015em;
   color: #ff5731;
@@ -192,6 +192,7 @@ table.dao-details-table tbody #bottom1 {
   font-family: "MuseoModerno";
   font-style: normal;
   font-weight: 500;
+  text-align: center;
   font-size: 16px;
   line-height: 131.02%;
   letter-spacing: 0.015em;
@@ -205,6 +206,7 @@ table.dao-details-table tbody #bottom2 {
   font-family: "MuseoModerno";
   font-style: normal;
   font-weight: 500;
+  text-align: center;
   font-size: 16px;
   line-height: 131.02%;
   letter-spacing: 0.015em;
@@ -220,9 +222,10 @@ table.dao-details-table thead th {
   font-weight: 500;
   font-size: 16px;
   line-height: 131.02%;
+  text-align: center;
   letter-spacing: 0.015em;
   color: #ff5731;
-  padding: 0.5rem 0;
+  padding: 0.5rem 40px;
   border-bottom: 1px solid #ff5731;
   border-right: 1px solid #ff5731;
 }
@@ -236,6 +239,7 @@ table.dao-details-table tbody td {
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
+  text-align: center;
   line-height: 131.02%;
   letter-spacing: 0.015em;
   color: #ff5731;
@@ -274,18 +278,17 @@ table.dataset-main-table td {
   padding: 10px;
 }
 
-
-
-.enter-value{
-  border:2px solid #ff5731;
+.enter-value {
+  border: 2px solid #ff5731;
   padding-left: 0.5rem;
   border-radius: 0.7rem;
-  color:#ff5731;
+  color: #ff5731;
 }
 
-.enter-value::placeholder{
-  color:#ff5731;
+.enter-value::placeholder {
+  color: #ff5731;
 }
+.datadao-details-button
 // ----- Data Dao Details Page Table Style ----------------------
 .dataDaoTablesBg {
   background: rgba(255, 87, 49, 0.41);

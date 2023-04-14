@@ -37,7 +37,7 @@ function YourDataDaoDetails({
     boxShadow: 24,
     p: 4,
   };
-
+  const [loading, setLoading] = useState(false);
   const [dataDaoInfo, setDataDaoInfo] = useState([]);
   const [proposalInfo, setProposalInfo] = useState({
     Name: null,
