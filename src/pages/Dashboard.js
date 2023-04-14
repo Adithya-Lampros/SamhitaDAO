@@ -8,7 +8,7 @@ import "../styles/SelectTemplate.scss";
 import { Button, CardActions } from "@mui/material";
 import img from "../assets/section3.jpg";
 // import TemplateDetails from "./TemplateDetails";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "../styles/Dashboard.scss";
 import YourDaos from "../components/YourDaos";
 import AvailabelProposal from "../components/AvailabelProposal";
@@ -38,15 +38,18 @@ function Dashboard() {
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDkxNjc0MzQ1NzIwMzU1NjFGMTFkNTM0ODk1OTQyNTJCNjUxOTgxNjgiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2ODE0NDk3OTY0MTcsIm5hbWUiOiJTYW1oaXRhREFPIn0.EdesCPnTd8cF8Z3pdC45kKrmVZqPGEzTq3RdpHI1Vh0",
   });
 
+  const location = useLocation();
+
   const [dashboard, setDashboard] = useState(true);
   const [proposals, setProposals] = useState(false);
   const [yourDaos, setYourDaos] = useState(false);
   const [datadaos, setDatadaos] = useState(false);
   const [daoAddress, setDaoAddress] = useState();
-
   const [singleDataDao, setSingleDataDao] = useState(false);
   const [singleYourDataDao, setSingleYourDataDao] = useState(false);
 
+  console.log(location.state);
+  const isSamhita = location.state.data ? location.state.data : "";
   const dashboardLinks = (a) => {
     if (a === "Dashboard") {
       setDashboard(true);
@@ -132,7 +135,7 @@ function Dashboard() {
       const fileInput = document.querySelector("#fimg");
       console.log(fileInput.files[0]);
       const CID = await client.put(fileInput.files);
-      console.log(CID);
+      // console.log(CID);
       const fileCid = CID + ".ipfs.w3s.link/" + fileInput.files[0].name;
       console.log(fileCid);
     };
@@ -614,54 +617,79 @@ function Dashboard() {
                             }
                           />
                         </div>
-                        <label className="create-proposal-label">
-                          Category
-                        </label>
-                        <div className="textfields-width">
-                          <select
-                            className="temp-select"
-                            onChange={(e) =>
-                              setProposalInfo({
-                                ...proposalInfo,
-                                SamhitaCatagory: e.target.value,
-                              })
-                            }
-                          >
-                            <option className="temp-options" value="template">
-                              Select an Option
-                            </option>
-                            <option className="temp-options" value="template">
-                              Template
-                            </option>
-                            <option className="temp-options" value="governance">
-                              Governance
-                            </option>
-                            <option className="temp-options" value="finance">
-                              Finance
-                            </option>
-                          </select>
-                        </div>
-                        <label className="create-proposal-label">
-                          Template ID
-                        </label>
-                        <div className="textfields-width">
-                          <select
-                            className="temp-select"
-                            onChange={(e) =>
-                              setProposalInfo({
-                                ...proposalInfo,
-                                LangTemID: e.target.value,
-                              })
-                            }
-                          >
-                            <option className="temp-options" value="template">
-                              Select an Option
-                            </option>
-                            <option className="temp-options" value="templateid">
-                              TemplateID
-                            </option>
-                          </select>
-                        </div>
+                        {isSamhita ? (
+                          <>
+                            <label className="create-proposal-label">
+                              Category
+                            </label>
+                            <div className="textfields-width">
+                              <select
+                                className="temp-select"
+                                onChange={(e) =>
+                                  setProposalInfo({
+                                    ...proposalInfo,
+                                    SamhitaCatagory: e.target.value,
+                                  })
+                                }
+                              >
+                                <option
+                                  className="temp-options"
+                                  value="template"
+                                >
+                                  Select an Option
+                                </option>
+                                <option
+                                  className="temp-options"
+                                  value="template"
+                                >
+                                  Template
+                                </option>
+                                <option
+                                  className="temp-options"
+                                  value="governance"
+                                >
+                                  Governance
+                                </option>
+                                <option
+                                  className="temp-options"
+                                  value="finance"
+                                >
+                                  Finance
+                                </option>
+                              </select>
+                            </div>{" "}
+                          </>
+                        ) : (
+                          <>
+                            <label className="create-proposal-label">
+                              Template ID
+                            </label>
+                            <div className="textfields-width">
+                              <select
+                                className="temp-select"
+                                onChange={(e) =>
+                                  setProposalInfo({
+                                    ...proposalInfo,
+                                    LangTemID: e.target.value,
+                                  })
+                                }
+                              >
+                                <option
+                                  className="temp-options"
+                                  value="template"
+                                >
+                                  Select an Option
+                                </option>
+                                <option
+                                  className="temp-options"
+                                  value="templateid"
+                                >
+                                  TemplateID
+                                </option>
+                              </select>
+                            </div>{" "}
+                          </>
+                        )}
                         <label className="create-proposal-label">
                           Upload File
                         </label>

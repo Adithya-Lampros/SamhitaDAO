@@ -233,6 +233,7 @@ function Dashboard() {
             setSingleYourDataDao={setSingleYourDataDao}
             setYourDaos={setYourDaos}
             setDaoAddress={setDaoAddress}
+            isSamhita={isSamhita}
           />
         ) : proposals ? (
           <AvailabelProposal />

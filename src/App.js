@@ -18,7 +18,7 @@ import CreateDao from "./components/stepsform/CreateDao";
 import Dashboard from "./pages/Dashboard";
 import PreExistingDaos from "./components/PreExistingDaos";
 import Template from "./components/Template";
-import YouDaos from "./components/YouDaos";
+import YourDaos from "./components/YourDaos";
 import ExistingDaos from "./pages/ExistingDaos";
 import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
 import Meet from "./pages/Meet";
@@ -87,21 +87,17 @@ function App() {
               />
               <Route path="/create-data-dao" element={<CreateDao />} />
               <Route path="/template" element={<Template />} />
-              <Route path="/your-daos" element={<YouDaos />} />
+              <Route path="/your-daos" element={<YourDaos />} />
               <Route
                 path="/pre-existing-data-dao"
                 element={<PreExistingDaos />}
               />
-              <Route
-                path="/all-daos"
-                element={<AllDataDaos />}
-              />
+              <Route path="/all-daos" element={<AllDataDaos />} />
 
-              
               <Route path="/open-existing-data-dao" element={<Dashboard />} />
               <Route path="/open-existing-data-dao/meet" element={<Meet />} />
               <Route path="/home" element={<Home />} />
-              <Route path="/data-dao-details" element={<DataDaoDetails/>} />
+              <Route path="/data-dao-details" element={<DataDaoDetails />} />
               {/* <Route
                 path="/open-existing-data-dao/:id"
                 element={<Dashboard />}

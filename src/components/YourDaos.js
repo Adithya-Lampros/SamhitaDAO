@@ -31,16 +31,17 @@ const languageFactoryAddress = "0x733A11b0cdBf8931614C4416548B74eeA1fbd0A4";
 
 function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
   const navigate = useNavigate();
-  const openDaoPage = () => {
-    navigate("/open-existing-data-dao");
-  };
+
   const [allDataDaos, setDataDaos] = useState([]);
   const [joinedDaos, setJoinedDaos] = useState([]);
   const { address, isConnected } = useAccount();
   const [isJoined, setIsJoined] = useState();
   const [value, setValue] = React.useState("1");
   const [loading, setLoading] = useState(false);
-
+  const [isSamhita, setIsSamhita] = useState();
+  const openDaoPage = (a) => {
+    navigate("/open-existing-data-dao", { state: { data: a } });
+  };
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -228,13 +229,14 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
                               </td>
                             </tr>
                             <tr>
-                              <td style={{ textAlign: "center" }}>
-                                <button
-                                  className="view-more-all-dao"
-                                  onClick={() => {
-                                    openDaoPage();
-                                  }}
-                                >
+                              <td
+                                style={{ textAlign: "center" }}
+                                onClick={() => {
+                                  // setIsSamhita(true);
+                                  openDaoPage(true);
+                                }}
+                              >
+                                <button className="view-more-all-dao">
                                   View More
                                 </button>
                                 <div>
@@ -242,9 +244,6 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
                                     className="view-more-btn"
                                     src={Arrow}
                                     alt="arrow"
-                                    onClick={() => {
-                                      openDaoPage();
-                                    }}
                                   />
                                 </div>
                               </td>
@@ -318,13 +317,14 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td style={{ textAlign: "center" }}>
-                                    <button
-                                      className="view-more-all-dao"
-                                      onClick={() => {
-                                        openDaoPage();
-                                      }}
-                                    >
+                                  <td
+                                    style={{ textAlign: "center" }}
+                                    onClick={() => {
+                                      // setIsSamhita(false);
+                                      openDaoPage(false);
+                                    }}
+                                  >
+                                    <button className="view-more-all-dao">
                                       View More
                                     </button>
                                     <div>
@@ -332,9 +332,6 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
                                         className="view-more-btn"
                                         src={Arrow}
                                         alt="arrow"
-                                        onClick={() => {
-                                          openDaoPage();
-                                        }}
                                       />
                                     </div>
                                   </td>
@@ -422,13 +419,11 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
                                             <tr>
                                               <td
                                                 style={{ textAlign: "center" }}
+                                                onClick={() => {
+                                                  openDaoPage(false);
+                                                }}
                                               >
-                                                <button
-                                                  className="view-more-all-dao"
-                                                  onClick={() => {
-                                                    openDaoPage();
-                                                  }}
-                                                >
+                                                <button className="view-more-all-dao">
                                                   View More
                                                 </button>
                                                 <div>
@@ -436,9 +431,6 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
                                                     className="view-more-btn"
                                                     src={Arrow}
                                                     alt="arrow"
-                                                    onClick={() => {
-                                                      openDaoPage();
-                                                    }}
                                                   />
                                                 </div>
                                               </td>
