@@ -451,8 +451,8 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
                                               dao[0].dataDAOTokenAddress.length
                                             )}
                                         </p>
-                                        {/* <button onClick={() =>  navigator.clipboard.writeText({Address: JSON.stringify(dao.dataDAOTokenAddress)})}> */}
-                                          
+                                        {/* <button onClick={() =>  navigator.clipboard.writeText({Address: JSON.stringify(dao[0].dataDAOTokenAddress)})}> */}
+                                        
                                         <svg
                                           width="16"
                                           height="18"
