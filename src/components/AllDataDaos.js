@@ -491,7 +491,7 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
                                           <button
                                             className="rounded-join-data-dao-button button-to-join"
                                             onClick={() => {
-                                              setDaoKeyValue(i);
+                                              // setDaoKeyValue(i);
                                               setIsOpenDAO(!isOpenDAO);
                                             }}
                                           >
