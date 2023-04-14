@@ -10,11 +10,15 @@ import uploadfile from "../assets/upload.png";
 import languageFactoryAbi from "../contracts/artifacts/LanguageDAOFactory.json";
 import languageTokenAbi from "../contracts/artifacts/LanguageDAOToken.json";
 import languageDAOAbi from "../contracts/artifacts/LanguageDAO.json";
+import samhitaABI from "../contracts/artifacts/Samhita.json";
+import samhitaTokenABI from "../contracts/artifacts/SamhitaToken.json";
 // import { sign } from "crypto";
 // import { async } from "q";
 
 const dataDaoFactoryContract = "0x0caC8C986452628Ed38483bcEE0D1cF85816946D";
 const languageFactoryAddress = "0x733A11b0cdBf8931614C4416548B74eeA1fbd0A4";
+const samhitaAddress = "0x246A9A278D74c69DE816905a3f6Fc9a3dFDB029d";
+const samhitaTokenAddress = "0x3D79C81fa0EdE22A05Cd5D5AF089BCf214F39AcB";
 
 function DataDaoDetails({
   datadaos,
@@ -23,12 +27,13 @@ function DataDaoDetails({
   setYourDaos,
   yourDaos,
   daoAddress,
+  isSamhita,
 }) {
   const inputRef = useRef();
   const inputRefEnd = useRef();
   const fileInputRef = useRef();
   const [showCreateProposal, setCreateProposal] = useState(false);
-  const [btnloading, setbtnloading]= useState(false)
+  const [btnloading, setbtnloading] = useState(false);
   const handleOpen2 = () => setCreateProposal(true);
   const handleClose2 = () => setCreateProposal(false);
 
@@ -50,6 +55,8 @@ function DataDaoDetails({
   const [tokenAddress, setTokenAddress] = useState();
 
   const getDataDaos = async () => {
+    console.log(daoAddress);
+    console.log(isSamhita);
     try {
       console.log("in");
       if (ethereum) {
@@ -61,24 +68,28 @@ function DataDaoDetails({
         const { chainId } = await provider.getNetwork();
         console.log("switch case for this case is: " + chainId);
         if (chainId === 1029) {
-          const contract = new ethers.Contract(
-            languageFactoryAddress,
-            languageFactoryAbi,
-            provider
-          );
-          const dataDao = await contract.allDataDaos(daoAddress);
-          setDataDaoInfo(dataDao);
-          console.log(dataDao);
-          setTokenAddress(dataDao.dataDAOTokenAddress);
-          const tokenContract = new ethers.Contract(
-            dataDao.dataDAOTokenAddress,
-            languageTokenAbi,
-            signer
-          );
-          const tokenName = await tokenContract.name();
-          console.log(tokenName);
-          setName(tokenName);
-          console.log(tokenContract);
+          if (!isSamhita) {
+            const contract = new ethers.Contract(
+              languageFactoryAddress,
+              languageFactoryAbi,
+              provider
+            );
+            const dataDao = await contract.allDataDaos(daoAddress);
+            setDataDaoInfo(dataDao);
+            console.log(dataDao);
+            setTokenAddress(dataDao.dataDAOTokenAddress);
+            const tokenContract = new ethers.Contract(
+              dataDao.dataDAOTokenAddress,
+              languageTokenAbi,
+              signer
+            );
+            const tokenName = await tokenContract.name();
+            console.log(tokenName);
+            setName(tokenName);
+            console.log(tokenContract);
+          } else {
+            setName("Samhita");
+          }
         } else {
           alert("Please connect to the BitTorrent Chain Donau!");
         }
@@ -90,7 +101,7 @@ function DataDaoDetails({
 
   const buyToken = async () => {
     try {
-      setbtnloading(true)
+      setbtnloading(true);
       console.log("in");
       if (ethereum) {
         const provider = new ethers.providers.Web3Provider(ethereum);
@@ -100,32 +111,52 @@ function DataDaoDetails({
         }
         const { chainId } = await provider.getNetwork();
         if (chainId === 1029) {
-          const contract = new ethers.Contract(
-            daoAddress,
-            languageDAOAbi,
-            signer
-          );
-          console.log(userAmount);
-          console.log(tokenAddress);
-          const tokenContract = new ethers.Contract(
-            tokenAddress,
-            languageTokenAbi,
-            signer
-          );
-          const price = await tokenContract.getTokenPrice();
-          console.log(price);
-          const tx = await contract.addMember(userAmount, {
-            value: userAmount * price,
-          });
-          await tx.wait();
+          if (isSamhita) {
+            const contract = new ethers.Contract(
+              samhitaAddress,
+              samhitaABI,
+              signer
+            );
+            const tokenContract = new ethers.Contract(
+              samhitaTokenAddress,
+              samhitaTokenABI,
+              signer
+            );
+            const price = await tokenContract.getTokenPrice();
+            console.log(price);
+            console.log(parseInt(price, 16));
+            const tx = await contract.addMember(userAmount, {
+              value: userAmount * price,
+            });
+            tx.wait();
+          } else {
+            const contract = new ethers.Contract(
+              daoAddress,
+              languageDAOAbi,
+              signer
+            );
+            console.log(userAmount);
+            console.log(tokenAddress);
+            const tokenContract = new ethers.Contract(
+              tokenAddress,
+              languageTokenAbi,
+              signer
+            );
+            const price = await tokenContract.getTokenPrice();
+            console.log(price);
+            const tx = await contract.addMember(userAmount, {
+              value: userAmount * price,
+            });
+            await tx.wait();
+          }
         } else {
           alert("Please connect to the BitTorrent Chain Donau!");
         }
       }
-      setbtnloading(false)
+      setbtnloading(false);
     } catch (error) {
       console.log(error);
-      setbtnloading(false)
+      setbtnloading(false);
     }
   };
 
@@ -199,7 +230,9 @@ function DataDaoDetails({
                   <tr>
                     <td style={{ borderRadius: "0 0 0 1.5rem " }}>{name}</td>
                     <td>
-                      {dataDaoInfo.dataDAOTokenAddress}
+                      {isSamhita
+                        ? "0x3D79C81fa0EdE22A05Cd5D5AF089BCf214F39AcB"
+                        : dataDaoInfo.dataDAOTokenAddress}
                     </td>
                     <td style={{ borderRadius: "0 0 1.5rem 0" }}>
                       <input
@@ -221,20 +254,20 @@ function DataDaoDetails({
                 onClick={() => buyToken()}
               >
                 {btnloading ? (
-                <svg
-                  className="animate-spin button-spin-svg-pic"
-                  version="1.1"
-                  id="L9"
-                  xmlns="http://www.w3.org/2000/svg"
-                  x="0px"
-                  y="0px"
-                  viewBox="0 0 100 100"
-                >
-                  <path d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50"></path>
-                </svg>
-              ) : (
-                <>Buy Token</>
-              )}
+                  <svg
+                    className="animate-spin button-spin-svg-pic"
+                    version="1.1"
+                    id="L9"
+                    xmlns="http://www.w3.org/2000/svg"
+                    x="0px"
+                    y="0px"
+                    viewBox="0 0 100 100"
+                  >
+                    <path d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50"></path>
+                  </svg>
+                ) : (
+                  <>Buy Token</>
+                )}
               </button>
             </div>
           </div>

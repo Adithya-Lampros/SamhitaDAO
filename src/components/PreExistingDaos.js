@@ -28,6 +28,7 @@ function Dashboard() {
 
   const [singleDataDao, setSingleDataDao] = useState(false);
   const [singleYourDataDao, setSingleYourDataDao] = useState(false);
+  const [isSamhita, setIsSamhita] = useState();
 
   const dashboardLinks = (a) => {
     if (a === "Dashboard") {
@@ -240,6 +241,7 @@ function Dashboard() {
             setSingleDataDao={setSingleDataDao}
             setDatadaos={setDatadaos}
             setDaoAddress={setDaoAddress}
+            setIsSamhita={setIsSamhita}
           />
         ) : singleDataDao ? (
           <DataDaoDetails
@@ -249,6 +251,7 @@ function Dashboard() {
             setYourDaos={setYourDaos}
             yourDaos={yourDaos}
             daoAddress={daoAddress}
+            isSamhita={isSamhita}
           />
         ) : singleYourDataDao ? (
           <YourDataDaoDetails

@@ -20,7 +20,7 @@ const samhitaAddress = "0x246A9A278D74c69DE816905a3f6Fc9a3dFDB029d";
 const samhitaTokenAddress = "0x3D79C81fa0EdE22A05Cd5D5AF089BCf214F39AcB";
 const languageFactoryAddress = "0x733A11b0cdBf8931614C4416548B74eeA1fbd0A4";
 
-function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
+function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress,setIsSamhita }) {
   const [allDataDaos, setDataDaos] = useState([]);
   const [hasJoinSamhita, setHasJoinSamhita] = useState([]);
   const [hasJoinedDao, setHasJoinedDao] = useState([]);
@@ -210,7 +210,7 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
           const price = await tokenContract.getTokenPrice();
           console.log(price);
           // console.log(parseInt(price, 16));
-          const tx = await contract.addMember(2, { value: userAmount * price });
+          const tx = await contract.addMember(userAmount, { value: userAmount * price });
           tx.wait();
         } else {
           alert("Please connect to the BitTorrent Chain Donau!");
@@ -341,6 +341,7 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
                                     onClick={() => {
                                       setSingleDataDao(true);
                                       setDatadaos(false);
+                                      setIsSamhita(true);
                                       setDaoAddress(
                                         "0x246A9A278D74c69DE816905a3f6Fc9a3dFDB029d"
                                       );
@@ -482,6 +483,7 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
                                           onClick={() => {
                                             setSingleDataDao(true);
                                             setDatadaos(false);
+                                            setIsSamhita(false)
                                             setDaoAddress(dao[0].dataDaoAddress);
                                           }}
                                         >
@@ -497,7 +499,7 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress }) {
                                           <button
                                             className="rounded-join-data-dao-button button-to-join"
                                             onClick={() => {
-                                              // setDaoKeyValue(i);
+                                              setDaoKeyValue(i);
                                               setIsOpenDAO(!isOpenDAO);
                                             }}
                                           >
