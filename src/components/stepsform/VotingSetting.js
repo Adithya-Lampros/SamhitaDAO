@@ -14,12 +14,22 @@ function VotingSetting({
   const [voteMins, setVoteMins] = useState("");
   const [voteStake, setVoteStake] = useState("");
   const [proposalStake, setProposalStake] = useState("");
+  const [timestamp, setTimestamp] = useState(null);
 
   const voteSettings = () => {
     if (!voteDay || !voteHours || !voteMins || !voteStake || !proposalStake) {
       alert("Enter Voting Details");
     }
     if (voteDay && voteHours && voteMins && voteStake && proposalStake) {
+      const timestampMs =
+        (parseInt(voteDay) * 24 * 60 * 60 +
+          parseInt(voteHours) * 60 * 60 +
+          parseInt(voteMins) * 60) *
+        1000;
+      setTimestamp(timestampMs);
+
+      console.log(timestamp);
+
       setDataDaoDetails({
         ...dataDaoDetails,
         vote_day: voteDay,
