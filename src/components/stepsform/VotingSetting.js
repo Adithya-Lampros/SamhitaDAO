@@ -12,17 +12,21 @@ function VotingSetting({
   const [voteDay, setVoteDay] = useState("");
   const [voteHours, setVoteHours] = useState("");
   const [voteMins, setVoteMins] = useState("");
+  const [voteStake, setVoteStake] = useState("");
+  const [proposalStake, setProposalStake] = useState("");
 
   const voteSettings = () => {
-    if (!voteDay || !voteHours || !voteMins) {
-      alert("enter voting details");
+    if (!voteDay || !voteHours || !voteMins || !voteStake || !proposalStake) {
+      alert("Enter Voting Details");
     }
-    if (voteDay && voteHours && voteMins) {
+    if (voteDay && voteHours && voteMins && voteStake && proposalStake) {
       setDataDaoDetails({
         ...dataDaoDetails,
         vote_day: voteDay,
         vote_hours: voteHours,
         vote_mins: voteMins,
+        vote_stake: voteStake,
+        proposal_stake: proposalStake,
       });
       handleNext();
     }
@@ -111,6 +115,27 @@ function VotingSetting({
                 vote_period_minutes: parseInt(e.target.value),
               });
               setVoteMins(e.target.value);
+            }}
+          ></input>
+        </div>
+      </div>
+      <div className="create-dao-voting-inside">
+        <h3 className="voting-slider-title">Stake %</h3>
+        <div className="slider-parent">
+          <input
+            className="display-vote-period dark-background"
+            type="number"
+            placeholder="Voting Stake"
+            onChange={(e) => {
+              setVoteStake(e.target.value);
+            }}
+          ></input>
+          <input
+            className="display-vote-period dark-background"
+            type="number"
+            placeholder="Proposal Stake"
+            onChange={(e) => {
+              setProposalStake(e.target.value);
             }}
           ></input>
         </div>
