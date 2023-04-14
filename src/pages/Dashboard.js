@@ -25,12 +25,19 @@ import { Box, Modal } from "@mui/material";
 import uploadfile from "../assets/upload.png";
 import dataDaoFactory from "../contracts/artifacts/dataDaoFactory.json";
 import dataDaoInstace from "../contracts/artifacts/dataDaoInstace.json";
+import { Web3Storage } from "web3.storage";
+
 import Dash1 from "../assets/Dash1.svg";
 import Vector4 from "../assets/Vector4.svg";
 
 const dataDaoFactoryContract = "0x0caC8C986452628Ed38483bcEE0D1cF85816946D";
 
 function Dashboard() {
+  const client = new Web3Storage({
+    token:
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDkxNjc0MzQ1NzIwMzU1NjFGMTFkNTM0ODk1OTQyNTJCNjUxOTgxNjgiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2ODE0NDk3OTY0MTcsIm5hbWUiOiJTYW1oaXRhREFPIn0.EdesCPnTd8cF8Z3pdC45kKrmVZqPGEzTq3RdpHI1Vh0",
+  });
+
   const [dashboard, setDashboard] = useState(true);
   const [proposals, setProposals] = useState(false);
   const [yourDaos, setYourDaos] = useState(false);
@@ -110,6 +117,9 @@ function Dashboard() {
     const [proposalInfo, setProposalInfo] = useState({
       Name: null,
       Description: null,
+      Lang: null,
+      SamhitaCatagory: null,
+      LangTemID: null,
       startDate: null,
       endDate: null,
     });
@@ -117,6 +127,15 @@ function Dashboard() {
     const { ethereum } = window;
 
     console.log(dataDaoInfo);
+
+    const upload = async () => {
+      const fileInput = document.querySelector("#fimg");
+      console.log(fileInput.files[0]);
+      const CID = await client.put(fileInput.files);
+      console.log(CID);
+      const fileCid = CID + ".ipfs.w3s.link/" + fileInput.files[0].name;
+      console.log(fileCid);
+    };
 
     const getContract = async () => {
       try {
@@ -188,14 +207,6 @@ function Dashboard() {
 
     /* Deploy file along with encryption */
     const deployEncrypted = async (e) => {
-      /*
-           uploadEncrypted(e, publicKey, accessToken, uploadProgressCallback)
-           - e: js event
-           - publicKey: wallets public key
-           - accessToken: your api key
-           - signedMessage: message signed by the owner of publicKey
-           - uploadProgressCallback: function to get progress (optional)
-        */
       const sig = await encryptionSignature();
       const response = await lighthouse.uploadEncrypted(
         e,
@@ -276,6 +287,9 @@ function Dashboard() {
         0,
         proposalInfo.Name,
         proposalInfo.Description,
+        proposalInfo.Lang,
+        proposalInfo.SamhitaCatagory,
+        proposalInfo.LangTemID,
         {
           gasLimit: 10000000,
         }
@@ -447,7 +461,13 @@ function Dashboard() {
                       <tbody>
                         <tr>
                           <td id="top1">Token Name</td>
-                          <td id="" className="text-center" style={{borderBottom:"1px solid #ff5731"}}>Token Address</td>
+                          <td
+                            id=""
+                            className="text-center"
+                            style={{ borderBottom: "1px solid #ff5731" }}
+                          >
+                            Token Address
+                          </td>
                           <td id="top2">No of Tokens</td>
                         </tr>
                       </tbody>
@@ -456,14 +476,14 @@ function Dashboard() {
                           <td id="bottom1">DMS</td>
                           <td id="">0x000000000000000000000000</td>
                           <td id="bottom2">
-                          <input
-                        type="Number"
-                        // onChange={(e) => {
-                        //   setUserAmount(e.target.value);
-                        // }}
-                        className="enter-value "
-                        placeholder="Enter the Value"
-                      />
+                            <input
+                              type="Number"
+                              // onChange={(e) => {
+                              //   setUserAmount(e.target.value);
+                              // }}
+                              className="enter-value "
+                              placeholder="Enter the Value"
+                            />
                           </td>
                         </tr>
                       </tbody>
@@ -579,7 +599,69 @@ function Dashboard() {
                               })
                             }
                           />
-                        </div>{" "}
+                        </div>
+                        <label className="create-proposal-label">
+                          Language
+                        </label>
+                        <div className="textfields-width">
+                          <input
+                            type="text"
+                            onChange={(e) =>
+                              setProposalInfo({
+                                ...proposalInfo,
+                                Lang: e.target.value,
+                              })
+                            }
+                          />
+                        </div>
+                        <label className="create-proposal-label">
+                          Category
+                        </label>
+                        <div className="textfields-width">
+                          <select
+                            className="temp-select"
+                            onChange={(e) =>
+                              setProposalInfo({
+                                ...proposalInfo,
+                                SamhitaCatagory: e.target.value,
+                              })
+                            }
+                          >
+                            <option className="temp-options" value="template">
+                              Select an Option
+                            </option>
+                            <option className="temp-options" value="template">
+                              Template
+                            </option>
+                            <option className="temp-options" value="governance">
+                              Governance
+                            </option>
+                            <option className="temp-options" value="finance">
+                              Finance
+                            </option>
+                          </select>
+                        </div>
+                        <label className="create-proposal-label">
+                          Template ID
+                        </label>
+                        <div className="textfields-width">
+                          <select
+                            className="temp-select"
+                            onChange={(e) =>
+                              setProposalInfo({
+                                ...proposalInfo,
+                                LangTemID: e.target.value,
+                              })
+                            }
+                          >
+                            <option className="temp-options" value="template">
+                              Select an Option
+                            </option>
+                            <option className="temp-options" value="templateid">
+                              TemplateID
+                            </option>
+                          </select>
+                        </div>
                         <label className="create-proposal-label">
                           Upload File
                         </label>
@@ -587,17 +669,14 @@ function Dashboard() {
                           className="proposal-margin-div"
                           onClick={() => fileInputRef.current.click()}
                         >
-                          {/* <div>
-                        <label className="create-proposal-label">
-                          Upload File/Folder
-                        </label>
-                      </div> */}
                           <img src={uploadfile} alt="upload" />
                           <input
                             type="file"
+                            id="fimg"
                             hidden
                             ref={fileInputRef}
-                            onChange={(e) => deployEncrypted(e)}
+                            // onChange={(e) => deployEncrypted(e)}
+                            onChange={() => upload()}
                           />
                         </div>
                         <label className="create-proposal-label">
@@ -634,10 +713,7 @@ function Dashboard() {
                           />
                         </div>
                         <div className="uploadfile textfields-width">
-                          <button
-                            className="create-proposal-btn-popup"
-                            onClick={() => createProposal()}
-                          >
+                          <button className="create-proposal-btn-popup">
                             Create Proposal
                           </button>
                         </div>

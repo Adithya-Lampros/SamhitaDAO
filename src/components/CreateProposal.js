@@ -1,9 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import { Web3Storage } from "web3.storage";
 import "../styles/createproposal.css";
 
 function CreateProposal() {
+  const client = Web3Storage({
+    token:
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDkxNjc0MzQ1NzIwMzU1NjFGMTFkNTM0ODk1OTQyNTJCNjUxOTgxNjgiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2ODE0NDk3OTY0MTcsIm5hbWUiOiJTYW1oaXRhREFPIn0.EdesCPnTd8cF8Z3pdC45kKrmVZqPGEzTq3RdpHI1Vh0",
+  });
+
+  const [proposalName, setProposalName] = useState();
+  const [proposalDesc, setProposalDesc] = useState();
+
+  const upload = async () => {
+    const fileInput = document.querySelector("#fimg");
+    const CID = await client.put(fileInput.files);
+    console.log(CID);
+  };
+
   return (
     <>
       <div className="create-proposal-main-div">
@@ -16,12 +31,23 @@ function CreateProposal() {
           <div>
             <label className="create-proposal-label">Title</label>
             {/* <p>Identify your proposal</p> */}
-            <input type="text" placeholder="Enter Proposal Title" />
+            <input
+              type="text"
+              placeholder="Enter Proposal Title"
+              onChange={(e) => {
+                setProposalName(e.target.value);
+              }}
+            />
           </div>
           <div>
             <label className="create-proposal-label">Description</label>
             {/* <p>An introduction of about 2-3 lines</p> */}
-            <TextField id="demo-helper-text-misaligned-no-helper" />{" "}
+            <TextField
+              id="demo-helper-text-misaligned-no-helper"
+              onChange={(e) => {
+                setProposalDesc(e.target.value);
+              }}
+            />
           </div>
           <div className="proposal-margin-div">
             <div>
@@ -35,9 +61,8 @@ function CreateProposal() {
               color="primary"
               className="uploadfile"
             >
-              {" "}
               Upload a file
-              <input type="file" hidden />
+              <input type="file" hidden id="fimg" onChange={() => upload()} />
             </Button>
           </div>
           <div className="proposal-margin-div">
