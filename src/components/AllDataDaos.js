@@ -14,11 +14,10 @@ import languageFactoryAbi from "../contracts/artifacts/LanguageDAOFactory.json";
 import languageDAOAbi from "../contracts/artifacts/LanguageDAO.json";
 import languageTokenAbi from "../contracts/artifacts/LanguageDAOToken.json";
 import { ConstructionOutlined } from "@mui/icons-material";
-const dataDaoFactoryContract = "0x0caC8C986452628Ed38483bcEE0D1cF85816946D";
 
-const samhitaAddress = "0x246A9A278D74c69DE816905a3f6Fc9a3dFDB029d";
-const samhitaTokenAddress = "0x3D79C81fa0EdE22A05Cd5D5AF089BCf214F39AcB";
-const languageFactoryAddress = "0x733A11b0cdBf8931614C4416548B74eeA1fbd0A4";
+const samhitaAddress = "0x325452DF45C4bBE7Dc6d839c0A2785B918DEe0eF";
+const samhitaTokenAddress = "0x3CB262001E1C83404ed0b1e1408FcF102f03936A";
+const languageFactoryAddress = "0x85085FfFEb6C7a07b6B87fC87531a46cB54399cD";
 
 function AllDataDaos({
   setSingleDataDao,
@@ -318,15 +317,15 @@ function AllDataDaos({
                               <td>
                                 <div className="datadao-address">
                                   <p className=" my-auto">
-                                    {"0x246A9A278D74c69DE816905a3f6Fc9a3dFDB029d".substring(
+                                    {"0x325452DF45C4bBE7Dc6d839c0A2785B918DEe0eF".substring(
                                       0,
                                       6
                                     ) +
                                       "..." +
-                                      "0x246A9A278D74c69DE816905a3f6Fc9a3dFDB029d".substring(
-                                        "0x246A9A278D74c69DE816905a3f6Fc9a3dFDB029d"
+                                      "0x325452DF45C4bBE7Dc6d839c0A2785B918DEe0eF".substring(
+                                        "0x325452DF45C4bBE7Dc6d839c0A2785B918DEe0eF"
                                           .length - 5,
-                                        "0x246A9A278D74c69DE816905a3f6Fc9a3dFDB029d"
+                                        "0x325452DF45C4bBE7Dc6d839c0A2785B918DEe0eF"
                                           .length
                                       )}
                                   </p>

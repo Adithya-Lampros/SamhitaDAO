@@ -9,7 +9,7 @@ import dataDaoInstace from "../contracts/artifacts/dataDaoInstace.json";
 import lighthouse from "@lighthouse-web3/sdk";
 import { useNavigate } from "react-router-dom";
 
-const dataDaoFactoryContract = "0x0caC8C986452628Ed38483bcEE0D1cF85816946D";
+const dataDaoFactoryContract = "0x85085FfFEb6C7a07b6B87fC87531a46cB54399cD";
 
 function YourDataDaoDetails({
   datadaos,

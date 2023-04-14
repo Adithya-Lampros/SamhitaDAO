@@ -36,9 +36,9 @@ import samhitaABI from "../contracts/artifacts/Samhita.json";
 import samhitaTokenABI from "../contracts/artifacts/SamhitaToken.json";
 
 const dataDaoFactoryContract = "0x0caC8C986452628Ed38483bcEE0D1cF85816946D";
-const languageFactoryAddress = "0x733A11b0cdBf8931614C4416548B74eeA1fbd0A4";
-const samhitaAddress = "0x246A9A278D74c69DE816905a3f6Fc9a3dFDB029d";
-const samhitaTokenAddress = "0x3D79C81fa0EdE22A05Cd5D5AF089BCf214F39AcB";
+const languageFactoryAddress = "0x85085FfFEb6C7a07b6B87fC87531a46cB54399cD";
+const samhitaAddress = "0x325452DF45C4bBE7Dc6d839c0A2785B918DEe0eF";
+const samhitaTokenAddress = "0x3CB262001E1C83404ed0b1e1408FcF102f03936A";
 
 function Dashboard() {
   const client = new Web3Storage({
@@ -376,7 +376,7 @@ function Dashboard() {
                 proposalInfo.Description,
                 cid,
                 proposalInfo.SamhitaCatagory,
-                { value: 10000000000000 }
+                { value: ethers.utils.parseEther("1000000000000000000") }
               );
               tx.wait();
             } else {
@@ -398,7 +398,7 @@ function Dashboard() {
                 proposalInfo.Description,
                 cid,
                 1,
-                { value: 10000000000000 }
+                { value: ethers.utils.parseEther("1000000000000000000") }
               );
               await tx.wait();
             }
@@ -591,7 +591,7 @@ function Dashboard() {
                           <td id="bottom1">{name}</td>
                           <td id="">
                             {isSamhita
-                              ? "0x3D79C81fa0EdE22A05Cd5D5AF089BCf214F39AcB"
+                              ? "0x3CB262001E1C83404ed0b1e1408FcF102f03936A"
                               : dataDaoInfo.dataDAOTokenAddress}
                           </td>
                           <td id="bottom2">

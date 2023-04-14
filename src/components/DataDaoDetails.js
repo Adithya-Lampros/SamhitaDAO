@@ -15,10 +15,9 @@ import samhitaTokenABI from "../contracts/artifacts/SamhitaToken.json";
 // import { sign } from "crypto";
 // import { async } from "q";
 
-const dataDaoFactoryContract = "0x0caC8C986452628Ed38483bcEE0D1cF85816946D";
-const languageFactoryAddress = "0x733A11b0cdBf8931614C4416548B74eeA1fbd0A4";
-const samhitaAddress = "0x246A9A278D74c69DE816905a3f6Fc9a3dFDB029d";
-const samhitaTokenAddress = "0x3D79C81fa0EdE22A05Cd5D5AF089BCf214F39AcB";
+const languageFactoryAddress = "0x85085FfFEb6C7a07b6B87fC87531a46cB54399cD";
+const samhitaAddress = "0x325452DF45C4bBE7Dc6d839c0A2785B918DEe0eF";
+const samhitaTokenAddress = "0x3CB262001E1C83404ed0b1e1408FcF102f03936A";
 
 function DataDaoDetails({
   datadaos,
@@ -50,6 +49,7 @@ function DataDaoDetails({
   const { ethereum } = window;
 
   const [dataDaoInfo, setDataDaoInfo] = useState([]);
+  const [templates, setTemplates] = useState([]);
   const [name, setName] = useState([]);
   const [userAmount, setUserAmount] = useState();
   const [tokenAddress, setTokenAddress] = useState();
@@ -59,7 +59,6 @@ function DataDaoDetails({
     console.log(daoAddress);
     console.log(isSamhita);
     try {
-      console.log("in");
       if (ethereum) {
         const provider = new ethers.providers.Web3Provider(ethereum);
         const signer = provider.getSigner();
@@ -88,8 +87,25 @@ function DataDaoDetails({
             console.log(tokenName);
             setName(tokenName);
             console.log(tokenContract);
+
+            const languageContract = new ethers.Contract(
+              daoAddress,
+              languageDAOAbi,
+              signer
+            );
+            const datasets = await languageContract.getAllProposals();
+            setTemplates(datasets);
+            console.log(datasets);
           } else {
             setName("Samhita");
+            const samhitaContract = new ethers.Contract(
+              samhitaAddress,
+              samhitaABI,
+              signer
+            );
+            const temp = await samhitaContract.getAllTemplates();
+            console.log(temp);
+            setTemplates(temp);
           }
         } else {
           alert("Please connect to the BitTorrent Chain Donau!");
@@ -232,7 +248,7 @@ function DataDaoDetails({
                     <td style={{ borderRadius: "0 0 0 1.5rem " }}>{name}</td>
                     <td>
                       {isSamhita
-                        ? "0x3D79C81fa0EdE22A05Cd5D5AF089BCf214F39AcB"
+                        ? "0x325452DF45C4bBE7Dc6d839c0A2785B918DEe0eF"
                         : dataDaoInfo.dataDAOTokenAddress}
                     </td>
                     <td style={{ borderRadius: "0 0 1.5rem 0" }}>
@@ -274,61 +290,68 @@ function DataDaoDetails({
           </div>
 
           <div className="datadao-details-section2">
-            <h1 className="datadao-details-dataset">Available Dataset</h1>
-            <div className="dataset-main-flex">
-              <div className="dataDaoTablesBg">
-                <table className="dataset-daodetails-main-table">
-                  <thead>
-                    <tr>
-                      <div className="daodetails-main-proposal-name">
-                        <th colSpan={2}>Name of Proposal</th>
+            <h1 className="datadao-details-dataset">
+              {isSamhita ? "Available Templates" : "Available Dataset"}
+            </h1>
+            {templates.map((item) => {
+              return (
+                <div className="dataset-main-flex">
+                  <div className="dataDaoTablesBg">
+                    <table className="dataset-daodetails-main-table">
+                      <thead>
+                        <tr>
+                          <div className="daodetails-main-proposal-name">
+                            <th colSpan={2}>Name: {item.proposalName}</th>
+                          </div>
+                        </tr>
+                      </thead>
+                      <div className="">
+                        <tr>
+                          <td>
+                            <p className=" width-peragraph">
+                              {item.proposalDescription}
+                            </p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            {" "}
+                            <h4
+                              className=" width-peragraph"
+                              style={{ fontWeight: "700" }}
+                            >
+                              Template structure :{" "}
+                              {isSamhita
+                                ? item.proposalFile
+                                : item.proposalIamge}{" "}
+                              <br></br>
+                              {/* <img src={item.proposalFile} /> */}
+                            </h4>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <h4
+                              className="width-peragraph"
+                              style={{ fontWeight: "700" }}
+                            >
+                              {parseInt(item.proposedAt, 16)}
+                            </h4>
+                          </td>
+                        </tr>
+                        {/* <tr>
+                          <td>
+                            <button className="datadao-details-buyrequestbtn my-3">
+                              Request Dataset
+                            </button>
+                          </td>
+                        </tr> */}
                       </div>
-                    </tr>
-                  </thead>
-                  <div className="">
-                    <tr>
-                      <td>
-                        <p className=" width-peragraph">
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit, sed do eiusmod tempor incididunt ut labore et
-                          dolore magna aliqua. Ut enim ad minim veniam, quis
-                          nostrud exercitation ullamco laboris nisi ut aliquip
-                          ex ea commodo consequat.
-                        </p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        {" "}
-                        <h4
-                          className=" width-peragraph"
-                          style={{ fontWeight: "700" }}
-                        >
-                          uploaded file
-                        </h4>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <h4
-                          className="width-peragraph"
-                          style={{ fontWeight: "700" }}
-                        >
-                          23/10/2022
-                        </h4>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <button className="datadao-details-buyrequestbtn my-3">
-                          Request Dataset
-                        </button>
-                      </td>
-                    </tr>
+                    </table>
                   </div>
-                </table>
-              </div>
-            </div>
+                </div>
+              );
+            })}
           </div>
         </div>
         <Modal

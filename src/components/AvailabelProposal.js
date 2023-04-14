@@ -16,7 +16,7 @@ import { ethers } from "ethers";
 import languageDAOAbi from "../contracts/artifacts/LanguageDAO.json";
 import samhitaABI from "../contracts/artifacts/Samhita.json";
 
-const samhitaAddress = "0x246A9A278D74c69DE816905a3f6Fc9a3dFDB029d";
+const samhitaAddress = "0x325452DF45C4bBE7Dc6d839c0A2785B918DEe0eF";
 
 function AvailabelProposal({ daoAddress, isSamhita }) {
   const inputRef1 = useRef();
@@ -101,7 +101,7 @@ function AvailabelProposal({ daoAddress, isSamhita }) {
               signer
             );
             const tx = await contract.upvoteProposal(id, {
-              value: 10000000000000,
+              value: ethers.utils.parseEther("0.01"),
             });
             await tx.wait();
             setLoading(false);
@@ -143,7 +143,7 @@ function AvailabelProposal({ daoAddress, isSamhita }) {
               signer
             );
             const tx = await contract.downvoteProposal(id, {
-              value: 10000000000000,
+              value: ethers.utils.parseEther("0.01"),
             });
             await tx.wait();
             setLoading(false);
@@ -269,14 +269,14 @@ function AvailabelProposal({ daoAddress, isSamhita }) {
           <div className="availabel-proposal-section3">
             <div className="A-proposal-title A-proposal-title2">Proposals</div>
             <Box sx={{ width: "100%" }}>
-              <Grid
-                container
-                rowSpacing={1}
-                columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-              >
-                {proposals.length > 0
-                  ? proposals.map((items) => {
-                      return (
+              {proposals.length > 0
+                ? proposals.map((items) => {
+                    return (
+                      <Grid
+                        container
+                        rowSpacing={1}
+                        columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+                      >
                         <Grid item xs={6}>
                           <div className="proposal-details">
                             <table>
@@ -406,10 +406,10 @@ function AvailabelProposal({ daoAddress, isSamhita }) {
                             </table>
                           </div>
                         </Grid>
-                      );
-                    })
-                  : "no proposals"}
-              </Grid>
+                      </Grid>
+                    );
+                  })
+                : "no proposals"}
             </Box>
           </div>
         </div>

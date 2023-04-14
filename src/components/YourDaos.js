@@ -26,8 +26,8 @@ import samhitaAbi from "../contracts/artifacts/Samhita.json";
 import languageAbi from "../contracts/artifacts/LanguageDAO.json";
 import { sign } from "@pushprotocol/restapi/src/lib/chat/helpers";
 
-const samhitaAddress = "0x246A9A278D74c69DE816905a3f6Fc9a3dFDB029d";
-const languageFactoryAddress = "0x733A11b0cdBf8931614C4416548B74eeA1fbd0A4";
+const samhitaAddress = "0x325452DF45C4bBE7Dc6d839c0A2785B918DEe0eF";
+const languageFactoryAddress = "0x85085FfFEb6C7a07b6B87fC87531a46cB54399cD";
 
 function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
   const navigate = useNavigate();
@@ -193,15 +193,15 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
                                   <div className="datadao-address">
                                     <h3 className="proposal-info">
                                       Token Address :
-                                      {"0x3D79C81fa0EdE22A05Cd5D5AF089BCf214F39AcB".substring(
+                                      {"0x3CB262001E1C83404ed0b1e1408FcF102f03936A".substring(
                                         0,
                                         6
                                       ) +
                                         "..." +
-                                        "0x3D79C81fa0EdE22A05Cd5D5AF089BCf214F39AcB".substring(
-                                          "0x3D79C81fa0EdE22A05Cd5D5AF089BCf214F39AcB"
+                                        "0x3CB262001E1C83404ed0b1e1408FcF102f03936A".substring(
+                                          "0x3CB262001E1C83404ed0b1e1408FcF102f03936A"
                                             .length - 5,
-                                          "0x3D79C81fa0EdE22A05Cd5D5AF089BCf214F39AcB"
+                                          "0x3CB262001E1C83404ed0b1e1408FcF102f03936A"
                                             .length
                                         )}
                                     </h3>
@@ -218,7 +218,7 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
                                       }}
                                       onClick={() =>
                                         copyContent(
-                                          "0x246A9A278D74c69DE816905a3f6Fc9a3dFDB029d"
+                                          "0x3CB262001E1C83404ed0b1e1408FcF102f03936A"
                                         )
                                       }
                                     >
@@ -372,9 +372,10 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
                                             6
                                           ) +
                                             "..." +
-                                            dao.dataDaoAddress.substring(
-                                              dao.dataDaoAddress.length - 5,
-                                              dao.dataDaoAddress.length
+                                            dao.dataDAOTokenAddress.substring(
+                                              dao.dataDAOTokenAddress.length -
+                                                5,
+                                              dao.dataDAOTokenAddress.length
                                             )}
                                         </h3>
                                         <svg
@@ -389,7 +390,7 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
                                             cursor: "pointer",
                                           }}
                                           onClick={() =>
-                                            copyContent(dao.dataDaoAddress)
+                                            copyContent(dao.dataDAOTokenAddress)
                                           }
                                         >
                                           <g>
@@ -470,10 +471,10 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
                                                       6
                                                     ) +
                                                       "..." +
-                                                      dao.dataDaoAddress.substring(
-                                                        dao.dataDaoAddress
+                                                      dao.dataDAOTokenAddress.substring(
+                                                        dao.dataDAOTokenAddress
                                                           .length - 5,
-                                                        dao.dataDaoAddress
+                                                        dao.dataDAOTokenAddress
                                                           .length
                                                       )}
                                                   </h3>
@@ -490,7 +491,7 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
                                                     }}
                                                     onClick={() =>
                                                       copyContent(
-                                                        dao.dataDaoAddress
+                                                        dao.dataDAOTokenAddress
                                                       )
                                                     }
                                                   >
