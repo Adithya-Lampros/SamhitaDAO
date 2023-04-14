@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -26,9 +26,8 @@ function ReviewInfo({
   setDataDaoDetails,
 }) {
   const { address } = useAccount();
-const [btnloading, setbtnloading] = useState(false);
-const navigate = useNavigate()
-
+  const [btnloading, setbtnloading] = useState(false);
+  const navigate = useNavigate();
 
   const getContract = async () => {
     try {
@@ -89,81 +88,96 @@ const navigate = useNavigate()
   //   return address;
   // };
 
-  const votingPeriodEpoch =
-    Math.floor(dataDaoDetails.vote_period_day) * 86400 +
-    Math.floor(dataDaoDetails.vote_period_hour) * 3600 +
-    Math.floor(dataDaoDetails.vote_period_minutes) * 60;
   const { ethereum } = window;
 
   const provider = new ethers.providers.Web3Provider(ethereum);
   const signer = provider.getSigner();
 
   const luanchDataDao = async () => {
-   try{ setbtnloading(true)
-    const contract = await getContract();
-    console.log(contract);
-    const tokenFactory = new ContractFactory(
-      languageTokenAbi,
-      languageTokenBytecode.bytecode,
-      signer
-    );
-    console.log("languagetoken");
-    // console.log(ethers.utils.parseEther(
-    //   String(dataDaoDetails.token_holders[0].tokenHolderBalance)
-    // ))
-    const tokenContract = await tokenFactory.deploy(
-      dataDaoDetails.token_name,
-      dataDaoDetails.token_symbol,
-      ethers.utils.parseEther(
-        String(dataDaoDetails.token_holders[0].tokenHolderBalance)
-      )
-    );
-    const tokenAddress = tokenContract.address;
-    console.log(tokenAddress);
-    console.log("languagetoken deployed");
+    const votingPeriodEpoch =
+      Math.floor(dataDaoDetails.vote_period_day) * 86400 +
+      Math.floor(dataDaoDetails.vote_period_hour) * 3600 +
+      Math.floor(dataDaoDetails.vote_period_minutes) * 60;
+    try {
+      setbtnloading(true);
+      const contract = await getContract();
+      console.log(contract);
+      const tokenFactory = new ContractFactory(
+        languageTokenAbi,
+        languageTokenBytecode.bytecode,
+        signer
+      );
+      console.log("languagetoken");
+      // console.log(ethers.utils.parseEther(
+      //   String(dataDaoDetails.token_holders[0].tokenHolderBalance)
+      // ))
+      const tokenContract = await tokenFactory.deploy(
+        dataDaoDetails.token_name,
+        dataDaoDetails.token_symbol,
+        ethers.utils.parseEther(
+          String(dataDaoDetails.token_holders[0].tokenHolderBalance)
+        )
+      );
+      const tokenAddress = tokenContract.address;
+      console.log(tokenAddress);
+      console.log("languagetoken deployed");
 
-    const languageFactory = new ContractFactory(
-      languageDAOAbi,
-      languageDAOBytecode.bytecode,
-      signer
-    );
-    console.log("languagefactory");
-    const languageContract = await languageFactory.deploy(
-      "0x246A9A278D74c69DE816905a3f6Fc9a3dFDB029d",
-      "0x378fDf90216725F9684C00Bb0dbA8814fEfDB3a2",
-      tokenAddress
-    );
-    const languageDaoAddress = languageContract.address;
-    console.log(languageDaoAddress);
-    console.log("language factory deployed");
+      const languageFactory = new ContractFactory(
+        languageDAOAbi,
+        languageDAOBytecode.bytecode,
+        signer
+      );
+      console.log("languagefactory");
+      const languageContract = await languageFactory.deploy(
+        "0x246A9A278D74c69DE816905a3f6Fc9a3dFDB029d",
+        "0x378fDf90216725F9684C00Bb0dbA8814fEfDB3a2",
+        tokenAddress
+      );
+      const languageDaoAddress = languageContract.address;
+      console.log(languageDaoAddress);
+      console.log("language factory deployed");
 
-    const con = new ethers.Contract(tokenAddress, languageTokenAbi, signer);
-    const tx1 = await con.transfer(
-      languageDaoAddress,
-      ethers.utils.parseEther(
-        String(dataDaoDetails.token_holders[0].tokenHolderBalance / 2)
-      )
-    );
-    tx1.wait();
-    console.log("transferred");
+      const lanContract = new ethers.Contract(
+        languageDaoAddress,
+        languageDAOAbi,
+        signer
+      );
+      const tx3 = await lanContract.setDataDaoVotingConfig(
+        dataDaoDetails.vote_condition,
+        dataDaoDetails.vote_minapproval,
+        votingPeriodEpoch,
+        ethers.utils.parseEther(String(dataDaoDetails.vote_stake)),
+        ethers.utils.parseEther(String(dataDaoDetails.proposal_stake))
+      );
+      tx3.wait();
 
-    const tx = await contract.createDataDao(
-      languageDaoAddress,
-      dataDaoDetails.name,
-      dataDaoDetails.description,
-      tokenAddress,
-      0,
-      ethers.utils.parseEther(
-        String(dataDaoDetails.token_holders[0].tokenHolderBalance)
-      )
-    );
-    await tx.wait(); //dataDaoAddress,name, description, token, tokenPrice, totalSupply
-    console.log(tx);
-    setbtnloading(false);
-    navigate("/your-daos")}
-    catch(error){
-      console.log(error)
-      setbtnloading(false)
+      const con = new ethers.Contract(tokenAddress, languageTokenAbi, signer);
+      const tx1 = await con.transfer(
+        languageDaoAddress,
+        ethers.utils.parseEther(
+          String(dataDaoDetails.token_holders[0].tokenHolderBalance / 2)
+        )
+      );
+      tx1.wait();
+      console.log("transferred");
+
+      const tx = await contract.createDataDao(
+        languageDaoAddress,
+        dataDaoDetails.name,
+        dataDaoDetails.description,
+        tokenAddress,
+        0,
+        ethers.utils.parseEther(
+          String(dataDaoDetails.token_holders[0].tokenHolderBalance)
+        )
+      );
+      await tx.wait(); //dataDaoAddress,name, description, token, tokenPrice, totalSupply
+      console.log(tx);
+      setbtnloading(false);
+      navigate("/your-daos");
+    } catch (error) {
+      console.log(error);
+      setbtnloading(false);
     }
   };
 
@@ -356,20 +370,20 @@ const navigate = useNavigate()
           }}
         >
           {btnloading ? (
-                <svg
-                  className="animate-spin button-spin-svg-pic"
-                  version="1.1"
-                  id="L9"
-                  xmlns="http://www.w3.org/2000/svg"
-                  x="0px"
-                  y="0px"
-                  viewBox="0 0 100 100"
-                >
-                  <path d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50"></path>
-                </svg>
-              ) : (
-                <>Launch DataDAO</>
-              )}
+            <svg
+              className="animate-spin button-spin-svg-pic"
+              version="1.1"
+              id="L9"
+              xmlns="http://www.w3.org/2000/svg"
+              x="0px"
+              y="0px"
+              viewBox="0 0 100 100"
+            >
+              <path d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50"></path>
+            </svg>
+          ) : (
+            <>Launch DataDAO</>
+          )}
         </button>
       </div>
     </div>
