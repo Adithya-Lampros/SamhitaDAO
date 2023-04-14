@@ -210,7 +210,7 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress,setIsSamhita
           const price = await tokenContract.getTokenPrice();
           console.log(price);
           // console.log(parseInt(price, 16));
-          const tx = await contract.addMember(2, { value: userAmount * price });
+          const tx = await contract.addMember(userAmount, { value: userAmount * price });
           tx.wait();
         } else {
           alert("Please connect to the BitTorrent Chain Donau!");
@@ -499,7 +499,7 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress,setIsSamhita
                                           <button
                                             className="rounded-join-data-dao-button button-to-join"
                                             onClick={() => {
-                                              // setDaoKeyValue(i);
+                                              setDaoKeyValue(i);
                                               setIsOpenDAO(!isOpenDAO);
                                             }}
                                           >
