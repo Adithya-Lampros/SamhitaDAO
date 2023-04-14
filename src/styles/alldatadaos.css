@@ -350,6 +350,15 @@ button.view-more-all-dao {
   margin-left: 40vw;
 }
 
+.your-Dao-table-data {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 2fr));
+}
+
+.proposal-details {
+  margin: 20px;
+}
+
 @media screen and (min-width: 2561px) {
 }
 

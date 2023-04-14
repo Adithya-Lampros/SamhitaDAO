@@ -10,7 +10,7 @@
   justify-content: space-between;
   align-items: center;
   margin: 0 auto;
-  padding: 20px 0px;
+  // padding: 20px 0px;
 }
 .availabel-proposal {
   margin: 0 auto;
@@ -23,14 +23,14 @@
   margin-top: 10px;
   margin-bottom: 10px;
 }
-.A-proposal-title2 {
-  margin-top: 20px;
-  margin-bottom: 30px;
-}
+// .A-proposal-title2 {
+//   margin-top: 20px;
+//   margin-bottom: 30px;
+// }
 .availabel-proposal-section2 {
   /* border: 1px solid gray; */
   display: flex;
-  padding: 10px 0px;
+  // padding: 10px 0px;
   justify-content: flex-start;
   align-items: center;
 }
@@ -129,7 +129,7 @@ button.create-proposal-btn-popup {
 
 .proposal-details table thead {
   /* background-color: #0914d9; */
-  border-radius: 10px;
+  border-radius: 40px 40px 0px 0px;
   padding: 0px 20px;
 
   /* background-color: #4c2ffd; */
@@ -137,18 +137,61 @@ button.create-proposal-btn-popup {
   color: #fefcfc;
 }
 
-.proposal-details table thead th {
-  text-align: center;
-  font-size: 1.75rem;
-  font-weight: 400;
-  padding: 10px;
+.proposal-details table thead {
   border-bottom: 1px solid #fefcfc;
   background-color: #fff;
-  color: #7564d4;
-  border-radius: 2.4rem 2.4rem 0 0;
+  display: flex;
 }
+
+.proposal-details table thead th {
+  padding: 10px;
+  font-size: 1.75rem;
+  font-weight: 400;
+  color: #7564d4;
+  // border-radius: 2.4rem 2.4rem 0 0;
+}
+
+.proposal-details table thead div {
+  background-color: #ff5731;
+  margin-top: 10px;
+  margin-left: 180px;
+  color: #fff;
+  padding: 10px;
+  border-radius: 10px;
+  font-family: "MuseoModerno";
+  font-style: normal;
+  font-weight: 500;
+}
+
+.proposal-details table thead .proposal-inactive {
+  background-color: #7564d4;
+  margin-top: 10px;
+  margin-left: 170px;
+  color: #fff;
+  padding: 10px;
+  border-radius: 10px;
+  font-family: "MuseoModerno";
+  font-style: normal;
+  font-weight: 500;
+}
+
 .proposal-details table td {
   padding: 10px 20px;
+}
+
+.proposal-details-content {
+  display: flex;
+  flex-direction: row;
+
+  label {
+    width: 40%;
+    text-align: center;
+    padding: 10px 20px;
+  }
+
+  td {
+    width: 60%;
+  }
 }
 
 .proposal-details table td p {

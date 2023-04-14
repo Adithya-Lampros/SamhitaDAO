@@ -89,7 +89,7 @@ function CreateDao() {
                   // Customize the path, i.e. the "completed progress"
                   path: {
                     // Path color
-                    stroke: `${progressbar === 100 ? "#00ff0c" : "#FF5731"}`,
+                    stroke: `${progressbar === 100 ? "#FF5731" : "#FF5731"}`,
                     // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
                     strokeLinecap: "butt",
                     // Customize transition animation
@@ -111,7 +111,7 @@ function CreateDao() {
                   // Customize the text
                   text: {
                     // Text color
-                    fill: `${progressbar === 100 ? "#00ff0c" : "#FFFFFF"}`,
+                    fill: `${progressbar === 100 ? "#FF5731" : "#FF5731"}`,
                     // Text size
                     fontSize: "16px",
                   },

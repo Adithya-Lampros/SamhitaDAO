@@ -18,6 +18,7 @@ function AvailabelProposal() {
   const inputRef3 = useRef();
 
   const [age, setAge] = useState("");
+  const [isActive, setIsActive] = useState(false);
 
   const handleChange = (event) => {
     setAge(event.target.value);
@@ -129,9 +130,7 @@ function AvailabelProposal() {
             </div>
           </div>
           <div className="availabel-proposal-section3">
-            <div className="A-proposal-title A-proposal-title2">
-              Active Proposals
-            </div>
+            <div className="A-proposal-title A-proposal-title2">Proposals</div>
             <Box sx={{ width: "100%" }}>
               <Grid
                 container
@@ -144,31 +143,43 @@ function AvailabelProposal() {
                     <table>
                       <thead>
                         <tr>
-                          <th className="proposal-details-head text-center">
-                            MusicCaps
-                          </th>
+                          <th>Name</th>
                         </tr>
+                        {isActive ? (
+                          <tr>
+                            <div>Active</div>
+                          </tr>
+                        ) : (
+                          <tr>
+                            <div className="proposal-inactive">Inactive</div>
+                          </tr>
+                        )}
                       </thead>
                       <tbody>
-                        <tr>
+                        <tr className="proposal-details-content">
+                          <label>Description</label>
                           <td>
-                            {" "}
                             ""This dataset contains 5.5k high-quality music
                             captions written by musicians"
                           </td>
                         </tr>
-                        <tr>
-                          <td>
-                            <button className="uploadfile">
-                              View Uploaded file
-                            </button>
-                          </td>
+                        <tr className="proposal-details-content">
+                          <label>Proposal File </label>
+                          <td>This is the Proposal File</td>
+                        </tr>
+                        <tr className="proposal-details-content">
+                          <label>Creator</label>
+                          <td>Creator Address</td>
+                        </tr>
+                        <tr className="proposal-details-content">
+                          <label>Category</label>
+                          <td>Category</td>
                         </tr>
                         <tr>
                           <td>
                             <div className="date-flex">
-                              <span>Start-Date</span>
-                              <span>End-Date</span>
+                              <span>Created-At</span>
+                              <span>End-At</span>
                             </div>
                           </td>
                         </tr>
