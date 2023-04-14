@@ -317,6 +317,11 @@ button.view-more-all-dao {
   text-align: left;
 }
 
+.alldao-load {
+  height: 100px;
+  margin-left: 220px;
+}
+
 .css-1gsv261 {
   border: none !important;
 }
