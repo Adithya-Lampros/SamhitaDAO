@@ -20,7 +20,12 @@ const samhitaAddress = "0x246A9A278D74c69DE816905a3f6Fc9a3dFDB029d";
 const samhitaTokenAddress = "0x3D79C81fa0EdE22A05Cd5D5AF089BCf214F39AcB";
 const languageFactoryAddress = "0x733A11b0cdBf8931614C4416548B74eeA1fbd0A4";
 
-function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress,setIsSamhita }) {
+function AllDataDaos({
+  setSingleDataDao,
+  setDatadaos,
+  setDaoAddress,
+  setIsSamhita,
+}) {
   const [allDataDaos, setDataDaos] = useState([]);
   const [hasJoinSamhita, setHasJoinSamhita] = useState([]);
   const [hasJoinedDao, setHasJoinedDao] = useState([]);
@@ -28,6 +33,7 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress,setIsSamhita
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenDAO, setIsOpenDAO] = useState(false);
   const [daoKeyValue, setDaoKeyValue] = useState();
+  const [loading, setLoading] = useState(false);
   const popupRef = useRef(null);
   const popupRefDAO = useRef(null);
 
@@ -96,10 +102,15 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress,setIsSamhita
             );
             const joined = await contract.isMemberAdded(user);
 
-            newData.push(dataDaos.filter((item) => {return item.dataDaoAddress===dataDaos[i].dataDaoAddress}).map((item) => ({ ...item, hasJoined: joined })));
-            
-            console.log(newData);
+            newData.push(
+              dataDaos
+                .filter((item) => {
+                  return item.dataDaoAddress === dataDaos[i].dataDaoAddress;
+                })
+                .map((item) => ({ ...item, hasJoined: joined }))
+            );
 
+            console.log(newData);
           }
           setDataDaos(newData);
           // console.log(newData);
@@ -115,6 +126,7 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress,setIsSamhita
 
   const joinSamhita = async () => {
     console.log("Join Samhita");
+    setLoading(false);
     try {
       const { ethereum } = window;
       if (ethereum) {
@@ -143,6 +155,7 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress,setIsSamhita
             value: userAmount * price,
           });
           tx.wait();
+          setLoading(true);
         } else {
           alert("Please connect to the BitTorrent Chain Donau!");
         }
@@ -185,6 +198,7 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress,setIsSamhita
   const joinLanguageDAO = async (daoAddress, tokenAddress) => {
     console.log(daoAddress);
     console.log(tokenAddress);
+    setLoading(false);
     try {
       const { ethereum } = window;
       if (ethereum) {
@@ -210,8 +224,11 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress,setIsSamhita
           const price = await tokenContract.getTokenPrice();
           console.log(price);
           // console.log(parseInt(price, 16));
-          const tx = await contract.addMember(userAmount, { value: userAmount * price });
+          const tx = await contract.addMember(userAmount, {
+            value: userAmount * price,
+          });
           tx.wait();
+          setLoading(true);
         } else {
           alert("Please connect to the BitTorrent Chain Donau!");
         }
@@ -397,21 +414,25 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress,setIsSamhita
                                               setUserAmount(e.target.value);
                                             }}
                                           />
-                                          <button
-                                            className="rounded-join-data-dao-button button-to-join"
-                                            id="datadao-joinbtn"
-                                            onClick={() => {
-                                              console.log("samhita");
-                                              joinSamhita();
-                                            }}
-                                          >
-                                            <span className="join-button-text">
-                                              Join
-                                            </span>
-                                            <span className="join-circle d-flex justify-content-center align-items-center ">
-                                              <i className="fas fa-arrow-right join-arrow"></i>
-                                            </span>
-                                          </button>
+                                          {!loading ? (
+                                            <button
+                                              className="rounded-join-data-dao-button button-to-join"
+                                              id="datadao-joinbtn"
+                                              onClick={() => {
+                                                console.log("samhita");
+                                                joinSamhita();
+                                              }}
+                                            >
+                                              <span className="join-button-text">
+                                                Join
+                                              </span>
+                                              <span className="join-circle d-flex justify-content-center align-items-center ">
+                                                <i className="fas fa-arrow-right join-arrow"></i>
+                                              </span>
+                                            </button>
+                                          ) : (
+                                            ""
+                                          )}
                                         </div>
                                       </div>
                                     </>
@@ -447,13 +468,13 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress,setIsSamhita
                                           ) +
                                             "..." +
                                             dao[0].dataDAOTokenAddress.substring(
-                                              dao[0].dataDAOTokenAddress.length -
-                                                5,
+                                              dao[0].dataDAOTokenAddress
+                                                .length - 5,
                                               dao[0].dataDAOTokenAddress.length
                                             )}
                                         </p>
                                         {/* <button onClick={() =>  navigator.clipboard.writeText({Address: JSON.stringify(dao[0].dataDAOTokenAddress)})}> */}
-                                        
+
                                         <svg
                                           width="16"
                                           height="18"
@@ -461,17 +482,17 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress,setIsSamhita
                                           fill="none"
                                           xmlns="http://www.w3.org/2000/svg"
                                           style={{ margin: " 0 20px" }}
-                                          >
+                                        >
                                           <path
                                             d="M10.7 0.666748H7.455C5.985 0.666748 4.82 0.666748 3.90917 0.790081C2.97083 0.916748 2.21167 1.18341 1.61333 1.78425C1.01417 2.38508 0.748333 3.14758 0.6225 4.08925C0.5 5.00425 0.5 6.17341 0.5 7.64925V12.5142C0.5 13.7709 1.26667 14.8476 2.35583 15.2992C2.3 14.5409 2.3 13.4784 2.3 12.5934V8.41841C2.3 7.35091 2.3 6.43008 2.39833 5.69341C2.50417 4.90341 2.7425 4.14675 3.35417 3.53258C3.96583 2.91841 4.72 2.67925 5.50667 2.57258C6.24 2.47425 7.15667 2.47425 8.22083 2.47425H10.7792C11.8425 2.47425 12.7575 2.47425 13.4917 2.57258C13.2717 2.01123 12.8877 1.52916 12.3897 1.18921C11.8917 0.849264 11.3029 0.6672 10.7 0.666748Z"
                                             fill="#F8F8F8"
-                                            />
+                                          />
                                           <path
                                             d="M3.5 8.49763C3.5 6.22597 3.5 5.09013 4.20333 4.3843C4.90583 3.67847 6.03667 3.67847 8.3 3.67847H10.7C12.9625 3.67847 14.0942 3.67847 14.7975 4.3843C15.5 5.09013 15.5 6.22597 15.5 8.49763V12.5143C15.5 14.786 15.5 15.9218 14.7975 16.6276C14.0942 17.3335 12.9625 17.3335 10.7 17.3335H8.3C6.0375 17.3335 4.90583 17.3335 4.20333 16.6276C3.5 15.9218 3.5 14.786 3.5 12.5143V8.49763Z"
                                             fill="#F8F8F8"
-                                            />
+                                          />
                                         </svg>
-                                          {/* </button> */}
+                                        {/* </button> */}
                                       </div>
                                     </td>
                                   </tr>
@@ -483,8 +504,10 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress,setIsSamhita
                                           onClick={() => {
                                             setSingleDataDao(true);
                                             setDatadaos(false);
-                                            setIsSamhita(false)
-                                            setDaoAddress(dao[0].dataDaoAddress);
+                                            setIsSamhita(false);
+                                            setDaoAddress(
+                                              dao[0].dataDaoAddress
+                                            );
                                           }}
                                         >
                                           <span className="view-button-text">
@@ -541,26 +564,32 @@ function AllDataDaos({ setSingleDataDao, setDatadaos, setDaoAddress,setIsSamhita
                                                     );
                                                   }}
                                                 />
-                                                <button
-                                                  className="rounded-join-data-dao-button button-to-join"
-                                                  id="datadao-joinbtn"
-                                                  onClick={() => {
-                                                    console.log("joi lan")
-                                                    joinLanguageDAO(
-                                                      allDataDaos[daoKeyValue][0]
-                                                        .dataDaoAddress,
-                                                      allDataDaos[daoKeyValue][0]
-                                                        .dataDAOTokenAddress
-                                                    );
-                                                  }}
-                                                >
-                                                  <span className="join-button-text">
-                                                    Join
-                                                  </span>
-                                                  <span className="join-circle d-flex justify-content-center align-items-center ">
-                                                    <i className="fas fa-arrow-right join-arrow"></i>
-                                                  </span>
-                                                </button>
+                                                {!loading ? (
+                                                  <button
+                                                    className="rounded-join-data-dao-button button-to-join"
+                                                    id="datadao-joinbtn"
+                                                    onClick={() => {
+                                                      console.log("joi lan");
+                                                      joinLanguageDAO(
+                                                        allDataDaos[
+                                                          daoKeyValue
+                                                        ][0].dataDaoAddress,
+                                                        allDataDaos[
+                                                          daoKeyValue
+                                                        ][0].dataDAOTokenAddress
+                                                      );
+                                                    }}
+                                                  >
+                                                    <span className="join-button-text">
+                                                      Join
+                                                    </span>
+                                                    <span className="join-circle d-flex justify-content-center align-items-center ">
+                                                      <i className="fas fa-arrow-right join-arrow"></i>
+                                                    </span>
+                                                  </button>
+                                                ) : (
+                                                  ""
+                                                )}
                                               </div>
                                             </div>
                                           </>
