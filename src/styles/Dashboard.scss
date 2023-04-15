@@ -1,7 +1,7 @@
 .dashboard-bg {
   background: linear-gradient(256.61deg, #ffa046 -0.6%, #e87825 100%);
   position: absolute;
-  height: 100vh;
+  height: -webkit-fill-available;
   width: 100vw;
   top: 0;
   z-index: 1;
@@ -44,6 +44,7 @@
   .left-db {
     z-index: 20;
     width: 250px;
+    height: 80vh;
     min-width: 250px;
     max-width: 250px;
     display: flex;

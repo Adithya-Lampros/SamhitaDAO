@@ -153,7 +153,8 @@ function Dashboard() {
       console.log(fileInput.files[0]);
       const CID = await client.put(fileInput.files);
       // console.log(CID);
-      const fileCid = CID + ".ipfs.w3s.link/" + fileInput.files[0].name;
+      const fileCid =
+        "https://" + CID + ".ipfs.w3s.link/" + fileInput.files[0].name;
       console.log(fileCid);
       setCid(fileCid);
     };
@@ -395,14 +396,16 @@ function Dashboard() {
                 samhitaABI,
                 signer
               );
-              // const stakeValue = await contract.proposalStake;
-              // console.log(stakeValue);
+              const stakeValue = await contract.getSamhitaDAOVotingConfig();
+              console.log(stakeValue);
+
               const tx = await contract.createProposal(
                 proposalInfo.Name,
                 proposalInfo.Description,
                 cid,
                 proposalInfo.SamhitaCatagory,
-                { value: ethers.utils.parseEther("1000000000000000000") }
+                // { value: ethers.utils.parseEther("1000000000000000000") }
+                { value: String(stakeValue.proposalStake) }
               );
               tx.wait();
             } else {
@@ -414,17 +417,20 @@ function Dashboard() {
               // const t = await contract.setDataDaoVotingConfig(
               //   30,
               //   20,
-              //   1,
+              //   300,
               //   10000000000000,
               //   10000000000000
               // );
-              // t.wait();
+              // await t.wait();
+              const config = await contract.getDataDaoVotingConfig();
+              console.log(config);
               const tx = await contract.createProposal(
                 proposalInfo.Name,
                 proposalInfo.Description,
                 cid,
                 1,
-                { value: ethers.utils.parseEther("1000000000000000000") }
+                // { value: ethers.utils.parseEther("1000000000000000000") }
+                { value: String(config.proposalStake) }
               );
               await tx.wait();
             }
@@ -683,7 +689,7 @@ function Dashboard() {
                               </td>
                             </tr>
                             <tr className="proposal-details-content">
-                              <label>Creator</label>
+                              <label>Creator:</label>
                               <td>
                                 {" "}
                                 <p className=" my-auto">
@@ -701,9 +707,18 @@ function Dashboard() {
                                 {" "}
                                 <h4 className=" width-peragraph">
                                   uploaded file :
-                                  {isSamhita
-                                    ? item.proposalFile
-                                    : item.proposalIamge}
+                                  <a
+                                    href={
+                                      isSamhita
+                                        ? item.proposalFile
+                                        : item.proposalIamge
+                                    }
+                                    target="_blank"
+                                  >
+                                    {isSamhita
+                                      ? item.proposalFile
+                                      : item.proposalIamge}
+                                  </a>
                                 </h4>
                               </td>
                               <td>

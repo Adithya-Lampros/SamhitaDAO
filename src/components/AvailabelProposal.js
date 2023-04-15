@@ -92,7 +92,11 @@ function AvailabelProposal({ daoAddress, isSamhita }) {
               samhitaABI,
               signer
             );
-            const tx = await contract.upvoteProposal(id, { value: 1 });
+            const config = await contract.getSamhitaDAOVotingConfig();
+            console.log(config);
+            const tx = await contract.upvoteProposal(id, {
+              value: String(config.votingStake),
+            });
             tx.wait();
           } else {
             const contract = new ethers.Contract(
@@ -100,8 +104,11 @@ function AvailabelProposal({ daoAddress, isSamhita }) {
               languageDAOAbi,
               signer
             );
+            const config = await contract.getDataDaoVotingConfig();
+            console.log(config);
             const tx = await contract.upvoteProposal(id, {
-              value: ethers.utils.parseEther("0.01"),
+              // value: ethers.utils.parseEther("0.01"),
+              value: String(config.votingStake),
             });
             await tx.wait();
             setLoading(false);
@@ -134,7 +141,10 @@ function AvailabelProposal({ daoAddress, isSamhita }) {
               samhitaABI,
               signer
             );
-            const tx = await contract.downvoteProposal(id, { value: 1 });
+            const config = await contract.getSamhitaDAOVotingConfig();
+            const tx = await contract.downvoteProposal(id, {
+              value: String(config.votingStake),
+            });
             tx.wait();
           } else {
             const contract = new ethers.Contract(
@@ -142,8 +152,11 @@ function AvailabelProposal({ daoAddress, isSamhita }) {
               languageDAOAbi,
               signer
             );
+            const config = await contract.getDataDaoVotingConfig();
+            console.log(config);
             const tx = await contract.downvoteProposal(id, {
-              value: ethers.utils.parseEther("0.01"),
+              // value: ethers.utils.parseEther("0.01"),
+              value: String(config.votingStake),
             });
             await tx.wait();
             setLoading(false);
@@ -286,7 +299,7 @@ function AvailabelProposal({ daoAddress, isSamhita }) {
                                 </tr>
                                 {!items.votingResult ? (
                                   <tr>
-                                    <div>Active</div>
+                                    <button>Active</button>
                                   </tr>
                                 ) : (
                                   <tr>
@@ -306,13 +319,22 @@ function AvailabelProposal({ daoAddress, isSamhita }) {
                                 <tr className="proposal-details-content">
                                   <label>Proposal File </label>
                                   <td>
-                                    {isSamhita
-                                      ? items.proposalFile
-                                      : items.proposalIamge}
+                                    <a
+                                      href={
+                                        isSamhita
+                                          ? items.proposalFile
+                                          : items.proposalIamge
+                                      }
+                                      target="_blank"
+                                    >
+                                      {isSamhita
+                                        ? items.proposalFile
+                                        : items.proposalIamge}
+                                    </a>
                                   </td>
                                 </tr>
                                 <tr className="proposal-details-content">
-                                  <label>Creator</label>
+                                  <label>Creator:</label>
 
                                   <td>
                                     {" "}
