@@ -299,7 +299,7 @@ function AllDataDaos({
                 <Grid container spacing={1}>
                   <Grid container item spacing={3}>
                     <React.Fragment>
-                      <Grid item xs={4}>
+                      <Grid item xs={3}>
                         <div className="proposal-details">
                           <table>
                             <thead>
@@ -456,34 +456,33 @@ function AllDataDaos({
                       </Grid>
                       {allDataDaos.length > 0
                         ? allDataDaos.map((dao, i) => (
-                            <Grid item xs={4}>
+                            <Grid item xs={3}>
                               <div className="proposal-details">
                                 <table>
                                   <thead>
                                     <tr>
-                                      <th colSpan={2}>{dao[0].dataDaoName}</th>
+                                      <th>{dao[0].dataDaoName}</th>
                                     </tr>
                                   </thead>
                                   <tr>
                                     <td>
-                                      <span>{dao[0].dataDaoDescription} </span>
+                                      <th>{dao[0].dataDaoDescription} </th>
                                     </td>
                                   </tr>
                                   <tr>
                                     <td>
-                                      <div className="datadao-address">
-                                        <p className=" my-auto">
-                                          {dao[0].dataDAOTokenAddress.substring(
-                                            0,
-                                            6
-                                          ) +
-                                            "..." +
-                                            dao[0].dataDAOTokenAddress.substring(
-                                              dao[0].dataDAOTokenAddress
-                                                .length - 5,
-                                              dao[0].dataDAOTokenAddress.length
-                                            )}
-                                        </p>
+                                      <th className="datadao-address">
+                                        {dao[0].dataDAOTokenAddress.substring(
+                                          0,
+                                          6
+                                        ) +
+                                          "..." +
+                                          dao[0].dataDAOTokenAddress.substring(
+                                            dao[0].dataDAOTokenAddress.length -
+                                              5,
+                                            dao[0].dataDAOTokenAddress.length
+                                          )}
+
                                         {/* <button onClick={() =>  navigator.clipboard.writeText({Address: JSON.stringify(dao[0].dataDAOTokenAddress)})}> */}
 
                                         <svg
@@ -504,12 +503,12 @@ function AllDataDaos({
                                           />
                                         </svg>
                                         {/* </button> */}
-                                      </div>
+                                      </th>
                                     </td>
                                   </tr>
                                   <tr>
                                     <td className="last-proposal">
-                                      <div className="d-flex justify-content-around mb-2">
+                                      <th className="d-flex justify-content-around mb-2">
                                         <button
                                           className="rounded-view-data-dao-button button-to-view-more"
                                           onClick={() => {
@@ -617,7 +616,7 @@ function AllDataDaos({
                                             </div>
                                           </>
                                         )}
-                                      </div>
+                                      </th>
                                     </td>
                                   </tr>
                                 </table>
