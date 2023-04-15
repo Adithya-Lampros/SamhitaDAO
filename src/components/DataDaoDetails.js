@@ -344,6 +344,8 @@ function DataDaoDetails({
                               className="width-peragraph"
                               style={{ fontWeight: "700" }}
                             >
+                              Created At:
+                              {/* {new Date(item.proposedAt).getHours()} */}
                               {parseInt(item.proposedAt, 16)}
                             </h4>
                           </td>

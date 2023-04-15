@@ -170,6 +170,44 @@ function AvailabelProposal({ daoAddress, isSamhita }) {
     }
   };
 
+  const result = async (id, template_id) => {
+    const { ethereum } = window;
+    setLoading(true);
+    try {
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        if (!provider) {
+          console.log("Metamask is not installed, please install!");
+        }
+        const { chainId } = await provider.getNetwork();
+        if (chainId === 1029) {
+          if (daoAddress.issamhita) {
+            const contract = new ethers.Contract(
+              samhitaAddress,
+              samhitaABI,
+              signer
+            );
+            const tx = await contract.votingResult(id);
+          } else {
+            const contract = new ethers.Contract(
+              daoAddress,
+              languageDAOAbi,
+              signer
+            );
+            const tx = await contract.votingResult(id, template_id);
+            await tx.wait();
+            setLoading(false);
+          }
+        } else {
+          alert("Please connect to the BitTorrent Chain Donau!");
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     getProposals();
   }, []);
@@ -299,7 +337,17 @@ function AvailabelProposal({ daoAddress, isSamhita }) {
                                 </tr>
                                 {!items.votingResult ? (
                                   <tr>
-                                    <button>Active</button>
+                                    <button
+                                      className="available-proposal-activebtn"
+                                      onClick={() =>
+                                        result(
+                                          items.proposalID,
+                                          items.templateId
+                                        )
+                                      }
+                                    >
+                                      Active
+                                    </button>
                                   </tr>
                                 ) : (
                                   <tr>

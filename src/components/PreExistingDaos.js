@@ -15,6 +15,9 @@ import AvailabelProposal from "../components/AvailabelProposal";
 import AllDataDaos from "../components/AllDataDaos";
 import DataDaoDetails from "../components/DataDaoDetails";
 import YourDataDaoDetails from "../components/YourDataDaoDetails";
+import Grid from "@mui/material/Unstable_Grid2";
+import { experimentalStyled as styled } from "@mui/material/styles";
+import Paper from "@mui/material/Paper";
 import image1 from "../assets/image1.jpg";
 import image2 from "../assets/image2.jpg";
 import image3 from "../assets/image3.jpg";
@@ -75,6 +78,13 @@ function Dashboard() {
       info: "Check all the language daos available in the platform and be part of one you like the most !",
     },
   ]);
+  const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+    ...theme.typography.body2,
+    padding: theme.spacing(2),
+    textAlign: "center",
+    color: theme.palette.text.secondary,
+  }));
 
   return (
     <div className="dashboard-main">
@@ -182,49 +192,59 @@ function Dashboard() {
               <h1>Manage Your Language DAO</h1>
               <p>Click on any datadao to open dashboard for that dao.</p>
               <div className="temdplates-div">
-                {data.map((item, key) => {
-                  return (
-                    <Card
-                      sx={{
-                        width: "100%",
-                        maxWidth: 400,
-                      }}
-                      key={key}
-                      className="card"
-                    >
-                      <CardActionArea
-                        onClick={() => {
-                          dashboardLinks(`${item.link}`);
-                        }}
-                      >
-                        <CardMedia
-                          component="img"
-                          height="180"
-                          image={item.cover}
-                          alt="green iguana"
-                        />
-                        <CardContent sx={{}}>
-                          <Typography
-                            gutterBottom
-                            variant="h5"
-                            component="div"
-                            sx={{ textAlign: "center", color: "#ffffff" }}
+                <Grid
+                  container
+                  spacing={{ xs: 2, md: 3 }}
+                  columns={{ xs: 4, sm: 8, md: 12 }}
+                >
+                  {data.map((item, key) => {
+                    return (
+                      <Grid xs={2} sm={4} md={4} key={key}>
+                        <Item>
+                          <Card
+                            sx={{
+                              // width: "100%",
+                              maxWidth: 300,
+                            }}
+                            key={key}
+                            className="card"
                           >
-                            {item.title}
-                          </Typography>
-                          <Typography
-                            variant="body2"
-                            color="text.secondary"
-                            className="template-info"
-                            id="temp-info"
-                          >
-                            {item.info}
-                          </Typography>
-                        </CardContent>
-                      </CardActionArea>
-                    </Card>
-                  );
-                })}
+                            <CardActionArea
+                              onClick={() => {
+                                dashboardLinks(`${item.link}`);
+                              }}
+                            >
+                              <CardMedia
+                                component="img"
+                                height="180"
+                                image={item.cover}
+                                alt="green iguana"
+                              />
+                              <CardContent sx={{}}>
+                                <Typography
+                                  gutterBottom
+                                  variant="h5"
+                                  component="div"
+                                  sx={{ textAlign: "center", color: "#ffffff" }}
+                                >
+                                  {item.title}
+                                </Typography>
+                                <Typography
+                                  variant="body2"
+                                  color="text.secondary"
+                                  className="template-info"
+                                  id="temp-info"
+                                >
+                                  {item.info}
+                                </Typography>
+                              </CardContent>
+                            </CardActionArea>
+                          </Card>
+                        </Item>
+                      </Grid>
+                    );
+                  })}
+                </Grid>
               </div>
             </div>
           </>

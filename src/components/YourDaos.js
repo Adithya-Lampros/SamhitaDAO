@@ -184,7 +184,13 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
                               <tr>
                                 <td>
                                   <p className="proposal-header">
-                                    This is the samhita DAO
+                                    Samhita DAO was born from a deep sense of
+                                    urgency to save endangered languages from
+                                    disappearing into oblivion. Samhita DAO is
+                                    empowering communities to create
+                                    dictionaries, grammar guides, and oral
+                                    histories that capture the essence of their
+                                    language.
                                   </p>
                                 </td>
                               </tr>

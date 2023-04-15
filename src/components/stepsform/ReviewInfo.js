@@ -137,6 +137,19 @@ function ReviewInfo({
       console.log(languageDaoAddress);
       console.log("language factory deployed");
 
+      console.log("transferring");
+
+      const con = new ethers.Contract(tokenAddress, languageTokenAbi, signer);
+      const tx1 = await con.transfer(
+        languageDaoAddress,
+        ethers.utils.parseEther(
+          String(dataDaoDetails.token_holders[0].tokenHolderBalance / 2)
+        )
+      );
+      await tx1.wait();
+      console.log("transferred");
+
+      console.log("config");
       const lanContract = new ethers.Contract(
         languageDaoAddress,
         languageDAOAbi,
@@ -150,16 +163,6 @@ function ReviewInfo({
         ethers.utils.parseEther(String(dataDaoDetails.proposal_stake))
       );
       await tx3.wait();
-
-      const con = new ethers.Contract(tokenAddress, languageTokenAbi, signer);
-      const tx1 = await con.transfer(
-        languageDaoAddress,
-        ethers.utils.parseEther(
-          String(dataDaoDetails.token_holders[0].tokenHolderBalance / 2)
-        )
-      );
-      await tx1.wait();
-      console.log("transferred");
 
       console.log("creating");
       const tx = await contract.createDataDao(

@@ -187,7 +187,7 @@ function LandingPage() {
 
   return (
     <>
-          <section className="hero">
+      <section className="hero">
         <div className="gradient-3"></div>
         <div className="gradient-4"></div>
         <img src={heroimg2} alt="hero" className="hero-image" />
@@ -225,7 +225,7 @@ function LandingPage() {
                     className="create-dao-btn"
                     onClick={() => openCreateDaoPage()}
                   >
-                    Create DataDao
+                    Create Language Dao
                   </button>
                   <button
                     className="your-dao-btn"
@@ -237,7 +237,7 @@ function LandingPage() {
                     className="existing-dao-btn"
                     onClick={() => openExistingDaoPage()}
                   >
-                    Existing DataDao
+                    Existing Language Dao
                   </button>
                 </div>
               </div>
@@ -245,7 +245,7 @@ function LandingPage() {
           )}
         </div>
       </section>
-    {/* ------- Code is commented till here ------------ */}
+      {/* ------- Code is commented till here ------------ */}
       {/* <div className="second-section">
         <h1>Upload file to encrypt</h1>
         <input onChange={(e) => deployEncrypted(e)} type="file" />
