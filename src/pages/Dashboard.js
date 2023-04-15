@@ -35,7 +35,6 @@ import languageDAOAbi from "../contracts/artifacts/LanguageDAO.json";
 import samhitaABI from "../contracts/artifacts/Samhita.json";
 import samhitaTokenABI from "../contracts/artifacts/SamhitaToken.json";
 
-const dataDaoFactoryContract = "0x0caC8C986452628Ed38483bcEE0D1cF85816946D";
 const languageFactoryAddress = "0x85085FfFEb6C7a07b6B87fC87531a46cB54399cD";
 const samhitaAddress = "0x325452DF45C4bBE7Dc6d839c0A2785B918DEe0eF";
 const samhitaTokenAddress = "0x3CB262001E1C83404ed0b1e1408FcF102f03936A";
@@ -133,6 +132,7 @@ function Dashboard() {
     };
 
     const [dataDaoInfo, setDataDaoInfo] = useState([]);
+    const [templates, setTemplates] = useState([]);
     const [proposalInfo, setProposalInfo] = useState({
       Name: null,
       Description: null,
@@ -188,8 +188,25 @@ function Dashboard() {
               console.log(tokenName);
               setName(tokenName);
               console.log(tokenContract);
+
+              const languageContract = new ethers.Contract(
+                daoAddress,
+                languageDAOAbi,
+                signer
+              );
+              const datasets = await languageContract.getAllProposals();
+              setTemplates(datasets);
+              console.log(datasets);
             } else {
               setName("Samhita");
+              const samhitaContract = new ethers.Contract(
+                samhitaAddress,
+                samhitaABI,
+                signer
+              );
+              const temp = await samhitaContract.getAllTemplates();
+              console.log(temp);
+              setTemplates(temp);
             }
           } else {
             alert("Please connect to the BitTorrent Chain Donau!");
@@ -626,55 +643,85 @@ function Dashboard() {
                 </div>
 
                 <div className="datadao-details-section2">
-                  <h1 className="datadao-details-dataset">Available Dataset</h1>
-                  <div className="dataset-main-flex">
-                    <table className="dataset-main-table">
-                      <thead>
-                        <tr>
-                          <div className="daodetails-proposal-name">
-                            <th colSpan={2}>MusicCaps</th>
+                  <h1 className="datadao-details-dataset">
+                    {isSamhita ? "Available Templates" : "Available Dataset"}
+                  </h1>
+                  {templates.map((item) => {
+                    return item.status == "approved" ? (
+                      <div className="dataset-main-flex">
+                        <table className="dataset-main-table">
+                          <thead>
+                            <tr>
+                              <div className="daodetails-proposal-name">
+                                <th colSpan={2}>{item.proposalName}</th>
+                              </div>
+                            </tr>
+                          </thead>
+                          <div className="padding-div">
+                            <tr>
+                              <td>
+                                <p className=" width-peragraph">
+                                  {item.proposalDescription}
+                                </p>
+                              </td>
+                              <td className="datadao-width-btn">
+                                {" "}
+                                {/* <div className=" ">
+                                  <button className="datadao-details-extra-btn">
+                                    Update
+                                  </button>
+                                </div> */}
+                              </td>
+                            </tr>
+                            <tr className="proposal-details-content">
+                              <label>Creator</label>
+                              <td>
+                                {" "}
+                                <p className=" my-auto">
+                                  {item.proposalCreator.substring(0, 6) +
+                                    "..." +
+                                    item.proposalCreator.substring(
+                                      item.proposalCreator.length - 5,
+                                      item.proposalCreator.length
+                                    )}
+                                </p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                {" "}
+                                <h4 className=" width-peragraph">
+                                  uploaded file :
+                                  {isSamhita
+                                    ? item.proposalFile
+                                    : item.proposalIamge}
+                                </h4>
+                              </td>
+                              <td>
+                                {/* <div className=" datadao-details-btn-padding">
+                                  <button className="datadao-details-extra-btn">
+                                    Put on Sell
+                                  </button>
+                                </div> */}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <h4 className="width-peragraph">
+                                  {" "}
+                                  Proposed At:
+                                  {parseInt(item.proposedAt, 16)}
+                                </h4>
+                              </td>
+                              <td></td>
+                            </tr>
                           </div>
-                        </tr>
-                      </thead>
-                      <div className="padding-div">
-                        <tr>
-                          <td>
-                            <p className=" width-peragraph">
-                              "This dataset contains 5.5k high-quality music
-                              captions written by musicians."
-                            </p>
-                          </td>
-                          <td className="datadao-width-btn">
-                            {" "}
-                            <div className=" ">
-                              <button className="datadao-details-extra-btn">
-                                Update
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            {" "}
-                            <h4 className=" width-peragraph">uploaded file</h4>
-                          </td>
-                          <td>
-                            <div className=" datadao-details-btn-padding">
-                              <button className="datadao-details-extra-btn">
-                                Put on Sell
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <h4 className="width-peragraph">23/10/2022</h4>
-                          </td>
-                          <td></td>
-                        </tr>
+                        </table>
                       </div>
-                    </table>
-                  </div>
+                    ) : (
+                      ""
+                    );
+                  })}
                 </div>
               </div>
               <Modal
@@ -881,7 +928,7 @@ function Dashboard() {
               />
             </>
           ) : datadaos ? (
-            <Template />
+            <Template daoAddress={daoAddress} isSamhita={isSamhita} />
           ) : singleDataDao ? (
             <DataDaoDetails
               datadaos={datadaos}

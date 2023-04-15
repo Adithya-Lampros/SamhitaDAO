@@ -313,7 +313,18 @@ function AvailabelProposal({ daoAddress, isSamhita }) {
                                 </tr>
                                 <tr className="proposal-details-content">
                                   <label>Creator</label>
-                                  <td>{items.proposalCreator}</td>
+
+                                  <td>
+                                    {" "}
+                                    <p className=" my-auto">
+                                      {items.proposalCreator.substring(0, 6) +
+                                        "..." +
+                                        items.proposalCreator.substring(
+                                          items.proposalCreator.length - 5,
+                                          items.proposalCreator.length
+                                        )}
+                                    </p>
+                                  </td>
                                 </tr>
                                 {isSamhita ? (
                                   <tr className="proposal-details-content">
@@ -323,19 +334,17 @@ function AvailabelProposal({ daoAddress, isSamhita }) {
                                 ) : (
                                   ""
                                 )}
-                                <tr>
-                                  <td>
-                                    <div className="date-flex">
-                                      <span>
-                                        Created-At:
-                                        {parseInt(items.proposedAt, 16)}
-                                      </span>
-                                      <span>
-                                        End-At:{" "}
-                                        {parseInt(items.proposalExpireAt, 16)}{" "}
-                                      </span>
-                                    </div>
-                                  </td>
+                                <tr className="proposal-details-content">
+                                  <label>Created-At: </label>
+                                  <td> {parseInt(items.proposedAt, 16)}</td>
+                                </tr>
+                                <tr className="proposal-details-content">
+                                  <label>End-At: </label>
+                                  <td>{parseInt(items.proposedAt, 16)}</td>
+                                </tr>
+                                <tr className="proposal-details-content">
+                                  <label>Status: </label>
+                                  <td>{items.status}</td>
                                 </tr>
                                 <tr>
                                   <td className="vote-btns">

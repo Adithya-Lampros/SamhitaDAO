@@ -208,7 +208,7 @@ function ReviewInfo({
               I am an accordion
             </Typography> */}
           </AccordionSummary>
-          <AccordionDetails sx={{ padding: "30px" }}>
+          <AccordionDetails sx={{ padding: "30px", color: "#ff5f00" }}>
             <Typography sx={{ textAlign: "left", fontWeight: 700 }}>
               NAME
             </Typography>
@@ -219,6 +219,7 @@ function ReviewInfo({
               sx={{
                 textAlign: "left",
                 fontWeight: 700,
+                color: "#ff5f00",
               }}
             >
               DESCRIPTION
@@ -256,7 +257,7 @@ function ReviewInfo({
               You are currently not an owner
             </Typography> */}
           </AccordionSummary>
-          <AccordionDetails sx={{ padding: "30px" }}>
+          <AccordionDetails sx={{ padding: "30px", color: "#ff5f00" }}>
             <Typography sx={{ textAlign: "left", fontWeight: 700 }}>
               SUPPORT %
             </Typography>
@@ -328,7 +329,7 @@ function ReviewInfo({
               Filtering has been entirely disabled for whole web server
             </Typography> */}
           </AccordionSummary>
-          <AccordionDetails sx={{ padding: "30px" }}>
+          <AccordionDetails sx={{ padding: "30px", color: "#ff5f00" }}>
             <Typography sx={{ textAlign: "left", fontWeight: 700 }}>
               TOKEN NAME & SYMBOL
             </Typography>
