@@ -133,6 +133,7 @@ function Dashboard() {
 
     const [dataDaoInfo, setDataDaoInfo] = useState([]);
     const [templates, setTemplates] = useState([]);
+    const [dropdownData, setDropDownData] = useState([]);
     const [proposalInfo, setProposalInfo] = useState({
       Name: null,
       Description: null,
@@ -208,6 +209,14 @@ function Dashboard() {
               console.log(temp);
               setTemplates(temp);
             }
+            const samhitaContract = new ethers.Contract(
+              samhitaAddress,
+              samhitaABI,
+              signer
+            );
+            const temp = await samhitaContract.getAllTemplates();
+            console.log(temp);
+            setDropDownData(temp);
           } else {
             alert("Please connect to the BitTorrent Chain Donau!");
           }
@@ -242,7 +251,7 @@ function Dashboard() {
               console.log(price);
               console.log(parseInt(price, 16));
               const tx = await contract.addMember(userAmount, {
-                value: userAmount * price,
+                value: String(userAmount * price),
               });
               tx.wait();
             } else {
@@ -261,7 +270,7 @@ function Dashboard() {
               const price = await tokenContract.getTokenPrice();
               console.log(price);
               const tx = await contract.addMember(userAmount, {
-                value: userAmount * price,
+                value: String(userAmount * price),
               });
               await tx.wait();
             }
@@ -838,18 +847,22 @@ function Dashboard() {
                                   })
                                 }
                               >
-                                <option
-                                  className="temp-options"
-                                  value="template"
-                                >
-                                  Select an Option
-                                </option>
-                                <option
+                                {dropdownData.map((items) => {
+                                  return (
+                                    <option
+                                      className="temp-options"
+                                      value={parseInt(items.proposalID, 16)}
+                                    >
+                                      {items.proposalName}
+                                    </option>
+                                  );
+                                })}
+                                {/* <option
                                   className="temp-options"
                                   value="templateid"
                                 >
                                   TemplateID
-                                </option>
+                                </option> */}
                               </select>
                             </div>{" "}
                           </>

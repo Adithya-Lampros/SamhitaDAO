@@ -149,7 +149,7 @@ function ReviewInfo({
         ethers.utils.parseEther(String(dataDaoDetails.vote_stake)),
         ethers.utils.parseEther(String(dataDaoDetails.proposal_stake))
       );
-      tx3.wait();
+      await tx3.wait();
 
       const con = new ethers.Contract(tokenAddress, languageTokenAbi, signer);
       const tx1 = await con.transfer(
@@ -158,18 +158,20 @@ function ReviewInfo({
           String(dataDaoDetails.token_holders[0].tokenHolderBalance / 2)
         )
       );
-      tx1.wait();
+      await tx1.wait();
       console.log("transferred");
 
+      console.log("creating");
       const tx = await contract.createDataDao(
         languageDaoAddress,
         dataDaoDetails.name,
         dataDaoDetails.description,
         tokenAddress,
         0,
-        ethers.utils.parseEther(
-          String(dataDaoDetails.token_holders[0].tokenHolderBalance)
-        )
+        0
+        // ethers.utils.parseEther(
+        //   String(dataDaoDetails.token_holders[0].tokenHolderBalance)
+        // )
       );
       await tx.wait(); //dataDaoAddress,name, description, token, tokenPrice, totalSupply
       console.log(tx);

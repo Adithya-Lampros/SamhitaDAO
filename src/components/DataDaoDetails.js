@@ -143,7 +143,7 @@ function DataDaoDetails({
             console.log(price);
             console.log(parseInt(price, 16));
             const tx = await contract.addMember(userAmount, {
-              value: userAmount * price,
+              value: String(userAmount * price),
             });
             tx.wait();
           } else {
@@ -162,7 +162,7 @@ function DataDaoDetails({
             const price = await tokenContract.getTokenPrice();
             console.log(price);
             const tx = await contract.addMember(userAmount, {
-              value: userAmount * price,
+              value: String(userAmount * price),
             });
             await tx.wait();
           }

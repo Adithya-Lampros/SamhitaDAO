@@ -4,7 +4,7 @@ import "../styles/alldatadaos.css";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import { ContractFactory, ethers } from "ethers";
+import { ContractFactory, ethers, BigNumber } from "ethers";
 import dataDaoFactory from "../contracts/artifacts/dataDaoFactory.json";
 // import mainYourDAOBg from "../assets/yourDaos/main-your-dao-Bg.svg";
 import topCurvedLinesDAO from "../assets/yourDaos/top-curved-lines-your-dao.svg";
@@ -151,7 +151,7 @@ function AllDataDaos({
           console.log(price);
           console.log(parseInt(price, 16));
           const tx = await contract.addMember(userAmount, {
-            value: userAmount * price,
+            value: String(userAmount * price),
           });
           await tx.wait();
           setLoading(false);
@@ -222,11 +222,13 @@ function AllDataDaos({
           console.log(tokenContract);
           const price = await tokenContract.getTokenPrice();
           console.log(price);
+          // cost convertPrice = ethers.utils.formatEther
           // console.log(parseInt(price, 16));
           const tx = await contract.addMember(userAmount, {
-            value: userAmount * price,
+            // value: BigNumber.from(ethers.utils.formatEther(userAmount * price)),
+            value: String(userAmount * price),
           });
-          tx.wait();
+          await tx.wait();
           setLoading(false);
         } else {
           alert("Please connect to the BitTorrent Chain Donau!");
