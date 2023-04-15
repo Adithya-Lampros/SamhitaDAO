@@ -321,9 +321,18 @@ function DataDaoDetails({
                               style={{ fontWeight: "700" }}
                             >
                               Template structure :{" "}
-                              {isSamhita
-                                ? item.proposalFile
-                                : item.proposalIamge}{" "}
+                              <a
+                                href={
+                                  isSamhita
+                                    ? item.proposalFile
+                                    : item.proposalIamge
+                                }
+                                target="_blank"
+                              >
+                                {isSamhita
+                                  ? item.proposalFile
+                                  : item.proposalIamge}{" "}
+                              </a>
                               <br></br>
                               {/* <img src={item.proposalFile} /> */}
                             </h4>
