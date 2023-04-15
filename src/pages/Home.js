@@ -232,7 +232,7 @@ function Home() {
                           className="create-dao-btn"
                           onClick={() => openCreateDaoPage()}
                         >
-                          Create DataDao
+                          Create Language Dao
                         </button>
                         <button
                           className="your-dao-btn"
@@ -244,7 +244,7 @@ function Home() {
                           className="existing-dao-btn"
                           onClick={() => openExistingDaoPage()}
                         >
-                          Existing DataDao
+                          Existing Language Dao
                         </button>
                       </div>
                     </div>
