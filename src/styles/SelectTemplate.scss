@@ -1,7 +1,8 @@
 .select-bg {
   background: linear-gradient(256.61deg, #ffa046 -0.6%, #e87825 100%);
   position: absolute;
-  height: 110vh;
+  height: fit-content;
+  padding-bottom: 50px;
   width: 100vw;
   top: 0;
 }
@@ -335,6 +336,42 @@
 }
 
 @media screen and (min-width: 1024px) and (max-width: 1439px) {
+  .template-details-main {
+    position: relative;
+    width: 90%;
+    max-width: 1240px;
+    margin: 70px auto;
+    overflow: hidden;
+    height: max-content;
+    z-index: 10;
+    // min-height: 90vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    div.left-div {
+      img {
+        margin-left: 180px;
+      }
+      .use-btn-aro {
+        right: -200px;
+      }
+    }
+
+    div.right-div {
+      h2 {
+        padding: 10px 0 0 0;
+      }
+    }
+
+    .included-config {
+      .included-item {
+        p {
+          margin-left: -30px;
+        }
+      }
+    }
+  }
 }
 
 @media screen and (min-width: 768px) and (max-width: 1023px) {

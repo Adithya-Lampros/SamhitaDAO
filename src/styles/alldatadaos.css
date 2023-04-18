@@ -377,6 +377,15 @@ button.view-more-all-dao {
 }
 
 @media screen and (min-width: 1024px) and (max-width: 1439px) {
+  .your-dao-bg {
+    min-height: fit-content;
+    padding-bottom: 50px;
+    width: 115vw !important;
+  }
+
+  .all-datadao-section2 {
+    margin-left: 0;
+  }
 }
 
 @media screen and (min-width: 768px) and (max-width: 1023px) {
@@ -386,4 +395,12 @@ button.view-more-all-dao {
   .all-datadao-title {
     font-size: 20px;
   }
+}
+.your-dao-bg {
+  background: linear-gradient(256.61deg, #ffa046 -0.6%, #e87825 100%);
+  position: absolute;
+  height: 130vh;
+  width: 100vw;
+  top: 0;
+  z-index: 1;
 }
