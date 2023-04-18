@@ -112,7 +112,7 @@ button.create-proposal-btn-popup {
 .proposal-details table {
   border-radius: 10px;
   width: 400px;
-  height: 250px;
+  height: 550px;
   border: none;
   background-color: #ffa046;
   border-radius: 0 0 2.4rem 2.4rem;
@@ -144,6 +144,7 @@ button.create-proposal-btn-popup {
   display: flex;
   align-items: center;
   justify-content: space-around;
+  min-height: 100px;
 }
 
 .proposal-details table thead th {
@@ -312,10 +313,10 @@ tbody {
     font-size: 25px;
   }
 }
-.available-proposal-activebtn{
+.available-proposal-activebtn {
   padding: 10px 20px;
-    border-radius: 20px;
-    background-color: #7564d4;
-    border: 0;
-    color: white;
+  border-radius: 20px;
+  background-color: #7564d4;
+  border: 0;
+  color: white;
 }
