@@ -195,12 +195,36 @@ function Home() {
       <section className="hero-section">
         <div className="main-hero">
           <div className="hero-bg-images">
-            <img src={mainHeroBg} className="main-hero-orange-bg" />
-            <img src={orangeCurvedLines} className="orange-curved-lines" />
-            <img src={orangeSecondary} className="orange-secondary" />
-            <img src={yellowCircle} className="yellow-circle" />
-            <img src={purpleCircle} className="purple-circle" />
-            <img src={orangeCircle} className="orange-circle" />
+            <img
+              src={mainHeroBg}
+              className="main-hero-orange-bg"
+              alt="mainbg"
+            />
+            <img
+              src={orangeCurvedLines}
+              className="orange-curved-lines"
+              alt="orange-first"
+            />
+            <img
+              src={orangeSecondary}
+              className="orange-secondary"
+              alt="orange-second"
+            />
+            <img
+              src={yellowCircle}
+              className="yellow-circle"
+              alt="yellow-circle"
+            />
+            <img
+              src={purpleCircle}
+              className="purple-circle"
+              alt="purple-circle"
+            />
+            <img
+              src={orangeCircle}
+              className="orange-circle"
+              alt="orange-circle"
+            />
           </div>
           <div className=" px-3 d-flex justify-content-center align-items-center">
             <div className="hero-text-image d-flex  align-items-center">
