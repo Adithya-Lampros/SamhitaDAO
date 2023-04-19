@@ -732,7 +732,6 @@ function Dashboard() {
                             <tr>
                               <td>
                                 <h4 className="width-peragraph">
-                                  {" "}
                                   Proposed At:
                                   {parseInt(item.proposedAt, 16)}
                                 </h4>

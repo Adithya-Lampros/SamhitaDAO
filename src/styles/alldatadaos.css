@@ -386,6 +386,14 @@ button.view-more-all-dao {
   .all-datadao-section2 {
     margin-left: 0;
   }
+
+  .topCurvedLinesDao {
+    width: 100%;
+  }
+
+  .leftCurvedLinesDao {
+    bottom: -80%;
+  }
 }
 
 @media screen and (min-width: 768px) and (max-width: 1023px) {
@@ -399,7 +407,7 @@ button.view-more-all-dao {
 .your-dao-bg {
   background: linear-gradient(256.61deg, #ffa046 -0.6%, #e87825 100%);
   position: absolute;
-  height: 130vh;
+  height: 180vh;
   width: 100vw;
   top: 0;
   z-index: 1;
