@@ -25,6 +25,7 @@ import Meet from "./pages/Meet";
 import Home from "./pages/Home";
 import DataDaoDetails from "./components/DataDaoDetails";
 import AllDataDaos from "./components/AllDataDaos";
+import AboutBecomeMember from "./components/aboutPlatform/AboutBecomeMember";
 
 function App() {
   const BTTChain = {
@@ -98,6 +99,8 @@ function App() {
               <Route path="/open-existing-data-dao/meet" element={<Meet />} />
               <Route path="/home" element={<Home />} />
               <Route path="/data-dao-details" element={<DataDaoDetails />} />
+              <Route path="/how-samhitaDAO-works" element={<AboutBecomeMember/>} />
+
               {/* <Route
                 path="/open-existing-data-dao/:id"
                 element={<Dashboard />}
