@@ -90,10 +90,26 @@ const Template = ({ daoAddress, isSamhita }) => {
             ? templates.map((item) => {
                 return (
                   <div className="template-data">
-                    <div>{parseInt(item.proposalID, 16)}</div>
-                    <div>{item.proposalName}</div>
-                    <div>{item.proposalDescription}</div>
-                    <div>{item.proposalFile}</div>
+                    <div>
+                      <div className="template-details">
+                        {parseInt(item.proposalID, 16)}
+                      </div>
+                    </div>
+                    <div>
+                      <div className="template-details">
+                        {item.proposalName}
+                      </div>
+                    </div>
+                    <div>
+                      <div className="template-details">
+                        {item.proposalDescription}
+                      </div>
+                    </div>
+                    <div>
+                      <div className="template-details">
+                        {item.proposalFile}
+                      </div>
+                    </div>
                   </div>
                 );
               })
