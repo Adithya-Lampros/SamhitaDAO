@@ -5,8 +5,8 @@ import samhitaABI from "../contracts/artifacts/Samhita.json";
 import languageDAOAbi from "../contracts/artifacts/LanguageDAO.json";
 import languageFactoryAbi from "../contracts/artifacts/LanguageDAOFactory.json";
 
-const languageFactoryAddress = "0x85085FfFEb6C7a07b6B87fC87531a46cB54399cD";
-const samhitaAddress = "0x325452DF45C4bBE7Dc6d839c0A2785B918DEe0eF";
+const languageFactoryAddress = "0x87B3Dd2f2FA919310ea010F514C6cBe69419863a";
+const samhitaAddress = "0x656CCf107Eac3599A9A22445109e4c327451Ec76";
 
 const Template = ({ daoAddress, isSamhita }) => {
   console.log(daoAddress);

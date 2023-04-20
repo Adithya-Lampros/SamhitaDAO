@@ -17,7 +17,7 @@ import languageDAOBytecode from "../../contracts/artifacts/LanguageDAOBytecode.j
 import { useAccount } from "wagmi";
 import { ConstructionOutlined } from "@mui/icons-material";
 
-const languageFactoryAddress = "0x85085FfFEb6C7a07b6B87fC87531a46cB54399cD";
+const languageFactoryAddress = "0x87B3Dd2f2FA919310ea010F514C6cBe69419863a";
 
 function ReviewInfo({
   handleNext,
@@ -129,8 +129,8 @@ function ReviewInfo({
       );
       console.log("languagefactory");
       const languageContract = await languageFactory.deploy(
-        "0x325452DF45C4bBE7Dc6d839c0A2785B918DEe0eF",
-        "0x9dE1577567faC621F69FBB1506B91ac23ab6e28a",
+        "0x656CCf107Eac3599A9A22445109e4c327451Ec76",
+        "0x2e3aE78dD6b197b47a20C4d167A56FD180bC730D",
         tokenAddress
       );
       const languageDaoAddress = languageContract.address;
