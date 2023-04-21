@@ -60,19 +60,19 @@ function YouDaos() {
       cover: image1,
       title: "Proposals",
       link: "Proposals",
-      info: "Check all the Active Proposals and contribute to your Data Dao ! ",
+      info: "Check all the Active Proposals and contribute to your Language DAO ! ",
     },
     {
       cover: image2,
       title: "YourDaos",
       link: "YourDaos",
-      info: "Check all the data daos that you have created and contribute in it to build your community !",
+      info: "Check all the Language DAOs that you have created and contribute in it to build your community !",
     },
     {
       cover: image3,
-      title: "DataDAOs",
-      link: "DataDAOs",
-      info: "Check all the data daos available in the platform and be part of one you like the most !",
+      title: "LanguageDAOs",
+      link: "LanguageDAOs",
+      info: "Check all the Language DAOs available in the platform and be part of one you like the most !",
     },
   ]);
 
@@ -179,8 +179,8 @@ function YouDaos() {
         {dashboard ? (
           <>
             <div className="select-main" id="right-db-inside">
-              <h1>Manage Your DataDAO</h1>
-              <p>Click on any datadao to open dashboard for that dao.</p>
+              <h1>Manage Your LanguageDAO</h1>
+              <p>Click on any languagedao to open dashboard for that dao.</p>
               <div className="templates-div">
                 {data.map((item, key) => {
                   return (

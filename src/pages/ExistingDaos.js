@@ -33,7 +33,7 @@ function ExistingDaos() {
   return (
     <div className="select-main">
       <h1>Select Template</h1>
-      <p>Create your DataDao with pre configured template</p>
+      <p>Create your LanguageDAO with pre configured template</p>
       <div className="templates-div">
         {data.map((item, key) => {
           return (

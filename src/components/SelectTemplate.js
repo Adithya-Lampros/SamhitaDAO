@@ -43,7 +43,7 @@ function SelectTemplate() {
         <img className="vector" src={Vector} alt="Vector" />
         <h1>Select Template</h1>
         <p className="temp-p">
-          Create your DataDao with pre configured template
+          Create your Language DAO with pre configured template
         </p>
         <div className="templates-div">
           {data.map((item, key) => {

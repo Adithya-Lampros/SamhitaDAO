@@ -24,7 +24,7 @@ function TemplateDetails() {
           <p>{location.state.info}</p>
 
           <h2>Registery</h2>
-          <p>datadao.eth</p>
+          <p>languagedao.eth</p>
 
           <div className="use-temp-main">
             <button

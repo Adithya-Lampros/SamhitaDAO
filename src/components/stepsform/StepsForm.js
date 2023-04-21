@@ -10,7 +10,7 @@ import Typography from "@mui/material/Typography";
 
 const steps = [
   {
-    label: "DataDao Information",
+    label: "LanguageDao Information",
   },
   {
     label: "Votting Settings",

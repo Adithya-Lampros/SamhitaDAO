@@ -190,7 +190,7 @@ function Dashboard() {
           <>
             <div className="select-main" id="right-db-inside">
               <h1>Manage Your Language DAO</h1>
-              <p>Click on any datadao to open dashboard for that dao.</p>
+              <p>Click on any Language DAO to open dashboard for that dao.</p>
               <div className="temdplates-div">
                 <Grid
                   container

@@ -26,14 +26,14 @@ function DatadaoInfo({
 
   return (
     <div className="create-dao-info-main">
-      <h1>Enter the DataDao Information</h1>
+      <h1>Enter the LanguageDAO Information</h1>
       <form onSubmit={handleSubmit}>
         <div className="create-dao-info-input-parent">
           <div className="create-dao-info-input-child">
             <input
               value={daoName}
               type="text"
-              placeholder="Enter name of the DataDao"
+              placeholder="Enter name of the LanguageDAO"
               className="dark-background"
               onChange={(e) =>
                 setDataDaoDetails(
@@ -47,7 +47,7 @@ function DatadaoInfo({
             <textarea
               value={daoDesc}
               type="text"
-              placeholder="Enter Datadao description"
+              placeholder="Enter LanguageDAO description"
               rows="6"
               cols="50"
               className="dark-background"
