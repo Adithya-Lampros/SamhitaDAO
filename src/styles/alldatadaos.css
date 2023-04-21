@@ -26,7 +26,7 @@
 .your-dao-bg {
   background: linear-gradient(256.61deg, #ffa046 -0.6%, #e87825 100%);
   position: absolute;
-  height: 130vh;
+  height: auto;
   width: 100vw;
   top: 0;
   z-index: 1;
@@ -35,7 +35,7 @@
 .maindaoBg {
   background: linear-gradient(256.61deg, #ffa046 -0.6%, #e87825 100%);
   position: absolute;
-  height: 130vh;
+  height: auto;
   width: 100vw;
   top: 0;
   z-index: 1;
@@ -190,6 +190,11 @@ button.view-more-all-dao {
   margin: 10px;
   margin-top: 50px;
   color: #ff923e;
+}
+
+.datadao-join-subheader{
+  font-size: 1.5rem;
+  color: #000;
 }
 
 .datadao-popmain {

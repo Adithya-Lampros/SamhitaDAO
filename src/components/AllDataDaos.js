@@ -14,10 +14,12 @@ import languageFactoryAbi from "../contracts/artifacts/LanguageDAOFactory.json";
 import languageDAOAbi from "../contracts/artifacts/LanguageDAO.json";
 import languageTokenAbi from "../contracts/artifacts/LanguageDAOToken.json";
 import { ConstructionOutlined } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 const samhitaAddress = "0x656CCf107Eac3599A9A22445109e4c327451Ec76";
 const samhitaTokenAddress = "0xcEF9199e247CA29e1cdb88ffe79A1a02fD3FA6d0";
 const languageFactoryAddress = "0x87B3Dd2f2FA919310ea010F514C6cBe69419863a";
+
 
 function AllDataDaos({
   setSingleDataDao,
@@ -35,6 +37,17 @@ function AllDataDaos({
   const [loading, setLoading] = useState(false);
   const popupRef = useRef(null);
   const popupRefDAO = useRef(null);
+  const [message, setMessage] = useState('');
+  const [svgColor, setSvgColor] = useState("#fff");
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (message) {
+      const timer = setTimeout(() => {
+        setMessage('');
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [message]);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -230,6 +243,7 @@ function AllDataDaos({
           });
           await tx.wait();
           setLoading(false);
+          window.location.reload();
         } else {
           alert("Please connect to the BitTorrent Chain Donau!");
         }
@@ -278,7 +292,7 @@ function AllDataDaos({
   return (
     <>
       <div className="main-your-dao">
-        <div className="maindaoBg"></div>
+        <div className="maindaoBg">
         <div className="your-dao-bg-images">
           <img
             src={topCurvedLinesDAO}
@@ -410,8 +424,9 @@ function AllDataDaos({
                                       className="datadao-popup"
                                     >
                                       <div className="datadao-joinheader">
-                                        Join
+                                        Join 
                                       </div>
+                                      <div className="datadao-join-subheader text-center">You must be a member of SamhitaDAO to join this language DAO.</div>
                                       <div className="datadao-popmain">
                                         <input
                                           className="datadao-joininput"
@@ -490,15 +505,22 @@ function AllDataDaos({
                                           dao[0].dataDAOTokenAddress.length
                                         )}
 
-                                      {/* <button onClick={() =>  navigator.clipboard.writeText({Address: JSON.stringify(dao[0].dataDAOTokenAddress)})}> */}
+                                      
 
                                       <svg
                                         width="16"
                                         height="18"
                                         viewBox="0 0 16 18"
-                                        fill="none"
+                                        fill={svgColor}
                                         xmlns="http://www.w3.org/2000/svg"
-                                        style={{ margin: " 0 20px" }}
+                                        style={{ margin: " 0 20px",cursor:"pointer" }}
+                                        onClick={()=>{navigator.clipboard.writeText(dao[0].dataDAOTokenAddress);
+                                          setMessage('Copied!');
+                                          setSvgColor("#000");
+                                          // After 1 second, change the color back to the original color
+                                          setTimeout(() => {
+                                            setSvgColor("#fff");
+                                          }, 1000);}}
                                       >
                                         <path
                                           d="M10.7 0.666748H7.455C5.985 0.666748 4.82 0.666748 3.90917 0.790081C2.97083 0.916748 2.21167 1.18341 1.61333 1.78425C1.01417 2.38508 0.748333 3.14758 0.6225 4.08925C0.5 5.00425 0.5 6.17341 0.5 7.64925V12.5142C0.5 13.7709 1.26667 14.8476 2.35583 15.2992C2.3 14.5409 2.3 13.4784 2.3 12.5934V8.41841C2.3 7.35091 2.3 6.43008 2.39833 5.69341C2.50417 4.90341 2.7425 4.14675 3.35417 3.53258C3.96583 2.91841 4.72 2.67925 5.50667 2.57258C6.24 2.47425 7.15667 2.47425 8.22083 2.47425H10.7792C11.8425 2.47425 12.7575 2.47425 13.4917 2.57258C13.2717 2.01123 12.8877 1.52916 12.3897 1.18921C11.8917 0.849264 11.3029 0.6672 10.7 0.666748Z"
@@ -509,7 +531,7 @@ function AllDataDaos({
                                           fill="#F8F8F8"
                                         />
                                       </svg>
-                                      {/* </button> */}
+                                    
                                     </th>
                                   </td>
                                 </tr>
@@ -632,6 +654,7 @@ function AllDataDaos({
               </Box>
             </div>
           </div>
+        </div>
         </div>
       </div>
     </>

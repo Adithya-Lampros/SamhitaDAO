@@ -143,7 +143,7 @@ body {
 
   .hw-odd-block-icon-bg{
   
-    margin-top: -35px;
+    margin-top: -30px;
     margin-left: 150px;
 
     position: absolute;
@@ -174,7 +174,7 @@ body {
   }
   
   .add-user-block{
-      width:356px;
+      width:100%;
       height: 120px;
       background-color: #fff;
       border-radius: 30px;
@@ -182,10 +182,39 @@ body {
   }
   
   .hw-block-margin{
-      width: fit-content;
+      width: 40%;
       margin: 3.5rem 0 1rem 0;
   }
   .hw-even-block-margin{
-      width: fit-content;
+      width:40%;
       margin: 1rem 0 1rem 0;
   }
+
+
+
+  @media screen and (min-width: 1700px) {
+    .hw-even-icon-content-text{
+        margin-left: -5%;
+        width: fit-content;
+    }
+
+  }
+
+  @media screen and (max-width: 1450px) {
+    .hw-even-block-margin{
+        width:fit-content;
+        flex-direction: column;
+    }
+  }
+
+
+@media screen and (max-width: 1308px) {
+    .hw-block-margin{
+        width: fit-content;
+        /* margin: 3.5rem 0 1rem 0; */
+    }
+
+    .hw-even-block-margin{
+        width: fit-content;
+    }
+}

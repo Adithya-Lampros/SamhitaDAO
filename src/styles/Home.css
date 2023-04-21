@@ -116,6 +116,11 @@ body {
   color: #fff;
 }
 
+.language-sub-header{
+  font-size:1.5rem;
+  color:#000
+}
+
 .circle {
   position: absolute;
   top: 50%;

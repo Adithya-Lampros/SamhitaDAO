@@ -234,8 +234,9 @@ function Home() {
                   Welcome to <br /> SamhitaDAO
                 </p>
                 <p className="hero-sub-text">
-                  We preserve the Past for <br />
-                  Future
+                  
+                  We preserve the past for the <br/>
+                  future by reviving endangered languages.
                 </p>
                 <button
                   className="rounded-button button-to-join"
@@ -252,6 +253,7 @@ function Home() {
                     <div className="popup-overlay" />
                     <div ref={popupRef} className="popup">
                       <div className="language-header">Language DAO</div>
+                      <div className="language-sub-header text-center">If you’re new here, click on Existing Language Dao to first join Samhita DAO</div>
                       <div className="hero-btns">
                         <button
                           className="create-dao-btn"

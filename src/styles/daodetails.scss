@@ -8,7 +8,8 @@
 .maindaoBg {
   background: linear-gradient(256.61deg, #ffa046 -0.6%, #e87825 100%);
   position: absolute;
-  height: 180vh;
+  // height: max-content;
+  min-height: 200vh;
   width: 100vw;
   top: 0;
   left: 0;
@@ -367,7 +368,7 @@ div.Toastify__progress-bar--success {
 
 @media screen and (min-width: 1024px) and (max-width: 1439px) {
   .maindaoBg {
-    height: 270vh;
+    // height: 270vh;
   }
 }
 
