@@ -26,8 +26,8 @@ import samhitaAbi from "../contracts/artifacts/Samhita.json";
 import languageAbi from "../contracts/artifacts/LanguageDAO.json";
 import { sign } from "@pushprotocol/restapi/src/lib/chat/helpers";
 
-const samhitaAddress = "0x325452DF45C4bBE7Dc6d839c0A2785B918DEe0eF";
-const languageFactoryAddress = "0x85085FfFEb6C7a07b6B87fC87531a46cB54399cD";
+const samhitaAddress = "0x656CCf107Eac3599A9A22445109e4c327451Ec76";
+const languageFactoryAddress = "0x87B3Dd2f2FA919310ea010F514C6cBe69419863a";
 
 function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
   const navigate = useNavigate();
@@ -199,15 +199,15 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
                                   <div className="datadao-address">
                                     <h3 className="proposal-info">
                                       Token Address :
-                                      {"0x3CB262001E1C83404ed0b1e1408FcF102f03936A".substring(
+                                      {"0xcEF9199e247CA29e1cdb88ffe79A1a02fD3FA6d0".substring(
                                         0,
                                         6
                                       ) +
                                         "..." +
-                                        "0x3CB262001E1C83404ed0b1e1408FcF102f03936A".substring(
-                                          "0x3CB262001E1C83404ed0b1e1408FcF102f03936A"
+                                        "0xcEF9199e247CA29e1cdb88ffe79A1a02fD3FA6d0".substring(
+                                          "0xcEF9199e247CA29e1cdb88ffe79A1a02fD3FA6d0"
                                             .length - 5,
-                                          "0x3CB262001E1C83404ed0b1e1408FcF102f03936A"
+                                          "0xcEF9199e247CA29e1cdb88ffe79A1a02fD3FA6d0"
                                             .length
                                         )}
                                     </h3>
@@ -224,7 +224,7 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
                                       }}
                                       onClick={() =>
                                         copyContent(
-                                          "0x3CB262001E1C83404ed0b1e1408FcF102f03936A"
+                                          "0xcEF9199e247CA29e1cdb88ffe79A1a02fD3FA6d0"
                                         )
                                       }
                                     >

@@ -35,9 +35,9 @@ import languageDAOAbi from "../contracts/artifacts/LanguageDAO.json";
 import samhitaABI from "../contracts/artifacts/Samhita.json";
 import samhitaTokenABI from "../contracts/artifacts/SamhitaToken.json";
 
-const languageFactoryAddress = "0x85085FfFEb6C7a07b6B87fC87531a46cB54399cD";
-const samhitaAddress = "0x325452DF45C4bBE7Dc6d839c0A2785B918DEe0eF";
-const samhitaTokenAddress = "0x3CB262001E1C83404ed0b1e1408FcF102f03936A";
+const languageFactoryAddress = "0x87B3Dd2f2FA919310ea010F514C6cBe69419863a";
+const samhitaAddress = "0x656CCf107Eac3599A9A22445109e4c327451Ec76";
+const samhitaTokenAddress = "0xcEF9199e247CA29e1cdb88ffe79A1a02fD3FA6d0";
 
 function Dashboard() {
   const client = new Web3Storage({
@@ -623,7 +623,7 @@ function Dashboard() {
                           <td id="bottom1">{name}</td>
                           <td id="">
                             {isSamhita
-                              ? "0x3CB262001E1C83404ed0b1e1408FcF102f03936A"
+                              ? "0xcEF9199e247CA29e1cdb88ffe79A1a02fD3FA6d0"
                               : dataDaoInfo.dataDAOTokenAddress}
                           </td>
                           <td id="bottom2">

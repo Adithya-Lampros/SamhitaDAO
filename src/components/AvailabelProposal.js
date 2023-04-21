@@ -16,7 +16,7 @@ import { ethers } from "ethers";
 import languageDAOAbi from "../contracts/artifacts/LanguageDAO.json";
 import samhitaABI from "../contracts/artifacts/Samhita.json";
 
-const samhitaAddress = "0x325452DF45C4bBE7Dc6d839c0A2785B918DEe0eF";
+const samhitaAddress = "0x656CCf107Eac3599A9A22445109e4c327451Ec76";
 
 function AvailabelProposal({ daoAddress, isSamhita }) {
   const inputRef1 = useRef();
