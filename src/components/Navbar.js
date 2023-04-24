@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { useAccount, useSigner } from "wagmi";
 import * as PushAPI from "@pushprotocol/restapi";
 import { Modal } from "@mui/material";
+import manualImage from "../../src/assets/navbar/manual-book.png"
 
 function Navbar() {
   const { address, isConnected } = useAccount();
@@ -115,7 +116,8 @@ function Navbar() {
             </Link>
           </div>
 
-          <div className="conncet-btn-div">
+          <div className="conncet-btn-div"> 
+          <div className="me-3 p-2 " style={{backgroundColor:"#fff", borderRadius:"50%"}}> <a href="https://samhitadao.gitbook.io/samhita-dao-2/" target="_blank"> <img src={manualImage} alt="Manual logo" height={"40px"}/>  </a></div>
             {isConnected ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
