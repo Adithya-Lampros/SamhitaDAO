@@ -8,7 +8,7 @@
 .create-dao-bg {
   background: linear-gradient(256.61deg, #ffa046 -0.6%, #e87825 100%);
   position: absolute;
-  height: 100vh;
+  height: 110vh;
   width: 100vw;
   top: 0;
 }
@@ -147,6 +147,35 @@
           }
         }
       }
+      
+      .fas.fa-info-circle:hover{
+      cursor: pointer;
+      }
+      // .info-text{
+      //   pointer-events: none;
+      // }
+      // .voting-slider-title {
+      //   display: flex;
+      //   align-items: center;
+      //   position: relative;
+      // }
+      // .info-text {
+      //   position: absolute;
+      //   top: 100%;
+      //   left: 50%;
+      //   transform: translateX(-50%);
+      //   padding: 5px;
+      //   background-color: black;
+      //   color: white;
+      //   font-size: 14px;
+      //   // opacity: 0;
+      //   transition: opacity 0.3s ease-in-out;
+      //   z-index: 1;
+      // }
+      
+      // .fa-info-circle:hover + .info-text {
+      //   opacity: 1!important;
+      // }
       .create-dao-voting-inside {
         width: 80%;
         margin: 0px auto;

@@ -4,6 +4,8 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "../styles/SelectTemplate.scss";
 import { Button, CardActions } from "@mui/material";
 import img from "../assets/section3.jpg";
@@ -89,6 +91,13 @@ function Dashboard() {
       setDatadaos(true);
     }
   };
+
+  function hexToTimestamp(hex) {
+    const unixTimestamp = parseInt(hex, 16);
+    const date = new Date(unixTimestamp * 1000);
+    const localDate = date.toLocaleString('en-US');
+    return localDate;
+  }
 
   const [data, setData] = useState([
     {
@@ -448,6 +457,18 @@ function Dashboard() {
       return setDataDaoInfo([]);
     }, []);
 
+      // copy to clipboard function ***************
+  const toastInfo = () => toast.success("Address Copied");
+  const copyContent = async (e) => {
+    try {
+      await navigator.clipboard.writeText(e);
+      toastInfo();
+      console.log("Content copied to clipboard");
+    } catch (err) {
+      console.error("Failed to copy: ", err);
+    }
+  };
+
     return (
       <div className="dashboard-main">
         <div className="dashboard-bg"></div>
@@ -692,14 +713,37 @@ function Dashboard() {
                               <label>Creator:</label>
                               <td>
                                 {" "}
-                                <p className=" my-auto">
+                                <span className=" my-auto">
                                   {item.proposalCreator.substring(0, 6) +
                                     "..." +
                                     item.proposalCreator.substring(
                                       item.proposalCreator.length - 5,
                                       item.proposalCreator.length
                                     )}
-                                </p>
+                                </span>
+
+                                <svg
+                                        width="16"
+                                        height="18"
+                                        viewBox="0 0 16 18"
+                                        fill=""
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        style={{ margin: " 0 20px",cursor:"pointer" }}
+                                        onClick={() =>
+                                          copyContent(
+                                            item.proposalCreator
+                                          )
+                                        }
+                                      >
+                                        <path
+                                          d="M10.7 0.666748H7.455C5.985 0.666748 4.82 0.666748 3.90917 0.790081C2.97083 0.916748 2.21167 1.18341 1.61333 1.78425C1.01417 2.38508 0.748333 3.14758 0.6225 4.08925C0.5 5.00425 0.5 6.17341 0.5 7.64925V12.5142C0.5 13.7709 1.26667 14.8476 2.35583 15.2992C2.3 14.5409 2.3 13.4784 2.3 12.5934V8.41841C2.3 7.35091 2.3 6.43008 2.39833 5.69341C2.50417 4.90341 2.7425 4.14675 3.35417 3.53258C3.96583 2.91841 4.72 2.67925 5.50667 2.57258C6.24 2.47425 7.15667 2.47425 8.22083 2.47425H10.7792C11.8425 2.47425 12.7575 2.47425 13.4917 2.57258C13.2717 2.01123 12.8877 1.52916 12.3897 1.18921C11.8917 0.849264 11.3029 0.6672 10.7 0.666748Z"
+                                          fill="#F8F8F8"
+                                        />
+                                        <path
+                                          d="M3.5 8.49763C3.5 6.22597 3.5 5.09013 4.20333 4.3843C4.90583 3.67847 6.03667 3.67847 8.3 3.67847H10.7C12.9625 3.67847 14.0942 3.67847 14.7975 4.3843C15.5 5.09013 15.5 6.22597 15.5 8.49763V12.5143C15.5 14.786 15.5 15.9218 14.7975 16.6276C14.0942 17.3335 12.9625 17.3335 10.7 17.3335H8.3C6.0375 17.3335 4.90583 17.3335 4.20333 16.6276C3.5 15.9218 3.5 14.786 3.5 12.5143V8.49763Z"
+                                          fill="#F8F8F8"
+                                        />
+                                      </svg>
                               </td>
                             </tr>
                             <tr>
@@ -732,8 +776,8 @@ function Dashboard() {
                             <tr>
                               <td>
                                 <h4 className="width-peragraph">
-                                  Proposed At:
-                                  {parseInt(item.proposedAt, 16)}
+                                  Proposed At: &nbsp;
+                                  {hexToTimestamp(item.proposedAt._hex)}
                                 </h4>
                               </td>
                               <td></td>
@@ -975,6 +1019,17 @@ function Dashboard() {
               daoAddress={daoAddress}
             />
           ) : null}
+           <ToastContainer
+            position="bottom-right"
+            autoClose={2000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
         </div>
       </div>
     );

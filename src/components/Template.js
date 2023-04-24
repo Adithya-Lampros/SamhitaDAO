@@ -81,35 +81,35 @@ const Template = ({ daoAddress, isSamhita }) => {
         <div className="template-header">Template</div>
         <div className="template-outer">
           <div className="template-main">
-            <div>Proposal ID</div>
-            <div>Title</div>
-            <div>Description</div>
-            <div>File</div>
+            <div className="template-id">ID</div>
+            <div className="template-title">Title</div>
+            <div className="template-description">Description</div>
+            <div className="template-file">File</div>
           </div>
           {loading && templates.length > 0
             ? templates.map((item) => {
                 return (
                   <div className="template-data">
-                    <div>
-                      <div className="template-details">
+                    
+                      <div className="template-details template-id text-center">
                         {parseInt(item.proposalID, 16)}
                       </div>
-                    </div>
-                    <div>
-                      <div className="template-details">
+                 
+                  
+                      <div className="template-details template-title">
                         {item.proposalName}
                       </div>
-                    </div>
-                    <div>
-                      <div className="template-details">
+                    
+                  
+                      <div className="template-details template-description">
                         {item.proposalDescription}
                       </div>
-                    </div>
-                    <div>
-                      <div className="template-details">
-                        {item.proposalFile}
+                    
+                  
+                      <div className="template-details template-file">
+                        <a href={item.proposalFile} target="_blank">{item.proposalFile}</a>
                       </div>
-                    </div>
+                    
                   </div>
                 );
               })

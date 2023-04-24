@@ -10,6 +10,7 @@ import joinLanguage from "../../assets/how-works/join-language/join-language.svg
 // -----BecomeMember icons----
 import wallet from "../../assets/how-works/become-member/wallet.svg";
 import vote from "../../assets/how-works/become-member/vote.svg";
+import participate from "../../assets/how-works/become-member/participate.svg";
 
 // ------ Contribute as Members ----
 import createLanguage from "../../assets/how-works/contribute-as-members/create-language.svg";
@@ -37,7 +38,7 @@ const becomeMemberData = [
     textContent: "Connect a wallet e.g. Metamask to buy Samhita Tokens",
   },
   {
-    icon: vote,
+    icon: participate,
     textContent:
       "As a member, you participate in the community’s ecosysytem by sending proposals",
   },
@@ -118,7 +119,7 @@ function AboutBecomeMember() {
     <>
       <div className="how-works-bg container-fluid">
         <div className="hw-head-subhead">
-          <div className="how-works-head">SamhitaDAO</div>
+          {/* <div className="how-works-head">SamhitaDAO</div> */}
           <div className="hw-sub-head text-center"> How it works!</div>
         </div>
 

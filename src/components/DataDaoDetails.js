@@ -116,6 +116,13 @@ function DataDaoDetails({
     }
   };
 
+  function hexToTimestamp(hex) {
+    const unixTimestamp = parseInt(hex, 16);
+    const date = new Date(unixTimestamp * 1000);
+    const localDate = date.toLocaleString('en-US');
+    return localDate;
+  }
+
   const buyToken = async () => {
     try {
       setbtnloading(true);
@@ -346,7 +353,7 @@ function DataDaoDetails({
                             >
                               Created At:
                               {/* {new Date(item.proposedAt).getHours()} */}
-                              {parseInt(item.proposedAt, 16)}
+                              {hexToTimestamp(item.proposedAt._hex)}
                             </h4>
                           </td>
                         </tr>

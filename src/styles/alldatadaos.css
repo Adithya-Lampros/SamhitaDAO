@@ -169,7 +169,29 @@ button.view-more-all-dao {
   z-index: 99;
   border-radius: 85px;
 }
+.datadao-join-popup {
+  /* height: 40vh; */
+  width: 40vw;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-backdrop-filter: blur(30px);
+  backdrop-filter: blur(30px);
+  background-color: rgba(255, 255, 255, 0.64);
+  opacity: 0.9;
+  padding: 1rem;
+  border: 1px solid #ffffff;
+  z-index: 99;
+  border-radius: 85px;
+}
 
+.datadao-join-popmain{
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+  gap: 30px;
+}
 .datadao-overlay {
   position: fixed;
   top: 0;
@@ -193,8 +215,9 @@ button.view-more-all-dao {
 }
 
 .datadao-join-subheader{
-  font-size: 1.5rem;
-  color: #000;
+  font-size: 0.9rem;
+  color:#ff5f00;
+  font-weight: 400;
 }
 
 .datadao-popmain {

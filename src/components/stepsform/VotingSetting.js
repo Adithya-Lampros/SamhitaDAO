@@ -15,6 +15,8 @@ function VotingSetting({
   const [voteStake, setVoteStake] = useState("");
   const [proposalStake, setProposalStake] = useState("");
   const [timestamp, setTimestamp] = useState(null);
+  const [showText, setShowText] = useState(false);
+  const [showMinimalText, setShowMinimalText] = useState(false);
 
   const voteSettings = () => {
     if (!voteDay || !voteHours || !voteMins || !voteStake || !proposalStake) {
@@ -42,6 +44,18 @@ function VotingSetting({
     }
   };
 
+  const handleMouseEnter1 = () => {
+    setShowText(true)
+  }
+  const handleMouseLeave1 = () => {
+    setShowText(false)
+  }
+  const handleMouseEnter2 = () => {
+    setShowMinimalText(true)
+  }
+  const handleMouseLeave2 = () => {
+    setShowMinimalText(false)
+  }
   useEffect(() => {
     console.log(showConditionVote);
   }, [showConditionVote]);
@@ -49,7 +63,15 @@ function VotingSetting({
     <div className="create-dao-info-main">
       <h1>Voting Settings</h1>
       <div className="create-dao-voting-inside">
-        <h3 className="voting-slider-title">Support %</h3>
+        {/* <h3 className="voting-slider-title">Quorum % <i class="fas fa-info-circle"></i> <span class>The minimum number of members required to be present for a vote to be considered valid in percentage.</span></h3> */}
+        <h3 className="voting-slider-title">
+        Quorum % &nbsp;
+        <i className="fas fa-info-circle" onMouseEnter={handleMouseEnter1}
+          onMouseLeave={handleMouseLeave1} > </i>
+          {showText && (
+          <p className="info-text my-2">The minimum number of members required to be present for a vote to be considered valid in percentage.</p>)}
+         
+      </h3>
         <div className="slider-parent">
           <Box width={"70%"}>
             <Slider
@@ -69,7 +91,12 @@ function VotingSetting({
         </div>
       </div>
       <div className="create-dao-voting-inside">
-        <h3 className="voting-slider-title">Minimul Approval %</h3>
+        <h3 className="voting-slider-title">Minimul Approval % &nbsp;
+        <i className="fas fa-info-circle" onMouseEnter={handleMouseEnter2}
+          onMouseLeave={handleMouseLeave2} > </i>
+          {showMinimalText && (
+          <p className="info-text my-2">The minimum number of approvals must be there for a post to be accepted.</p>)}
+        </h3>
         <div className="slider-parent">
           <Box width={"70%"}>
             <Slider

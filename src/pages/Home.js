@@ -11,7 +11,7 @@ import purpleCircle from "../assets/landingPage/purple-circle.png";
 import orangeCircle from "../assets/landingPage/orange-circle.svg";
 import languageImage from "../assets/landingPage/language.svg";
 import mainHeroBg from "../assets/landingPage/main-hero-bg.svg";
-// import AboutBecomeMember from "../components/aboutPlatform/AboutBecomeMember";
+import AboutBecomeMember from "../components/aboutPlatform/AboutBecomeMember";
 
 function Home() {
   const [isOpen, setIsOpen] = useState(false);
@@ -289,7 +289,9 @@ function Home() {
           </div>
         </div>
       </section>
-      {/* <AboutBecomeMember/> */}
+      <section className="how-it-works-section">
+      <AboutBecomeMember/>
+      </section>
     </>
   );
 }

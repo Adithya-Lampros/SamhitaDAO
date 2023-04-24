@@ -264,7 +264,7 @@ function ReviewInfo({
           </AccordionSummary>
           <AccordionDetails sx={{ padding: "30px", color: "#ff5f00" }}>
             <Typography sx={{ textAlign: "left", fontWeight: 700 }}>
-              SUPPORT %
+              QUORUM % 
             </Typography>
             <Typography sx={{ textAlign: "left", margin: "10px 0px" }}>
               {dataDaoDetails.vote_condition} %

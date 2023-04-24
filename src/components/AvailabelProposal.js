@@ -18,6 +18,13 @@ import samhitaABI from "../contracts/artifacts/Samhita.json";
 
 const samhitaAddress = "0x656CCf107Eac3599A9A22445109e4c327451Ec76";
 
+function hexToTimestamp(hex) {
+  const unixTimestamp = parseInt(hex, 16);
+  const date = new Date(unixTimestamp * 1000);
+  const localDate = date.toLocaleString('en-US');
+  return localDate;
+}
+
 function AvailabelProposal({ daoAddress, isSamhita }) {
   const inputRef1 = useRef();
   const inputRef3 = useRef();
@@ -31,6 +38,8 @@ function AvailabelProposal({ daoAddress, isSamhita }) {
 
   const [proposals, setProposals] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [upvoteLoading, setUpvoteLoading] = useState(false);
+  const [downvoteLoading, setDownvoteLoading] = useState(false);
 
   const getProposals = async () => {
     console.log(daoAddress);
@@ -76,7 +85,7 @@ function AvailabelProposal({ daoAddress, isSamhita }) {
 
   const upVote = async (id) => {
     const { ethereum } = window;
-    setLoading(true);
+    setUpvoteLoading(true);
     try {
       if (ethereum) {
         const provider = new ethers.providers.Web3Provider(ethereum);
@@ -111,21 +120,22 @@ function AvailabelProposal({ daoAddress, isSamhita }) {
               value: String(config.votingStake),
             });
             await tx.wait();
-            setLoading(false);
+            setUpvoteLoading(false);
           }
         } else {
           alert("Please connect to the BitTorrent Chain Donau!");
+          setUpvoteLoading(false);
         }
       }
     } catch (error) {
-      setLoading(false);
+      setUpvoteLoading(false);
       console.log(error);
     }
   };
 
   const downVote = async (id) => {
     const { ethereum } = window;
-    setLoading(true);
+    setDownvoteLoading(true);
     try {
       if (ethereum) {
         const provider = new ethers.providers.Web3Provider(ethereum);
@@ -159,14 +169,16 @@ function AvailabelProposal({ daoAddress, isSamhita }) {
               value: String(config.votingStake),
             });
             await tx.wait();
-            setLoading(false);
+            setDownvoteLoading(false);
           }
         } else {
           alert("Please connect to the BitTorrent Chain Donau!");
         }
+      
       }
     } catch (error) {
       console.log(error);
+      setDownvoteLoading(false)
     }
   };
 
@@ -406,11 +418,11 @@ function AvailabelProposal({ daoAddress, isSamhita }) {
                                 )}
                                 <tr className="proposal-details-content">
                                   <label>Created-At: </label>
-                                  <td> {parseInt(items.proposedAt, 16)}</td>
+                                  <td> {hexToTimestamp(items.proposedAt._hex)}</td>
                                 </tr>
                                 <tr className="proposal-details-content">
                                   <label>End-At: </label>
-                                  <td>{parseInt(items.proposedAt, 16)}</td>
+                                  <td>{hexToTimestamp(items.proposedAt._hex)}</td>
                                 </tr>
                                 <tr className="proposal-details-content">
                                   <label>Status: </label>
@@ -418,9 +430,9 @@ function AvailabelProposal({ daoAddress, isSamhita }) {
                                 </tr>
                                 <tr>
                                   <td className="vote-btns">
-                                    {!loading ? (
+                                    {!upvoteLoading ? (
                                       <button
-                                        className="rounded-view-data-dao-button button-to-view-more"
+                                        className="rounded-view-data-dao-button button-to-view-more mb-3"
                                         onClick={() =>
                                           upVote(parseInt(items.proposalID, 16))
                                         }
@@ -447,9 +459,9 @@ function AvailabelProposal({ daoAddress, isSamhita }) {
                                         </svg>
                                       </div>
                                     )}
-                                    {!loading ? (
+                                    {!downvoteLoading ? (
                                       <button
-                                        className="rounded-join-data-dao-button button-to-join"
+                                        className="rounded-join-data-dao-button button-to-join mb-3"
                                         onClick={() =>
                                           downVote(
                                             parseInt(items.proposalID, 16)
