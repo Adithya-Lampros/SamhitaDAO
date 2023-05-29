@@ -29,22 +29,22 @@ import AboutBecomeMember from "./components/aboutPlatform/AboutBecomeMember";
 
 function App() {
   const BTTChain = {
-    id: 1029,
-    name: "BitTorrent Chain Donau",
-    network: "BitTorrent Chain Donau",
+    id: 199,
+    name: "BitTorrent Chain Mainnet",
+    network: "BitTorrent Chain Mainnet",
     iconUrl: "https://testscan.bt.io/static/media/BTT.e13a6c4e.svg",
     iconBackground: "#fff",
     nativeCurrency: {
       decimals: 18,
-      name: "BitTorrent Chain Donau",
+      name: "BitTorrent Chain Mainnet",
       symbol: "BTT",
     },
     rpcUrls: {
-      default: "https://pre-rpc.bittorrentchain.io/",
+      default: "https://rpc.bt.io/",
     },
     blockExplorers: {
       default: {
-        name: "BitTorrent Chain Donau",
+        name: "BitTorrent Chain Mainnet",
         url: "https://testscan.bt.io",
       },
     },
@@ -99,7 +99,10 @@ function App() {
               <Route path="/open-existing-data-dao/meet" element={<Meet />} />
               <Route path="/home" element={<Home />} />
               <Route path="/data-dao-details" element={<DataDaoDetails />} />
-              <Route path="/how-samhitaDAO-works" element={<AboutBecomeMember/>} />
+              <Route
+                path="/how-samhitaDAO-works"
+                element={<AboutBecomeMember />}
+              />
 
               {/* <Route
                 path="/open-existing-data-dao/:id"

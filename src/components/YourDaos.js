@@ -26,8 +26,9 @@ import samhitaAbi from "../contracts/artifacts/Samhita.json";
 import languageAbi from "../contracts/artifacts/LanguageDAO.json";
 import { sign } from "@pushprotocol/restapi/src/lib/chat/helpers";
 
-const samhitaAddress = "0x656CCf107Eac3599A9A22445109e4c327451Ec76";
-const languageFactoryAddress = "0x87B3Dd2f2FA919310ea010F514C6cBe69419863a";
+const samhitaAddress = "0x16ebae0D7673b9e3De6D21C38237708a0Af610Ee";
+const languageFactoryAddress = "0x49cB4F263F16e09A84e95Ad608CF5b7f86d00fB8";
+const samhitaTokenAddress = "0x14575fe559ffce940a9fc71053Bfe1316490cE2A";
 
 function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
   const navigate = useNavigate();
@@ -57,7 +58,7 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
           console.log("Metamask is not installed, please install!");
         }
         const { chainId } = await provider.getNetwork();
-        if (chainId === 1029) {
+        if (chainId === 199) {
           const samhitaContract = new ethers.Contract(
             samhitaAddress,
             samhitaAbi,
@@ -110,6 +111,7 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
       }
     } catch (error) {
       console.log(error);
+      alert(error["message"]);
     }
     // const contract = await getContract();
   };
@@ -127,6 +129,7 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
       console.log("Content copied to clipboard");
     } catch (err) {
       console.error("Failed to copy: ", err);
+      alert(err["message"]);
     }
   };
 
@@ -199,41 +202,37 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
                                   <div className="datadao-address">
                                     <h3 className="proposal-info">
                                       Token Address :
-                                      {"0xcEF9199e247CA29e1cdb88ffe79A1a02fD3FA6d0".substring(
-                                        0,
-                                        6
-                                      ) +
+                                      {samhitaTokenAddress.substring(0, 6) +
                                         "..." +
-                                        "0xcEF9199e247CA29e1cdb88ffe79A1a02fD3FA6d0".substring(
-                                          "0xcEF9199e247CA29e1cdb88ffe79A1a02fD3FA6d0"
-                                            .length - 5,
-                                          "0xcEF9199e247CA29e1cdb88ffe79A1a02fD3FA6d0"
-                                            .length
+                                        samhitaTokenAddress.substring(
+                                          samhitaTokenAddress.length - 5,
+                                          samhitaTokenAddress.length
                                         )}
                                     </h3>
-                                    
+
                                     <svg
-                                        width="16"
-                                        height="18"
-                                        viewBox="0 0 16 18"
-                                        fill=""
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        style={{ margin: " 0 20px",cursor:"pointer" }}
-                                        onClick={() =>
-                                          copyContent(
-                                            "0xcEF9199e247CA29e1cdb88ffe79A1a02fD3FA6d0"
-                                          )
-                                        }
-                                      >
-                                        <path
-                                          d="M10.7 0.666748H7.455C5.985 0.666748 4.82 0.666748 3.90917 0.790081C2.97083 0.916748 2.21167 1.18341 1.61333 1.78425C1.01417 2.38508 0.748333 3.14758 0.6225 4.08925C0.5 5.00425 0.5 6.17341 0.5 7.64925V12.5142C0.5 13.7709 1.26667 14.8476 2.35583 15.2992C2.3 14.5409 2.3 13.4784 2.3 12.5934V8.41841C2.3 7.35091 2.3 6.43008 2.39833 5.69341C2.50417 4.90341 2.7425 4.14675 3.35417 3.53258C3.96583 2.91841 4.72 2.67925 5.50667 2.57258C6.24 2.47425 7.15667 2.47425 8.22083 2.47425H10.7792C11.8425 2.47425 12.7575 2.47425 13.4917 2.57258C13.2717 2.01123 12.8877 1.52916 12.3897 1.18921C11.8917 0.849264 11.3029 0.6672 10.7 0.666748Z"
-                                          fill="#F8F8F8"
-                                        />
-                                        <path
-                                          d="M3.5 8.49763C3.5 6.22597 3.5 5.09013 4.20333 4.3843C4.90583 3.67847 6.03667 3.67847 8.3 3.67847H10.7C12.9625 3.67847 14.0942 3.67847 14.7975 4.3843C15.5 5.09013 15.5 6.22597 15.5 8.49763V12.5143C15.5 14.786 15.5 15.9218 14.7975 16.6276C14.0942 17.3335 12.9625 17.3335 10.7 17.3335H8.3C6.0375 17.3335 4.90583 17.3335 4.20333 16.6276C3.5 15.9218 3.5 14.786 3.5 12.5143V8.49763Z"
-                                          fill="#F8F8F8"
-                                        />
-                                      </svg>
+                                      width="16"
+                                      height="18"
+                                      viewBox="0 0 16 18"
+                                      fill=""
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      style={{
+                                        margin: " 0 20px",
+                                        cursor: "pointer",
+                                      }}
+                                      onClick={() =>
+                                        copyContent(samhitaTokenAddress)
+                                      }
+                                    >
+                                      <path
+                                        d="M10.7 0.666748H7.455C5.985 0.666748 4.82 0.666748 3.90917 0.790081C2.97083 0.916748 2.21167 1.18341 1.61333 1.78425C1.01417 2.38508 0.748333 3.14758 0.6225 4.08925C0.5 5.00425 0.5 6.17341 0.5 7.64925V12.5142C0.5 13.7709 1.26667 14.8476 2.35583 15.2992C2.3 14.5409 2.3 13.4784 2.3 12.5934V8.41841C2.3 7.35091 2.3 6.43008 2.39833 5.69341C2.50417 4.90341 2.7425 4.14675 3.35417 3.53258C3.96583 2.91841 4.72 2.67925 5.50667 2.57258C6.24 2.47425 7.15667 2.47425 8.22083 2.47425H10.7792C11.8425 2.47425 12.7575 2.47425 13.4917 2.57258C13.2717 2.01123 12.8877 1.52916 12.3897 1.18921C11.8917 0.849264 11.3029 0.6672 10.7 0.666748Z"
+                                        fill="#F8F8F8"
+                                      />
+                                      <path
+                                        d="M3.5 8.49763C3.5 6.22597 3.5 5.09013 4.20333 4.3843C4.90583 3.67847 6.03667 3.67847 8.3 3.67847H10.7C12.9625 3.67847 14.0942 3.67847 14.7975 4.3843C15.5 5.09013 15.5 6.22597 15.5 8.49763V12.5143C15.5 14.786 15.5 15.9218 14.7975 16.6276C14.0942 17.3335 12.9625 17.3335 10.7 17.3335H8.3C6.0375 17.3335 4.90583 17.3335 4.20333 16.6276C3.5 15.9218 3.5 14.786 3.5 12.5143V8.49763Z"
+                                        fill="#F8F8F8"
+                                      />
+                                    </svg>
                                   </div>
                                 </td>
                               </tr>
@@ -380,27 +379,28 @@ function YourDaos({ setSingleYourDataDao, setYourDaos, setDaoAddress }) {
                                             )}
                                         </h3>
                                         <svg
-                                        width="16"
-                                        height="18"
-                                        viewBox="0 0 16 18"
-                                        fill=""
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        style={{ margin: " 0 20px",cursor:"pointer" }}
-                                        onClick={() =>
-                                          copyContent(
-                                            dao.dataDAOTokenAddress
-                                          )
-                                        }
-                                      >
-                                        <path
-                                          d="M10.7 0.666748H7.455C5.985 0.666748 4.82 0.666748 3.90917 0.790081C2.97083 0.916748 2.21167 1.18341 1.61333 1.78425C1.01417 2.38508 0.748333 3.14758 0.6225 4.08925C0.5 5.00425 0.5 6.17341 0.5 7.64925V12.5142C0.5 13.7709 1.26667 14.8476 2.35583 15.2992C2.3 14.5409 2.3 13.4784 2.3 12.5934V8.41841C2.3 7.35091 2.3 6.43008 2.39833 5.69341C2.50417 4.90341 2.7425 4.14675 3.35417 3.53258C3.96583 2.91841 4.72 2.67925 5.50667 2.57258C6.24 2.47425 7.15667 2.47425 8.22083 2.47425H10.7792C11.8425 2.47425 12.7575 2.47425 13.4917 2.57258C13.2717 2.01123 12.8877 1.52916 12.3897 1.18921C11.8917 0.849264 11.3029 0.6672 10.7 0.666748Z"
-                                          fill="#F8F8F8"
-                                        />
-                                        <path
-                                          d="M3.5 8.49763C3.5 6.22597 3.5 5.09013 4.20333 4.3843C4.90583 3.67847 6.03667 3.67847 8.3 3.67847H10.7C12.9625 3.67847 14.0942 3.67847 14.7975 4.3843C15.5 5.09013 15.5 6.22597 15.5 8.49763V12.5143C15.5 14.786 15.5 15.9218 14.7975 16.6276C14.0942 17.3335 12.9625 17.3335 10.7 17.3335H8.3C6.0375 17.3335 4.90583 17.3335 4.20333 16.6276C3.5 15.9218 3.5 14.786 3.5 12.5143V8.49763Z"
-                                          fill="#F8F8F8"
-                                        />
-                                      </svg>
+                                          width="16"
+                                          height="18"
+                                          viewBox="0 0 16 18"
+                                          fill=""
+                                          xmlns="http://www.w3.org/2000/svg"
+                                          style={{
+                                            margin: " 0 20px",
+                                            cursor: "pointer",
+                                          }}
+                                          onClick={() =>
+                                            copyContent(dao.dataDAOTokenAddress)
+                                          }
+                                        >
+                                          <path
+                                            d="M10.7 0.666748H7.455C5.985 0.666748 4.82 0.666748 3.90917 0.790081C2.97083 0.916748 2.21167 1.18341 1.61333 1.78425C1.01417 2.38508 0.748333 3.14758 0.6225 4.08925C0.5 5.00425 0.5 6.17341 0.5 7.64925V12.5142C0.5 13.7709 1.26667 14.8476 2.35583 15.2992C2.3 14.5409 2.3 13.4784 2.3 12.5934V8.41841C2.3 7.35091 2.3 6.43008 2.39833 5.69341C2.50417 4.90341 2.7425 4.14675 3.35417 3.53258C3.96583 2.91841 4.72 2.67925 5.50667 2.57258C6.24 2.47425 7.15667 2.47425 8.22083 2.47425H10.7792C11.8425 2.47425 12.7575 2.47425 13.4917 2.57258C13.2717 2.01123 12.8877 1.52916 12.3897 1.18921C11.8917 0.849264 11.3029 0.6672 10.7 0.666748Z"
+                                            fill="#F8F8F8"
+                                          />
+                                          <path
+                                            d="M3.5 8.49763C3.5 6.22597 3.5 5.09013 4.20333 4.3843C4.90583 3.67847 6.03667 3.67847 8.3 3.67847H10.7C12.9625 3.67847 14.0942 3.67847 14.7975 4.3843C15.5 5.09013 15.5 6.22597 15.5 8.49763V12.5143C15.5 14.786 15.5 15.9218 14.7975 16.6276C14.0942 17.3335 12.9625 17.3335 10.7 17.3335H8.3C6.0375 17.3335 4.90583 17.3335 4.20333 16.6276C3.5 15.9218 3.5 14.786 3.5 12.5143V8.49763Z"
+                                            fill="#F8F8F8"
+                                          />
+                                        </svg>
                                       </div>
                                     </td>
                                   </tr>

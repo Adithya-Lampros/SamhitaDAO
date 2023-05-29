@@ -15,9 +15,9 @@ import samhitaTokenABI from "../contracts/artifacts/SamhitaToken.json";
 // import { sign } from "crypto";
 // import { async } from "q";
 
-const languageFactoryAddress = "0x87B3Dd2f2FA919310ea010F514C6cBe69419863a";
-const samhitaAddress = "0x656CCf107Eac3599A9A22445109e4c327451Ec76";
-const samhitaTokenAddress = "0xcEF9199e247CA29e1cdb88ffe79A1a02fD3FA6d0";
+const languageFactoryAddress = "0x49cB4F263F16e09A84e95Ad608CF5b7f86d00fB8";
+const samhitaAddress = "0x16ebae0D7673b9e3De6D21C38237708a0Af610Ee";
+const samhitaTokenAddress = "0x14575fe559ffce940a9fc71053Bfe1316490cE2A";
 
 function DataDaoDetails({
   datadaos,
@@ -67,7 +67,7 @@ function DataDaoDetails({
         }
         const { chainId } = await provider.getNetwork();
         console.log("switch case for this case is: " + chainId);
-        if (chainId === 1029) {
+        if (chainId === 199) {
           if (!isSamhita) {
             const contract = new ethers.Contract(
               languageFactoryAddress,
@@ -113,13 +113,14 @@ function DataDaoDetails({
       }
     } catch (error) {
       console.log(error);
+      alert(error["message"]);
     }
   };
 
   function hexToTimestamp(hex) {
     const unixTimestamp = parseInt(hex, 16);
     const date = new Date(unixTimestamp * 1000);
-    const localDate = date.toLocaleString('en-US');
+    const localDate = date.toLocaleString("en-US");
     return localDate;
   }
 
@@ -134,7 +135,7 @@ function DataDaoDetails({
           console.log("Metamask is not installed, please install!");
         }
         const { chainId } = await provider.getNetwork();
-        if (chainId === 1029) {
+        if (chainId === 199) {
           if (isSamhita) {
             const contract = new ethers.Contract(
               samhitaAddress,
@@ -180,6 +181,7 @@ function DataDaoDetails({
       setbtnloading(false);
     } catch (error) {
       console.log(error);
+      alert(error["message"]);
       setbtnloading(false);
     }
   };
@@ -255,7 +257,7 @@ function DataDaoDetails({
                     <td style={{ borderRadius: "0 0 0 1.5rem " }}>{name}</td>
                     <td>
                       {isSamhita
-                        ? "0xcEF9199e247CA29e1cdb88ffe79A1a02fD3FA6d0"
+                        ? samhitaTokenAddress
                         : dataDaoInfo.dataDAOTokenAddress}
                     </td>
                     <td style={{ borderRadius: "0 0 1.5rem 0" }}>

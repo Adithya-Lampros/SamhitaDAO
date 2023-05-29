@@ -9,7 +9,7 @@ import dataDaoInstace from "../contracts/artifacts/dataDaoInstace.json";
 import lighthouse from "@lighthouse-web3/sdk";
 import { useNavigate } from "react-router-dom";
 
-const dataDaoFactoryContract = "0x87B3Dd2f2FA919310ea010F514C6cBe69419863a";
+const dataDaoFactoryContract = "0x49cB4F263F16e09A84e95Ad608CF5b7f86d00fB8";
 
 function YourDataDaoDetails({
   datadaos,
@@ -59,7 +59,7 @@ function YourDataDaoDetails({
         }
         const { chainId } = await provider.getNetwork();
         console.log("switch case for this case is: " + chainId);
-        if (chainId === 1029) {
+        if (chainId === 199) {
           const contract = new ethers.Contract(
             dataDaoFactoryContract,
             dataDaoFactory.abi,
@@ -73,6 +73,7 @@ function YourDataDaoDetails({
       }
     } catch (error) {
       console.log(error);
+      alert(error["message"]);
     }
   };
 

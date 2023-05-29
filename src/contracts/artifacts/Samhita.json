@@ -109,6 +109,81 @@
   },
   {
     "inputs": [],
+    "name": "gateAllProposals",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "proposalID",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "proposalName",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "proposalDescription",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "proposalFile",
+            "type": "string"
+          },
+          {
+            "internalType": "address",
+            "name": "proposalCreator",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "upVoteCount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "downVoteCount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "proposedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "proposalExpireAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "status",
+            "type": "string"
+          },
+          {
+            "internalType": "bool",
+            "name": "votingResult",
+            "type": "bool"
+          },
+          {
+            "internalType": "string",
+            "name": "category",
+            "type": "string"
+          }
+        ],
+        "internalType": "struct Samhita.Proposal[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
     "name": "getAllTemplates",
     "outputs": [
       {
@@ -183,6 +258,25 @@
     "type": "function"
   },
   {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_user",
+        "type": "address"
+      }
+    ],
+    "name": "getBalance",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [],
     "name": "getSamhitaDAOVotingConfig",
     "outputs": [
@@ -210,81 +304,6 @@
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "getaAllProposals",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "uint256",
-            "name": "proposalID",
-            "type": "uint256"
-          },
-          {
-            "internalType": "string",
-            "name": "proposalName",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "proposalDescription",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "proposalFile",
-            "type": "string"
-          },
-          {
-            "internalType": "address",
-            "name": "proposalCreator",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "upVoteCount",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "downVoteCount",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "proposedAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "proposalExpireAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "string",
-            "name": "status",
-            "type": "string"
-          },
-          {
-            "internalType": "bool",
-            "name": "votingResult",
-            "type": "bool"
-          },
-          {
-            "internalType": "string",
-            "name": "category",
-            "type": "string"
-          }
-        ],
-        "internalType": "struct Samhita.Proposal[]",
-        "name": "",
-        "type": "tuple[]"
       }
     ],
     "stateMutability": "view",
@@ -630,6 +649,13 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "withdrawForMember",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "uint256",
@@ -645,6 +671,19 @@
     "name": "withdrawFromContract",
     "outputs": [],
     "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "withdrawNativeTokenFromContract",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   }
 ]

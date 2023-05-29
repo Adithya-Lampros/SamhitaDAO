@@ -15,13 +15,16 @@ import uploadfile from "../assets/upload.png";
 import { ethers } from "ethers";
 import languageDAOAbi from "../contracts/artifacts/LanguageDAO.json";
 import samhitaABI from "../contracts/artifacts/Samhita.json";
-
-const samhitaAddress = "0x656CCf107Eac3599A9A22445109e4c327451Ec76";
+import erc20Abi from "../contracts/artifacts/ERC20.json";
+import languageFactoryAbi from "../contracts/artifacts/LanguageDAOFactory.json";
+const samhitaAddress = "0x16ebae0D7673b9e3De6D21C38237708a0Af610Ee";
+const samhitaTokenAddress = "0x14575fe559ffce940a9fc71053Bfe1316490cE2A";
+const languageFactoryAddress = "0x49cB4F263F16e09A84e95Ad608CF5b7f86d00fB8";
 
 function hexToTimestamp(hex) {
   const unixTimestamp = parseInt(hex, 16);
   const date = new Date(unixTimestamp * 1000);
-  const localDate = date.toLocaleString('en-US');
+  const localDate = date.toLocaleString("en-US");
   return localDate;
 }
 
@@ -53,14 +56,14 @@ function AvailabelProposal({ daoAddress, isSamhita }) {
           console.log("Metamask is not installed, please install!");
         }
         const { chainId } = await provider.getNetwork();
-        if (chainId === 1029) {
+        if (chainId === 199) {
           if (isSamhita) {
             const contract = new ethers.Contract(
               samhitaAddress,
               samhitaABI,
               signer
             );
-            const allProposals = await contract.getaAllProposals();
+            const allProposals = await contract.gateAllProposals();
             console.log(allProposals);
             setProposals(allProposals);
           } else {
@@ -80,11 +83,13 @@ function AvailabelProposal({ daoAddress, isSamhita }) {
       setLoading(false);
     } catch (error) {
       console.log(error);
+      alert(error["message"]);
     }
   };
 
   const upVote = async (id) => {
     const { ethereum } = window;
+    console.log(id);
     setUpvoteLoading(true);
     try {
       if (ethereum) {
@@ -94,18 +99,26 @@ function AvailabelProposal({ daoAddress, isSamhita }) {
           console.log("Metamask is not installed, please install!");
         }
         const { chainId } = await provider.getNetwork();
-        if (chainId === 1029) {
-          if (daoAddress.issamhita) {
+        console.log(chainId);
+        if (chainId === 199) {
+          console.log(isSamhita);
+          if (isSamhita) {
             const contract = new ethers.Contract(
-              samhitaAddress,
+              daoAddress,
               samhitaABI,
               signer
             );
+            const erc20Contract = new ethers.Contract(
+              samhitaTokenAddress,
+              erc20Abi.abi,
+              signer
+            );
             const config = await contract.getSamhitaDAOVotingConfig();
-            console.log(config);
-            const tx = await contract.upvoteProposal(id, {
-              value: String(config.votingStake),
-            });
+            const tx1 = await erc20Contract.approve(samhitaAddress, config[4]);
+            await tx1.wait();
+
+            console.log("inside");
+            const tx = await contract.upvoteProposal(id);
             tx.wait();
           } else {
             const contract = new ethers.Contract(
@@ -115,6 +128,25 @@ function AvailabelProposal({ daoAddress, isSamhita }) {
             );
             const config = await contract.getDataDaoVotingConfig();
             console.log(config);
+            const factoryContract = new ethers.Contract(
+              languageFactoryAddress,
+              languageFactoryAbi,
+              signer
+            );
+            const all = await factoryContract.getAllDataDaos();
+            let languageTokenAddress;
+            for (let i = 0; i < all.length; i++) {
+              if (all[i].dataDaoAddress === daoAddress) {
+                languageTokenAddress = all[i].dataDAOTokenAddress;
+              }
+            }
+            const erc20Contract = new ethers.Contract(
+              languageTokenAddress,
+              erc20Abi.abi,
+              signer
+            );
+            const tx1 = await erc20Contract.approve(daoAddress, config[3]);
+            await tx1.wait();
             const tx = await contract.upvoteProposal(id, {
               // value: ethers.utils.parseEther("0.01"),
               value: String(config.votingStake),
@@ -130,6 +162,7 @@ function AvailabelProposal({ daoAddress, isSamhita }) {
     } catch (error) {
       setUpvoteLoading(false);
       console.log(error);
+      alert(error["message"]);
     }
   };
 
@@ -144,17 +177,23 @@ function AvailabelProposal({ daoAddress, isSamhita }) {
           console.log("Metamask is not installed, please install!");
         }
         const { chainId } = await provider.getNetwork();
-        if (chainId === 1029) {
-          if (daoAddress.issamhita) {
+        if (chainId === 199) {
+          if (isSamhita) {
             const contract = new ethers.Contract(
               samhitaAddress,
               samhitaABI,
               signer
             );
+
+            const erc20Contract = new ethers.Contract(
+              samhitaTokenAddress,
+              erc20Abi.abi,
+              signer
+            );
             const config = await contract.getSamhitaDAOVotingConfig();
-            const tx = await contract.downvoteProposal(id, {
-              value: String(config.votingStake),
-            });
+            const tx1 = await erc20Contract.approve(samhitaAddress, config[4]);
+            await tx1.wait();
+            const tx = await contract.downvoteProposal(id);
             tx.wait();
           } else {
             const contract = new ethers.Contract(
@@ -164,6 +203,25 @@ function AvailabelProposal({ daoAddress, isSamhita }) {
             );
             const config = await contract.getDataDaoVotingConfig();
             console.log(config);
+            const factoryContract = new ethers.Contract(
+              languageFactoryAddress,
+              languageFactoryAbi,
+              signer
+            );
+            const all = await factoryContract.getAllDataDaos();
+            let languageTokenAddress;
+            for (let i = 0; i < all.length; i++) {
+              if (all[i].dataDaoAddress === daoAddress) {
+                languageTokenAddress = all[i].dataDAOTokenAddress;
+              }
+            }
+            const erc20Contract = new ethers.Contract(
+              languageTokenAddress,
+              erc20Abi.abi,
+              signer
+            );
+            const tx1 = await erc20Contract.approve(daoAddress, config[3]);
+            await tx1.wait();
             const tx = await contract.downvoteProposal(id, {
               // value: ethers.utils.parseEther("0.01"),
               value: String(config.votingStake),
@@ -174,11 +232,11 @@ function AvailabelProposal({ daoAddress, isSamhita }) {
         } else {
           alert("Please connect to the BitTorrent Chain Donau!");
         }
-      
       }
     } catch (error) {
       console.log(error);
-      setDownvoteLoading(false)
+      alert(error["message"]);
+      setDownvoteLoading(false);
     }
   };
 
@@ -193,7 +251,7 @@ function AvailabelProposal({ daoAddress, isSamhita }) {
           console.log("Metamask is not installed, please install!");
         }
         const { chainId } = await provider.getNetwork();
-        if (chainId === 1029) {
+        if (chainId === 199) {
           if (daoAddress.issamhita) {
             const contract = new ethers.Contract(
               samhitaAddress,
@@ -217,6 +275,7 @@ function AvailabelProposal({ daoAddress, isSamhita }) {
       }
     } catch (error) {
       console.log(error);
+      alert(error["message"]);
     }
   };
 
@@ -418,11 +477,16 @@ function AvailabelProposal({ daoAddress, isSamhita }) {
                                 )}
                                 <tr className="proposal-details-content">
                                   <label>Created-At: </label>
-                                  <td> {hexToTimestamp(items.proposedAt._hex)}</td>
+                                  <td>
+                                    {" "}
+                                    {hexToTimestamp(items.proposedAt._hex)}
+                                  </td>
                                 </tr>
                                 <tr className="proposal-details-content">
                                   <label>End-At: </label>
-                                  <td>{hexToTimestamp(items.proposedAt._hex)}</td>
+                                  <td>
+                                    {hexToTimestamp(items.proposedAt._hex)}
+                                  </td>
                                 </tr>
                                 <tr className="proposal-details-content">
                                   <label>Status: </label>

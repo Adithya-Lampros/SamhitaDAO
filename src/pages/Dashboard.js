@@ -36,10 +36,12 @@ import languageTokenAbi from "../contracts/artifacts/LanguageDAOToken.json";
 import languageDAOAbi from "../contracts/artifacts/LanguageDAO.json";
 import samhitaABI from "../contracts/artifacts/Samhita.json";
 import samhitaTokenABI from "../contracts/artifacts/SamhitaToken.json";
-
-const languageFactoryAddress = "0x87B3Dd2f2FA919310ea010F514C6cBe69419863a";
-const samhitaAddress = "0x656CCf107Eac3599A9A22445109e4c327451Ec76";
-const samhitaTokenAddress = "0xcEF9199e247CA29e1cdb88ffe79A1a02fD3FA6d0";
+import templateNFTAbi from "../contracts/artifacts/TemplateNFT.json";
+import erc20Abi from "../contracts/artifacts/ERC20.json";
+const languageFactoryAddress = "0x49cB4F263F16e09A84e95Ad608CF5b7f86d00fB8";
+const samhitaAddress = "0x16ebae0D7673b9e3De6D21C38237708a0Af610Ee";
+const samhitaTokenAddress = "0x14575fe559ffce940a9fc71053Bfe1316490cE2A";
+const templateNFTAddress = "0xe1C507d7b47b0D5446991a97CC98a124156F83Ca";
 
 function Dashboard() {
   const client = new Web3Storage({
@@ -95,7 +97,7 @@ function Dashboard() {
   function hexToTimestamp(hex) {
     const unixTimestamp = parseInt(hex, 16);
     const date = new Date(unixTimestamp * 1000);
-    const localDate = date.toLocaleString('en-US');
+    const localDate = date.toLocaleString("en-US");
     return localDate;
   }
 
@@ -179,7 +181,7 @@ function Dashboard() {
             console.log("Metamask is not installed, please install!");
           }
           const { chainId } = await provider.getNetwork();
-          if (chainId === 1029) {
+          if (chainId === 199) {
             if (!isSamhita) {
               const contract = new ethers.Contract(
                 languageFactoryAddress,
@@ -233,6 +235,7 @@ function Dashboard() {
         }
       } catch (error) {
         console.log(error);
+        alert(error["message"]);
       }
     };
 
@@ -245,7 +248,7 @@ function Dashboard() {
             console.log("Metamask is not installed, please install!");
           }
           const { chainId } = await provider.getNetwork();
-          if (chainId === 1029) {
+          if (chainId === 199) {
             if (isSamhita) {
               const contract = new ethers.Contract(
                 samhitaAddress,
@@ -290,6 +293,7 @@ function Dashboard() {
         }
       } catch (error) {
         console.log(error);
+        alert(error["message"]);
       }
     };
 
@@ -398,7 +402,7 @@ function Dashboard() {
             console.log("Metamask is not installed, please install!");
           }
           const { chainId } = await provider.getNetwork();
-          if (chainId === 1029) {
+          if (chainId === 199) {
             if (isSamhita) {
               const contract = new ethers.Contract(
                 samhitaAddress,
@@ -407,14 +411,21 @@ function Dashboard() {
               );
               const stakeValue = await contract.getSamhitaDAOVotingConfig();
               console.log(stakeValue);
+              const ercContract = new ethers.Contract(
+                samhitaTokenAddress,
+                erc20Abi.abi,
+                signer
+              );
+              const config = await contract.getSamhitaDAOVotingConfig();
 
+              const tx1 = await ercContract.approve(samhitaAddress, config[3]);
+              await tx1.wait();
               const tx = await contract.createProposal(
                 proposalInfo.Name,
                 proposalInfo.Description,
                 cid,
-                proposalInfo.SamhitaCatagory,
+                proposalInfo.SamhitaCatagory
                 // { value: ethers.utils.parseEther("1000000000000000000") }
-                { value: String(stakeValue.proposalStake) }
               );
               tx.wait();
             } else {
@@ -423,25 +434,55 @@ function Dashboard() {
                 languageDAOAbi,
                 signer
               );
-              // const t = await contract.setDataDaoVotingConfig(
-              //   30,
-              //   20,
-              //   300,
-              //   10000000000000,
-              //   10000000000000
-              // );
-              // await t.wait();
+
               const config = await contract.getDataDaoVotingConfig();
               console.log(config);
-              const tx = await contract.createProposal(
-                proposalInfo.Name,
-                proposalInfo.Description,
-                cid,
-                1,
-                // { value: ethers.utils.parseEther("1000000000000000000") }
-                { value: String(config.proposalStake) }
+              const royalty = await contract.getRoyaltyFee();
+              const templateContract = new ethers.Contract(
+                templateNFTAddress,
+                templateNFTAbi,
+                signer
               );
-              await tx.wait();
+              console.log(proposalInfo.LangTemID);
+              const temp_id = await templateContract.proposalIdToTempId(
+                proposalInfo.LangTemID
+              );
+              console.log(proposalInfo.Name);
+              console.log(proposalInfo.Description);
+              console.log(cid);
+              const factoryContract = new ethers.Contract(
+                languageFactoryAddress,
+                languageFactoryAbi,
+                signer
+              );
+              const all = await factoryContract.getAllDataDaos();
+              let languageTokenAddress;
+              for (let i = 0; i < all.length; i++) {
+                if (all[i].dataDaoAddress === daoAddress) {
+                  languageTokenAddress = all[i].dataDAOTokenAddress;
+                }
+              }
+              const ercContract = new ethers.Contract(
+                languageTokenAddress,
+                erc20Abi.abi,
+                signer
+              );
+              console.log(royalty);
+              // console.log(parseInt(config[4]));
+              // console.log(parseInt(royalty));
+              const proposal_price = parseInt(config[4]) + parseInt(royalty);
+              const tx1 = await ercContract.approve(
+                daoAddress,
+                String(proposal_price)
+              );
+              await tx1.wait();
+              // const tx = await contract.createProposal(
+              //   proposalInfo.Name,
+              //   proposalInfo.Description,
+              //   cid,
+              //   temp_id
+              // );
+              // await tx.wait();
             }
           } else {
             alert("Please connect to the BitTorrent Chain Donau!");
@@ -449,6 +490,7 @@ function Dashboard() {
         }
       } catch (error) {
         console.log(error);
+        alert(error["message"]);
       }
     };
 
@@ -457,17 +499,18 @@ function Dashboard() {
       return setDataDaoInfo([]);
     }, []);
 
-      // copy to clipboard function ***************
-  const toastInfo = () => toast.success("Address Copied");
-  const copyContent = async (e) => {
-    try {
-      await navigator.clipboard.writeText(e);
-      toastInfo();
-      console.log("Content copied to clipboard");
-    } catch (err) {
-      console.error("Failed to copy: ", err);
-    }
-  };
+    // copy to clipboard function ***************
+    const toastInfo = () => toast.success("Address Copied");
+    const copyContent = async (e) => {
+      try {
+        await navigator.clipboard.writeText(e);
+        toastInfo();
+        console.log("Content copied to clipboard");
+      } catch (err) {
+        console.error("Failed to copy: ", err);
+        alert(err["message"]);
+      }
+    };
 
     return (
       <div className="dashboard-main">
@@ -644,7 +687,7 @@ function Dashboard() {
                           <td id="bottom1">{name}</td>
                           <td id="">
                             {isSamhita
-                              ? "0xcEF9199e247CA29e1cdb88ffe79A1a02fD3FA6d0"
+                              ? samhitaTokenAddress
                               : dataDaoInfo.dataDAOTokenAddress}
                           </td>
                           <td id="bottom2">
@@ -721,29 +764,29 @@ function Dashboard() {
                                       item.proposalCreator.length
                                     )}
                                 </span>
-
                                 <svg
-                                        width="16"
-                                        height="18"
-                                        viewBox="0 0 16 18"
-                                        fill=""
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        style={{ margin: " 0 20px",cursor:"pointer" }}
-                                        onClick={() =>
-                                          copyContent(
-                                            item.proposalCreator
-                                          )
-                                        }
-                                      >
-                                        <path
-                                          d="M10.7 0.666748H7.455C5.985 0.666748 4.82 0.666748 3.90917 0.790081C2.97083 0.916748 2.21167 1.18341 1.61333 1.78425C1.01417 2.38508 0.748333 3.14758 0.6225 4.08925C0.5 5.00425 0.5 6.17341 0.5 7.64925V12.5142C0.5 13.7709 1.26667 14.8476 2.35583 15.2992C2.3 14.5409 2.3 13.4784 2.3 12.5934V8.41841C2.3 7.35091 2.3 6.43008 2.39833 5.69341C2.50417 4.90341 2.7425 4.14675 3.35417 3.53258C3.96583 2.91841 4.72 2.67925 5.50667 2.57258C6.24 2.47425 7.15667 2.47425 8.22083 2.47425H10.7792C11.8425 2.47425 12.7575 2.47425 13.4917 2.57258C13.2717 2.01123 12.8877 1.52916 12.3897 1.18921C11.8917 0.849264 11.3029 0.6672 10.7 0.666748Z"
-                                          fill="#F8F8F8"
-                                        />
-                                        <path
-                                          d="M3.5 8.49763C3.5 6.22597 3.5 5.09013 4.20333 4.3843C4.90583 3.67847 6.03667 3.67847 8.3 3.67847H10.7C12.9625 3.67847 14.0942 3.67847 14.7975 4.3843C15.5 5.09013 15.5 6.22597 15.5 8.49763V12.5143C15.5 14.786 15.5 15.9218 14.7975 16.6276C14.0942 17.3335 12.9625 17.3335 10.7 17.3335H8.3C6.0375 17.3335 4.90583 17.3335 4.20333 16.6276C3.5 15.9218 3.5 14.786 3.5 12.5143V8.49763Z"
-                                          fill="#F8F8F8"
-                                        />
-                                      </svg>
+                                  width="16"
+                                  height="18"
+                                  viewBox="0 0 16 18"
+                                  fill=""
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  style={{
+                                    margin: " 0 20px",
+                                    cursor: "pointer",
+                                  }}
+                                  onClick={() =>
+                                    copyContent(item.proposalCreator)
+                                  }
+                                >
+                                  <path
+                                    d="M10.7 0.666748H7.455C5.985 0.666748 4.82 0.666748 3.90917 0.790081C2.97083 0.916748 2.21167 1.18341 1.61333 1.78425C1.01417 2.38508 0.748333 3.14758 0.6225 4.08925C0.5 5.00425 0.5 6.17341 0.5 7.64925V12.5142C0.5 13.7709 1.26667 14.8476 2.35583 15.2992C2.3 14.5409 2.3 13.4784 2.3 12.5934V8.41841C2.3 7.35091 2.3 6.43008 2.39833 5.69341C2.50417 4.90341 2.7425 4.14675 3.35417 3.53258C3.96583 2.91841 4.72 2.67925 5.50667 2.57258C6.24 2.47425 7.15667 2.47425 8.22083 2.47425H10.7792C11.8425 2.47425 12.7575 2.47425 13.4917 2.57258C13.2717 2.01123 12.8877 1.52916 12.3897 1.18921C11.8917 0.849264 11.3029 0.6672 10.7 0.666748Z"
+                                    fill="#F8F8F8"
+                                  />
+                                  <path
+                                    d="M3.5 8.49763C3.5 6.22597 3.5 5.09013 4.20333 4.3843C4.90583 3.67847 6.03667 3.67847 8.3 3.67847H10.7C12.9625 3.67847 14.0942 3.67847 14.7975 4.3843C15.5 5.09013 15.5 6.22597 15.5 8.49763V12.5143C15.5 14.786 15.5 15.9218 14.7975 16.6276C14.0942 17.3335 12.9625 17.3335 10.7 17.3335H8.3C6.0375 17.3335 4.90583 17.3335 4.20333 16.6276C3.5 15.9218 3.5 14.786 3.5 12.5143V8.49763Z"
+                                    fill="#F8F8F8"
+                                  />
+                                </svg>
                               </td>
                             </tr>
                             <tr>
@@ -898,13 +941,23 @@ function Dashboard() {
                             <div className="textfields-width">
                               <select
                                 className="temp-select"
-                                onChange={(e) =>
-                                  setProposalInfo({
-                                    ...proposalInfo,
-                                    LangTemID: e.target.value,
-                                  })
+                                onChange={
+                                  (e) => {
+                                    console.log(e.target.value);
+                                    setProposalInfo({
+                                      ...proposalInfo,
+                                      LangTemID: e.target.value,
+                                    });
+                                  }
+                                  // setProposalInfo({
+                                  //   ...proposalInfo,
+                                  //   LangTemID: e.target.value,
+                                  // })
                                 }
                               >
+                                <option className="temp-options" value="">
+                                  Select templte
+                                </option>
                                 {dropdownData.map((items) => {
                                   return (
                                     <option
@@ -1019,7 +1072,7 @@ function Dashboard() {
               daoAddress={daoAddress}
             />
           ) : null}
-           <ToastContainer
+          <ToastContainer
             position="bottom-right"
             autoClose={2000}
             hideProgressBar={false}

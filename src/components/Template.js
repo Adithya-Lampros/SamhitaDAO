@@ -5,8 +5,8 @@ import samhitaABI from "../contracts/artifacts/Samhita.json";
 import languageDAOAbi from "../contracts/artifacts/LanguageDAO.json";
 import languageFactoryAbi from "../contracts/artifacts/LanguageDAOFactory.json";
 
-const languageFactoryAddress = "0x87B3Dd2f2FA919310ea010F514C6cBe69419863a";
-const samhitaAddress = "0x656CCf107Eac3599A9A22445109e4c327451Ec76";
+const languageFactoryAddress = "0x49cB4F263F16e09A84e95Ad608CF5b7f86d00fB8";
+const samhitaAddress = "0x16ebae0D7673b9e3De6D21C38237708a0Af610Ee";
 
 const Template = ({ daoAddress, isSamhita }) => {
   console.log(daoAddress);
@@ -26,7 +26,7 @@ const Template = ({ daoAddress, isSamhita }) => {
         }
         const { chainId } = await provider.getNetwork();
         console.log("switch case for this case is: " + chainId);
-        if (chainId === 1029) {
+        if (chainId === 199) {
           // if (!isSamhita) {
           //   const contract = new ethers.Contract(
           //     languageFactoryAddress,
@@ -61,13 +61,14 @@ const Template = ({ daoAddress, isSamhita }) => {
           console.log(temp);
           setTemplates(temp);
           setLoading(true);
-          console.loh(temp);
+          console.log(temp);
         } else {
           alert("Please connect to the BitTorrent Chain Donau!");
         }
       }
     } catch (error) {
       console.log(error);
+      alert(error["message"]);
     }
   };
 
@@ -90,26 +91,23 @@ const Template = ({ daoAddress, isSamhita }) => {
             ? templates.map((item) => {
                 return (
                   <div className="template-data">
-                    
-                      <div className="template-details template-id text-center">
-                        {parseInt(item.proposalID, 16)}
-                      </div>
-                 
-                  
-                      <div className="template-details template-title">
-                        {item.proposalName}
-                      </div>
-                    
-                  
-                      <div className="template-details template-description">
-                        {item.proposalDescription}
-                      </div>
-                    
-                  
-                      <div className="template-details template-file">
-                        <a href={item.proposalFile} target="_blank">{item.proposalFile}</a>
-                      </div>
-                    
+                    <div className="template-details template-id text-center">
+                      {parseInt(item.proposalID, 16)}
+                    </div>
+
+                    <div className="template-details template-title">
+                      {item.proposalName}
+                    </div>
+
+                    <div className="template-details template-description">
+                      {item.proposalDescription}
+                    </div>
+
+                    <div className="template-details template-file">
+                      <a href={item.proposalFile} target="_blank">
+                        {item.proposalFile}
+                      </a>
+                    </div>
                   </div>
                 );
               })

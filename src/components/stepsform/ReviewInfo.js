@@ -17,7 +17,9 @@ import languageDAOBytecode from "../../contracts/artifacts/LanguageDAOBytecode.j
 import { useAccount } from "wagmi";
 import { ConstructionOutlined } from "@mui/icons-material";
 
-const languageFactoryAddress = "0x87B3Dd2f2FA919310ea010F514C6cBe69419863a";
+const languageFactoryAddress = "0x49cB4F263F16e09A84e95Ad608CF5b7f86d00fB8";
+const samhitaAddress = "0x16ebae0D7673b9e3De6D21C38237708a0Af610Ee";
+const templateNFTAddress = "0xe1C507d7b47b0D5446991a97CC98a124156F83Ca";
 
 function ReviewInfo({
   handleNext,
@@ -40,7 +42,7 @@ function ReviewInfo({
         }
         const { chainId } = await provider.getNetwork();
         console.log("switch case for this case is: " + chainId);
-        if (chainId === 1029) {
+        if (chainId === 199) {
           const contract = new ethers.Contract(
             languageFactoryAddress,
             languageFactoryAbi,
@@ -53,6 +55,7 @@ function ReviewInfo({
       }
     } catch (error) {
       console.log(error);
+      alert(error["message"]);
     }
   };
 
@@ -129,8 +132,8 @@ function ReviewInfo({
       );
       console.log("languagefactory");
       const languageContract = await languageFactory.deploy(
-        "0x656CCf107Eac3599A9A22445109e4c327451Ec76",
-        "0x2e3aE78dD6b197b47a20C4d167A56FD180bC730D",
+        samhitaAddress,
+        templateNFTAddress,
         tokenAddress
       );
       const languageDaoAddress = languageContract.address;
@@ -182,6 +185,7 @@ function ReviewInfo({
       navigate("/your-daos");
     } catch (error) {
       console.log(error);
+      alert(error["message"]);
       setbtnloading(false);
     }
   };
@@ -264,7 +268,7 @@ function ReviewInfo({
           </AccordionSummary>
           <AccordionDetails sx={{ padding: "30px", color: "#ff5f00" }}>
             <Typography sx={{ textAlign: "left", fontWeight: 700 }}>
-              QUORUM % 
+              QUORUM %
             </Typography>
             <Typography sx={{ textAlign: "left", margin: "10px 0px" }}>
               {dataDaoDetails.vote_condition} %
